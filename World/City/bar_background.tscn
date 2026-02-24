@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://dt7hiufj54sd1"]
+
+[ext_resource type="Texture2D" uid="uid://c8als2qlptxyv" path="res://World/City/textures/temporary_bar.png" id="1_sa5vb"]
+
+[node name="ParallaxBackground" type="ParallaxBackground"]
+
+[node name="ParallaxLayerSky" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.5, 0)
+motion_mirroring = Vector2(768, 0)
+
+[node name="TextureRect2" type="TextureRect" parent="ParallaxLayerSky"]
+offset_left = 5.0
+offset_top = -319.0
+offset_right = 3060.0
+offset_bottom = 705.0
+texture = ExtResource("1_sa5vb")
+flip_h = true
+
+[node name="ParallaxLayerMiddle" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.8, 0)
+motion_mirroring = Vector2(880, 0)

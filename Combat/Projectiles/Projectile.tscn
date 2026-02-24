@@ -1,0 +1,79 @@
+[gd_scene format=3 uid="uid://wsobpxtxolih"]
+
+[ext_resource type="Script" uid="uid://rs3o8cpn7ldn" path="res://Combat/Projectiles/Projectile.gd" id="1_8qmxi"]
+[ext_resource type="Texture2D" uid="uid://cuwvggvguqk72" path="res://VFX/SmokeRing/attack-smoke 2.png" id="2_vkcmj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_y82n7"]
+radius = 32.7567
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m1xg2"]
+atlas = ExtResource("2_vkcmj")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a763h"]
+atlas = ExtResource("2_vkcmj")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_02g18"]
+atlas = ExtResource("2_vkcmj")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f73ux"]
+atlas = ExtResource("2_vkcmj")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5pcwn"]
+atlas = ExtResource("2_vkcmj")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nbump"]
+atlas = ExtResource("2_vkcmj")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5uy1h"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m1xg2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a763h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_02g18")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f73ux")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5pcwn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nbump")
+}],
+"loop": false,
+"name": &"smoke",
+"speed": 6.0
+}]
+
+[node name="Area2D" type="Area2D" unique_id=1833899156 groups=["attack"]]
+collision_layer = 8
+collision_mask = 5
+script = ExtResource("1_8qmxi")
+lifetime = 1.5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=952987861]
+position = Vector2(0, 10)
+shape = SubResource("CircleShape2D_y82n7")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=562265317]
+position = Vector2(0, 9.999998)
+scale = Vector2(0.734375, 0.73437506)
+sprite_frames = SubResource("SpriteFrames_5uy1h")
+animation = &"smoke"
+
+[node name="LifetimeTimer" type="Timer" parent="." unique_id=1527610836]
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="LifetimeTimer" to="." method="_on_lifetimetimer_timeout"]

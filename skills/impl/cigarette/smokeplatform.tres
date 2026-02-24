@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SmokePlatformSkill" load_steps=3 format=3 uid="uid://dmajj5o6jlslj"]
+
+[ext_resource type="Script" uid="uid://b1lrxaqinw1cl" path="res://skills/impl/cigarette/SmokePlatformSkill.gd" id="1_8wavb"]
+[ext_resource type="PackedScene" uid="uid://rh0je2amfqa2" path="res://skills/scenes/SmokePlatform.tscn" id="1_o0hwu"]
+
+[resource]
+script = ExtResource("1_8wavb")
+platform_scene = ExtResource("1_o0hwu")
+platform_layer = 1
+id = &"SmokePlatform"
+title = "Smoke Platform"

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="FireBreathSkill" load_steps=3 format=3 uid="uid://c40xr2k57htd0"]
+
+[ext_resource type="Script" uid="uid://be6atum5nyrjn" path="res://skills/impl/combo/FireBreathSkill.gd" id="1_vtje0"]
+[ext_resource type="PackedScene" uid="uid://df1dq71eor56f" path="res://Combat/Hitboxes/FireBreath.tscn" id="2_8570e"]
+
+[resource]
+script = ExtResource("1_vtje0")
+fire_breath_scene = ExtResource("2_8570e")
+id = &"FireBreathSkill"
+title = "Fire Breath"
+metadata/_custom_type_script = "uid://ce84i0w75c8w7"

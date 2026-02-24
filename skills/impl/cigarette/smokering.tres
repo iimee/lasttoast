@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="SmokeRing" load_steps=4 format=3 uid="uid://cr3362whp1q4d"]
+
+[ext_resource type="PackedScene" uid="uid://wsobpxtxolih" path="res://Combat/Projectiles/Projectile.tscn" id="1_8nd0i"]
+[ext_resource type="Texture2D" uid="uid://b4mi3euhcnce4" path="res://World/Skill icons/smokering.png" id="1_n8b7i"]
+[ext_resource type="Script" uid="uid://dam35uqwqjon2" path="res://skills/impl/cigarette/SmokeRing.gd" id="2_n8b7i"]
+
+[resource]
+script = ExtResource("2_n8b7i")
+projectile = ExtResource("1_8nd0i")
+id = &"Smoke"
+title = "Smoke Ring"
+icon = ExtResource("1_n8b7i")
+sort_key = 1
+metadata/_custom_type_script = "uid://dam35uqwqjon2"

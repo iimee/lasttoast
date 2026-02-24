@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="FlightToggleSkill" load_steps=3 format=3 uid="uid://d0q4d8mlrqc42"]
+
+[ext_resource type="Script" uid="uid://d23af5ba5862t" path="res://skills/impl/bag/FlightToggleSkill.gd" id="1_by74m"]
+[ext_resource type="Texture2D" uid="uid://4id1gd0unwae" path="res://World/Skill icons/flight.png" id="1_nefse"]
+
+[resource]
+script = ExtResource("1_by74m")
+id = &"Flight"
+title = "Flight"
+icon = ExtResource("1_nefse")
+metadata/_custom_type_script = "uid://d23af5ba5862t"

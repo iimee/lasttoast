@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="BallFormSkill" load_steps=2 format=3 uid="uid://bncfemtdovuin"]
+
+[ext_resource type="Script" uid="uid://c3pacvad4ihll" path="res://skills/impl/bag/BallFormSkill.gd" id="1_fim1y"]
+
+[resource]
+script = ExtResource("1_fim1y")
+id = &"Ball"
+title = "Ball Form"
+sort_key = 1
+metadata/_custom_type_script = "uid://c3pacvad4ihll"

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Berserk" load_steps=2 format=3 uid="uid://cqudcf070bc4v"]
+
+[ext_resource type="Script" uid="uid://b5h5tcgt25atn" path="res://skills/impl/alcohol/BerserkSkill.gd" id="1_5u323"]
+
+[resource]
+script = ExtResource("1_5u323")
+inebriation_cost = 0
+id = &"Berserk"
+title = "Berserk"
+sort_key = 3

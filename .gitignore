@@ -1,0 +1,11 @@
+# Godot 4
+.import/
+.godot/
+.export/
+
+# Editor/OS junk
+.DS_Store
+Thumbs.db
+
+# VS Code (можно оставить, если хочешь шарить настройки — убери строку)
+.vscode/

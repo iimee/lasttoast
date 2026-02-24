@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://p8qsv4ajgt5q"]
+
+[ext_resource type="Script" uid="uid://beak0kt5uptjv" path="res://VFX/ArcPreview/ArcPrview.gd" id="1_sgfdc"]
+[ext_resource type="Texture2D" uid="uid://ckdl4t62ouxgl" path="res://VFX/ArcPreview/dot.png" id="2_vugcc"]
+
+[node name="ArcPreview" type="Node2D" unique_id=181469692]
+top_level = true
+script = ExtResource("1_sgfdc")
+dot_texture = ExtResource("2_vugcc")
+watchdog_print = true
+
+[node name="Dots" type="Node2D" parent="." unique_id=1001325758]
+
+[node name="Marker" type="Sprite2D" parent="." unique_id=1852360357]

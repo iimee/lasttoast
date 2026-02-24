@@ -1,0 +1,98 @@
+[gd_scene load_steps=9 format=3 uid="uid://cad0e06g0b45v"]
+
+[ext_resource type="Script" uid="uid://b785uo5ej6ilb" path="res://Enemies/Eagle/eagle.gd" id="1_m0t87"]
+[ext_resource type="Texture2D" uid="uid://ccy0y70qbsene" path="res://Enemies/Eagle/eagle-attack.png" id="1_u4vq8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sfay8"]
+radius = 14.035668
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mbiml"]
+atlas = ExtResource("1_u4vq8")
+region = Rect2(80, 0, 40, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e8gwn"]
+atlas = ExtResource("1_u4vq8")
+region = Rect2(0, 0, 40, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c7x2k"]
+atlas = ExtResource("1_u4vq8")
+region = Rect2(40, 0, 40, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b8qht"]
+atlas = ExtResource("1_u4vq8")
+region = Rect2(120, 0, 40, 41)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sm61u"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mbiml")
+}],
+"loop": false,
+"name": &"die",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e8gwn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c7x2k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mbiml")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b8qht")
+}],
+"loop": true,
+"name": &"fly",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e8gwn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c7x2k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mbiml")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b8qht")
+}],
+"loop": true,
+"name": &"hit",
+"speed": 12.0
+}]
+
+[node name="Eagle" type="CharacterBody2D"]
+script = ExtResource("1_m0t87")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_sfay8")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_sm61u")
+animation = &"die"
+autoplay = "fly"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_sfay8")
+
+[node name="LeftPoint" type="Node2D" parent="."]
+position = Vector2(-54, 0)
+
+[node name="RightPoint" type="Node2D" parent="."]
+position = Vector2(73, 0)
+
+[node name="DeathTimer" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true
+
+[connection signal="area_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]

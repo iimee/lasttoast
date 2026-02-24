@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="MolotovThrowSkill" load_steps=4 format=3 uid="uid://gihgt6lm2smq"]
+
+[ext_resource type="Texture2D" uid="uid://by3hi1vd2f257" path="res://World/Skill icons/molotov.png" id="1_h000l"]
+[ext_resource type="PackedScene" uid="uid://da6uocq0qtemc" path="res://Combat/Projectiles/MolotovFly.tscn" id="2_h000l"]
+[ext_resource type="Script" uid="uid://sncwc81b2dw0" path="res://skills/impl/combo/MolotovThrowSkill.gd" id="3_h000l"]
+
+[resource]
+script = ExtResource("3_h000l")
+projectile = ExtResource("2_h000l")
+speed = 100.0
+offset_right = Vector2(14, -8)
+offset_left = Vector2(-14, -8)
+id = &"Molotov Throw"
+title = "Molotov Cocktail"
+icon = ExtResource("1_h000l")
+sort_key = 1
+anim_on_execute = &"throw"
+metadata/_custom_type_script = "uid://d4g2luyliwk8d"

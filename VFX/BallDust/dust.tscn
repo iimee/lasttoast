@@ -1,0 +1,86 @@
+[gd_scene load_steps=13 format=3 uid="uid://cahp4pjv6crgo"]
+
+[ext_resource type="Texture2D" uid="uid://j46s6wwut5eh" path="res://Player/Smoke VFX 1.png" id="1_ibkd0"]
+[ext_resource type="Script" uid="uid://dj5sg1wos1wou" path="res://VFX/BallDust/dust.gd" id="2_g2g2s"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cw7jl"]
+atlas = ExtResource("1_ibkd0")
+region = Rect2(0, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_db8n1"]
+atlas = ExtResource("1_ibkd0")
+region = Rect2(48, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8fcuk"]
+atlas = ExtResource("1_ibkd0")
+region = Rect2(96, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_07p64"]
+atlas = ExtResource("1_ibkd0")
+region = Rect2(144, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vdslx"]
+atlas = ExtResource("1_ibkd0")
+region = Rect2(192, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_28t0k"]
+atlas = ExtResource("1_ibkd0")
+region = Rect2(240, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i1w2t"]
+atlas = ExtResource("1_ibkd0")
+region = Rect2(288, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tnq5n"]
+atlas = ExtResource("1_ibkd0")
+region = Rect2(336, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xnrem"]
+atlas = ExtResource("1_ibkd0")
+region = Rect2(384, 0, 48, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_b4jv7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cw7jl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_db8n1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8fcuk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_07p64")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vdslx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_28t0k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i1w2t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tnq5n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xnrem")
+}],
+"loop": true,
+"name": &"dust",
+"speed": 9.0
+}]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" groups=["vfx"]]
+sprite_frames = SubResource("SpriteFrames_b4jv7")
+animation = &"dust"
+script = ExtResource("2_g2g2s")
+
+[node name="DustTimer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="DustTimer" to="." method="_on_dust_timer_timeout"]

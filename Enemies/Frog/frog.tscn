@@ -1,0 +1,118 @@
+[gd_scene load_steps=16 format=3 uid="uid://bttsjij0ss8q0"]
+
+[ext_resource type="Script" uid="uid://bc6b5fv86gkca" path="res://Enemies/Frog/frog.gd" id="1_5fl31"]
+[ext_resource type="Texture2D" uid="uid://m7jx3eb2ey3e" path="res://Enemies/Frog/frog-jump.png" id="2_fcgo7"]
+[ext_resource type="Texture2D" uid="uid://dbaymly2fej4i" path="res://Enemies/Frog/frog-idle.png" id="3_2l5ac"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ax6b"]
+atlas = ExtResource("2_fcgo7")
+region = Rect2(0, 0, 35, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y3bwy"]
+atlas = ExtResource("2_fcgo7")
+region = Rect2(35, 0, 35, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bwicp"]
+atlas = ExtResource("2_fcgo7")
+region = Rect2(70, 0, 35, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tsaag"]
+atlas = ExtResource("3_2l5ac")
+region = Rect2(0, 0, 35, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wpxah"]
+atlas = ExtResource("3_2l5ac")
+region = Rect2(35, 0, 35, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2xkjb"]
+atlas = ExtResource("3_2l5ac")
+region = Rect2(70, 0, 35, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a1426"]
+atlas = ExtResource("3_2l5ac")
+region = Rect2(105, 0, 35, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sqoqn"]
+atlas = ExtResource("2_fcgo7")
+region = Rect2(0, 0, 35, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_od7l7"]
+atlas = ExtResource("2_fcgo7")
+region = Rect2(35, 0, 35, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kdg7k"]
+atlas = ExtResource("2_fcgo7")
+region = Rect2(70, 0, 35, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a0eiy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ax6b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y3bwy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bwicp")
+}],
+"loop": true,
+"name": &"fall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tsaag")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wpxah")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2xkjb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a1426")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sqoqn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_od7l7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kdg7k")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0kx4j"]
+size = Vector2(10, 9)
+
+[node name="Frog" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_5fl31")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, -7)
+scale = Vector2(0.6315104, 0.6315104)
+sprite_frames = SubResource("SpriteFrames_a0eiy")
+animation = &"jump"
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, -4.5)
+shape = SubResource("RectangleShape2D_0kx4j")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

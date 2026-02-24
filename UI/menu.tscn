@@ -1,0 +1,49 @@
+[gd_scene load_steps=4 format=3 uid="uid://cy2ivgv628l40"]
+
+[ext_resource type="Script" uid="uid://brp3glrq41g0f" path="res://UI/menu.gd" id="1_lti8b"]
+[ext_resource type="Texture2D" uid="uid://dloe7e4g68qws" path="res://UI/mainmenu.png" id="2_wfiwe"]
+[ext_resource type="Texture2D" uid="uid://cfp1nrdb04ibw" path="res://UI/logo.png" id="3_4hkxj"]
+
+[node name="menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lti8b")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Mainmenu" type="Sprite2D" parent="TextureRect"]
+position = Vector2(645, 373.00003)
+scale = Vector2(0.83593756, 0.83593756)
+texture = ExtResource("2_wfiwe")
+
+[node name="Logo" type="Sprite2D" parent="TextureRect"]
+position = Vector2(823.8125, 232.875)
+scale = Vector2(0.35961914, 0.35961914)
+texture = ExtResource("3_4hkxj")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 41.0
+offset_top = 186.0
+offset_right = 381.0
+offset_bottom = 350.0
+
+[node name="Button" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(240, 60)
+layout_mode = 2
+text = "Start game"
+
+[node name="Button2" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(240, 60)
+layout_mode = 2
+text = "Exit"
+
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="VBoxContainer/Button2" to="." method="_on_exit_pressed"]

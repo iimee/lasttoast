@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="BottleThrowSkill" load_steps=4 format=3 uid="uid://ct3hqn86vf8q0"]
+
+[ext_resource type="Texture2D" uid="uid://kwip3jrygkyn" path="res://World/Skill icons/bottle_throw.png" id="1_augec"]
+[ext_resource type="PackedScene" uid="uid://cyogbyowyusm7" path="res://Combat/Projectiles/BottleFly.tscn" id="2_nxn0o"]
+[ext_resource type="Script" uid="uid://d4g2luyliwk8d" path="res://skills/impl/alcohol/BottleThrowSkill.gd" id="3_qeyys"]
+
+[resource]
+script = ExtResource("3_qeyys")
+projectile = ExtResource("2_nxn0o")
+fallback_delay_sec = 0.4
+id = &"Bottle Throw"
+title = "Bottle Throw"
+icon = ExtResource("1_augec")
+anim_on_execute = &"throw"
+metadata/_custom_type_script = "uid://d4g2luyliwk8d"

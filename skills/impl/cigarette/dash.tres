@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="DashSkill" format=3 uid="uid://plt3tdyabjuc"]
+
+[ext_resource type="Script" uid="uid://n0cn63o8r018" path="res://skills/impl/cigarette/DashSkill.gd" id="1_nabdl"]
+[ext_resource type="Texture2D" uid="uid://vrtyxwmv40yd" path="res://World/Skill icons/dash.png" id="1_qlfnh"]
+
+[resource]
+script = ExtResource("1_nabdl")
+duration = 1.0
+speed = 75.0
+id = &"Dash"
+title = "Dash"
+icon = ExtResource("1_qlfnh")
+metadata/_custom_type_script = "uid://n0cn63o8r018"
