@@ -10,6 +10,7 @@ extends Area2D
 @export var start_delay: float = 0.15
 @export var enemy_group: String = "Enemy"
 @export var affect_player: bool = true
+@export var depth_hit_tolerance: float = 8.0
 
 @export var produces_updraft: bool = true
 @export var updraft_strength: float = 60.0
@@ -21,6 +22,8 @@ var _tick_timer: Timer
 var _life_timer: Timer
 var _delay_timer: Timer
 var _active: bool = false
+var _lifetime_bonus_pending: float = 0.0
+var _sustain_window_pending: float = 0.0
 
 var _players_inside: Array = []
 
@@ -28,6 +31,10 @@ var _players_inside: Array = []
 var lane_index: int = -1
 var depth_y: float = 0.0
 var _sprite_base_y: float = 0.0
+
+
+func is_fire_damage_source() -> bool:
+	return true
 
 
 func _ready() -> void:
@@ -111,7 +118,45 @@ func _activate_fire() -> void:
 
 	_refresh_players_inside()
 	_tick_timer.start()
+	var target_lifetime: float = lifetime
+	if _lifetime_bonus_pending > 0.0:
+		target_lifetime = maxf(0.0, lifetime + _lifetime_bonus_pending)
+		_lifetime_bonus_pending = 0.0
+	if _sustain_window_pending > 0.0:
+		target_lifetime = maxf(target_lifetime, _sustain_window_pending)
+		_sustain_window_pending = 0.0
+	_life_timer.wait_time = target_lifetime
 	_life_timer.start()
+
+func extend_lifetime(extra_seconds: float) -> void:
+	var extra: float = maxf(0.0, extra_seconds)
+	if extra <= 0.0:
+		return
+
+	if _active and _life_timer != null:
+		var left: float = maxf(0.0, _life_timer.time_left)
+		_life_timer.stop()
+		_life_timer.wait_time = left + extra
+		_life_timer.start()
+		return
+
+	_lifetime_bonus_pending += extra
+
+func sustain_from_puddle(window_seconds: float) -> void:
+	var window: float = maxf(0.0, window_seconds)
+	if window <= 0.0:
+		return
+
+	if _active and _life_timer != null:
+		var left: float = maxf(0.0, _life_timer.time_left)
+		if left >= window:
+			return
+		_life_timer.stop()
+		_life_timer.wait_time = window
+		_life_timer.start()
+		return
+
+	_sustain_window_pending = maxf(_sustain_window_pending, window)
 
 
 func _physics_process(_delta: float) -> void:
@@ -140,10 +185,7 @@ func _apply_tick() -> void:
 		var is_player: bool = body.is_in_group("Player")
 		if not is_enemy and not (affect_player and is_player):
 			continue
-
-		# ===== lane filter (как у BottleFly) =====
-		var t_lane: int = _get_target_lane(body)
-		if lane_index != -1 and t_lane != -1 and t_lane != lane_index:
+		if not _is_same_depth_or_unknown(body):
 			continue
 
 		if body.has_method("apply_damage"):
@@ -173,6 +215,29 @@ func _get_target_lane(target: Node) -> int:
 			return int(li2)
 
 	return -1
+
+func _is_same_depth_or_unknown(target: Node) -> bool:
+	var target_depth: float = _get_target_depth_y(target)
+	if is_inf(target_depth):
+		return true
+	return absf(target_depth - depth_y) <= maxf(0.0, depth_hit_tolerance)
+
+func _get_target_depth_y(target: Node) -> float:
+	if target == null:
+		return INF
+	if not (target is Object):
+		return INF
+	var to := target as Object
+	var lb = to.get("lane_body")
+	if lb != null and lb is Object:
+		var lbo := lb as Object
+		var d1 = lbo.get("depth_y")
+		if typeof(d1) == TYPE_FLOAT or typeof(d1) == TYPE_INT:
+			return float(d1)
+	var d2 = to.get("depth_y")
+	if typeof(d2) == TYPE_FLOAT or typeof(d2) == TYPE_INT:
+		return float(d2)
+	return INF
 
 
 func _on_body_entered(body: Node) -> void:

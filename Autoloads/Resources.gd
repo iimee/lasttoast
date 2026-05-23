@@ -2,7 +2,7 @@ extends Node
 signal inebriation_changed(v: int)
 signal nicotine_changed(v: int)
 
-@export var max_inebriation := 30
+@export var max_inebriation := 12
 @export var max_nicotine := 30
 
 var inebriation := 9

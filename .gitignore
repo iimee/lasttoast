@@ -7,5 +7,10 @@
 .DS_Store
 Thumbs.db
 
-# VS Code (можно оставить, если хочешь шарить настройки — убери строку)
+# Local backups / scratch files
+backups/
+Trash/
+*.bak
+
+# VS Code (remove this line if you want to share editor settings)
 .vscode/

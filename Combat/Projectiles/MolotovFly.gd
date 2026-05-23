@@ -22,8 +22,9 @@ extends Area2D
 
 @export_group("Hit")
 @export var enemy_group: String = "Enemy"
-@export var damage_direct: int = 1
+@export var damage_direct: int = 2
 @export var knockback: float = 160.0
+@export var depth_hit_tolerance: float = 8.0
 
 @export_group("FX Scenes")
 @export var explosion_scene: PackedScene     # res://VFX/Explosion.tscn
@@ -40,6 +41,8 @@ extends Area2D
 
 var direction: Vector2 = Vector2.RIGHT
 var velocity: Vector2 = Vector2.ZERO
+enum State { IDLE, FLYING, DESTROYING }
+var _state: State = State.IDLE
 
 var _armed: bool = false
 var _skip_first_tick: bool = true
@@ -122,6 +125,7 @@ func _apply_lane_visual() -> void:
 
 
 func _arm_motion() -> void:
+	_state = State.FLYING
 	_armed = true
 	_skip_first_tick = true
 	_alive_time = 0.0
@@ -129,25 +133,28 @@ func _arm_motion() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if _destroying or not _armed:
-		return
+	match _state:
+		State.FLYING:
+			if _destroying or not _armed:
+				return
 
-	# FIX: пропускаем первый тик после setup(), чтобы не было микросдвига сразу после спавна
-	if _skip_first_tick:
-		_skip_first_tick = false
-		return
+			# FIX: пропускаем первый тик после setup(), чтобы не было микросдвига сразу после спавна
+			if _skip_first_tick:
+				_skip_first_tick = false
+				return
 
-	_alive_time += delta
+			_alive_time += delta
+			velocity.y += gravity_force * delta
+			position += velocity * delta
 
-	velocity.y += gravity_force * delta
-	position += velocity * delta
-
-	if rotate_with_flight:
-		# ВАЖНО: если спрайт смещён по lane, лучше крутить спрайт, а не корень
-		if anim:
-			anim.rotation = velocity.angle()
-		else:
-			rotation = velocity.angle()
+			if rotate_with_flight:
+				# ВАЖНО: если спрайт смещён по lane, лучше крутить спрайт, а не корень
+				if anim:
+					anim.rotation = velocity.angle()
+				else:
+					rotation = velocity.angle()
+		_:
+			return
 
 
 func _on_any_entered(other: Node) -> void:
@@ -161,6 +168,8 @@ func _handle_collision(hit: Node) -> void:
 	# сначала — урон по врагу
 	var target: Node = _resolve_enemy(hit)
 	if target != null and is_instance_valid(target):
+		if not _is_same_lane_or_unknown(target):
+			return
 		var id: int = target.get_instance_id()
 		if not _hit_cache.has(id):
 			_hit_cache[id] = true
@@ -187,6 +196,49 @@ func _resolve_enemy(start: Node) -> Node:
 			return n
 		n = n.get_parent()
 	return null
+
+func _is_same_lane_or_unknown(target: Node) -> bool:
+	var target_depth: float = _get_target_depth_y(target)
+	if is_inf(target_depth):
+		return true
+	return absf(target_depth - depth_y) <= maxf(0.0, depth_hit_tolerance)
+
+func _get_target_depth_y(target: Node) -> float:
+	if target == null:
+		return INF
+	if not (target is Object):
+		return INF
+	var to := target as Object
+	var lb = to.get("lane_body")
+	if lb != null and lb is Object:
+		var lbo := lb as Object
+		var d1 = lbo.get("depth_y")
+		if typeof(d1) == TYPE_FLOAT or typeof(d1) == TYPE_INT:
+			return float(d1)
+	var d2 = to.get("depth_y")
+	if typeof(d2) == TYPE_FLOAT or typeof(d2) == TYPE_INT:
+		return float(d2)
+	return INF
+
+func _get_target_lane(target: Node) -> int:
+	if target == null:
+		return -1
+	if not (target is Object):
+		return -1
+
+	var to := target as Object
+	var lb = to.get("lane_body")
+	if lb != null and lb is Object:
+		var lbo := lb as Object
+		var li = lbo.get("lane_index")
+		if typeof(li) == TYPE_INT:
+			return int(li)
+
+	var li2 = to.get("lane_index")
+	if typeof(li2) == TYPE_INT:
+		return int(li2)
+
+	return -1
 
 
 func _explode_and_die() -> void:
@@ -232,15 +284,17 @@ func _explode_and_die() -> void:
 			if fire.has_method("place_on_surface"):
 				fire.call("place_on_surface", hit["position"], hit["normal"])
 
-			# проброс lane, если огонь тоже lane-aware
+			# Пробрасываем lane как тег, но точную визуальную глубину передаём отдельно.
+			# Иначе set_lane_index() внутри FireArea сведёт позицию к центру линии
+			# и даст двойной/неправильный y-offset на верхней и нижней полосе.
 			if fire is Object:
 				var fo := fire as Object
-				if fo.has_method("set_lane_index"):
-					fo.call("set_lane_index", lane_index)
-				elif fo.has_method("set_lane"):
-					fo.call("set_lane", lane_index)
-				elif fo.get("lane_index") != null:
+				if fo.get("lane_index") != null:
 					fo.set("lane_index", lane_index)
+				if fo.has_method("set_depth_y"):
+					fo.call("set_depth_y", depth_y)
+				elif fo.get("depth_y") != null:
+					fo.set("depth_y", depth_y)
 
 			parent.add_child(fire)
 		# если пола нет — огонь не спавним
@@ -280,6 +334,7 @@ func _find_ground_hit(origin: Vector2) -> Dictionary:
 func _destroy_self_deferred() -> void:
 	if _destroying:
 		return
+	_state = State.DESTROYING
 	_destroying = true
 
 	monitoring = false

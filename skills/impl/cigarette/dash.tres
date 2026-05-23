@@ -7,6 +7,7 @@
 script = ExtResource("1_nabdl")
 duration = 1.0
 speed = 75.0
+nicotine_cost = 1
 id = &"Dash"
 title = "Dash"
 icon = ExtResource("1_qlfnh")

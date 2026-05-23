@@ -1,0 +1,513 @@
+[gd_scene format=3 uid="uid://dxkhyp2iemt0r"]
+
+[ext_resource type="PackedScene" uid="uid://bapvy71043313" path="res://Player/player.tscn" id="1_player"]
+[ext_resource type="Script" uid="uid://cpgrvwy3odr3y" path="res://World/main.gd" id="1_main"]
+[ext_resource type="PackedScene" path="res://Enemies/hobo1/hobo1_charger.tscn" id="2_charger"]
+[ext_resource type="PackedScene" path="res://Enemies/hobo1/hobo1_launcher.tscn" id="3_launcher"]
+[ext_resource type="PackedScene" path="res://Enemies/hobo1/hobo1_welder.tscn" id="4_welder"]
+[ext_resource type="PackedScene" uid="uid://c62ijxjydlv8m" path="res://UI/SkillSelectMenu.tscn" id="4_skills"]
+[ext_resource type="Texture2D" uid="uid://bq74wy3hwrcns" path="res://assets/incoming/factory/textures/bg3_wall.png" id="5_wall"]
+[ext_resource type="PackedScene" path="res://Combat/Projectiles/EnemyBottleFly.tscn" id="6_1i3pa"]
+[ext_resource type="Texture2D" uid="uid://dw2xdoqam78jm" path="res://assets/incoming/factory/textures/b2_conveer.png" id="6_conveyor"]
+[ext_resource type="Texture2D" uid="uid://cjnfkfpvbnfk8" path="res://assets/incoming/factory/textures/bg1_FABRIC FLOOR.png" id="7_floor"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
+size = Vector2(5400, 48)
+
+[node name="FactoryCombatLadder" type="Node2D" unique_id=1852573232]
+
+[node name="Background" type="ParallaxBackground" parent="." unique_id=1726104127]
+offset = Vector2(0, 30)
+scale = Vector2(0.8, 0.8)
+transform = Transform2D(0.8, 0, 0, 0.8, 0, 30)
+
+[node name="FarWallLayer" type="ParallaxLayer" parent="Background" unique_id=792468575]
+motion_scale = Vector2(0.2, 1)
+motion_mirroring = Vector2(472.56915, 0)
+
+[node name="Bg3Wall" type="Sprite2D" parent="Background/FarWallLayer" unique_id=352970707]
+position = Vector2(236, 103.99999)
+scale = Vector2(0.28263706, 0.28263706)
+texture = ExtResource("5_wall")
+
+[node name="Bg3Wall_01" type="Sprite2D" parent="Background/FarWallLayer" unique_id=1699001023]
+position = Vector2(708.56915, 103.99999)
+scale = Vector2(0.28263706, 0.28263706)
+texture = ExtResource("5_wall")
+flip_h = true
+
+[node name="Bg3Wall_02" type="Sprite2D" parent="Background/FarWallLayer" unique_id=1699001024]
+position = Vector2(1181.1383, 103.99999)
+scale = Vector2(0.28263706, 0.28263706)
+texture = ExtResource("5_wall")
+
+[node name="Bg3Wall_03" type="Sprite2D" parent="Background/FarWallLayer" unique_id=1699001025]
+position = Vector2(1653.7075, 103.99999)
+scale = Vector2(0.28263706, 0.28263706)
+texture = ExtResource("5_wall")
+flip_h = true
+
+[node name="Bg3Wall_04" type="Sprite2D" parent="Background/FarWallLayer" unique_id=1699001026]
+position = Vector2(2126.2766, 103.99999)
+scale = Vector2(0.28263706, 0.28263706)
+texture = ExtResource("5_wall")
+
+[node name="Bg3Wall_05" type="Sprite2D" parent="Background/FarWallLayer" unique_id=1699001027]
+position = Vector2(2598.8457, 103.99999)
+scale = Vector2(0.28263706, 0.28263706)
+texture = ExtResource("5_wall")
+flip_h = true
+
+[node name="Bg3Wall_06" type="Sprite2D" parent="Background/FarWallLayer" unique_id=1699001028]
+position = Vector2(3071.415, 103.99999)
+scale = Vector2(0.28263706, 0.28263706)
+texture = ExtResource("5_wall")
+
+[node name="Bg3Wall_07" type="Sprite2D" parent="Background/FarWallLayer" unique_id=1699001029]
+position = Vector2(3543.9841, 103.99999)
+scale = Vector2(0.28263706, 0.28263706)
+texture = ExtResource("5_wall")
+flip_h = true
+
+[node name="Bg3Wall_08" type="Sprite2D" parent="Background/FarWallLayer" unique_id=1699001030]
+position = Vector2(4016.5532, 103.99999)
+scale = Vector2(0.28263706, 0.28263706)
+texture = ExtResource("5_wall")
+
+[node name="Bg3Wall_09" type="Sprite2D" parent="Background/FarWallLayer" unique_id=1699001031]
+position = Vector2(4489.1226, 103.99999)
+scale = Vector2(0.28263706, 0.28263706)
+texture = ExtResource("5_wall")
+flip_h = true
+
+[node name="Bg3Wall_10" type="Sprite2D" parent="Background/FarWallLayer" unique_id=1699001032]
+position = Vector2(4961.6914, 103.99999)
+scale = Vector2(0.28263706, 0.28263706)
+texture = ExtResource("5_wall")
+
+[node name="Bg3Wall_11" type="Sprite2D" parent="Background/FarWallLayer" unique_id=1699001033]
+position = Vector2(5434.2607, 103.99999)
+scale = Vector2(0.28263706, 0.28263706)
+texture = ExtResource("5_wall")
+flip_h = true
+
+[node name="MidConveyorLayer" type="ParallaxLayer" parent="Background" unique_id=99085176]
+motion_scale = Vector2(0.45, 1)
+motion_mirroring = Vector2(495.62866, 0)
+
+[node name="B2Conveer" type="Sprite2D" parent="Background/MidConveyorLayer" unique_id=1905106966]
+position = Vector2(247.38576, 171.75002)
+scale = Vector2(0.29642862, 0.29642862)
+texture = ExtResource("6_conveyor")
+
+[node name="B2Conveer_01" type="Sprite2D" parent="Background/MidConveyorLayer" unique_id=1699001012]
+position = Vector2(743.0144, 171.75002)
+scale = Vector2(0.29642862, 0.29642862)
+texture = ExtResource("6_conveyor")
+flip_h = true
+
+[node name="B2Conveer_02" type="Sprite2D" parent="Background/MidConveyorLayer" unique_id=1699001013]
+position = Vector2(1238.6431, 171.75002)
+scale = Vector2(0.29642862, 0.29642862)
+texture = ExtResource("6_conveyor")
+
+[node name="B2Conveer_03" type="Sprite2D" parent="Background/MidConveyorLayer" unique_id=1699001014]
+position = Vector2(1734.2717, 171.75002)
+scale = Vector2(0.29642862, 0.29642862)
+texture = ExtResource("6_conveyor")
+flip_h = true
+
+[node name="B2Conveer_04" type="Sprite2D" parent="Background/MidConveyorLayer" unique_id=1699001015]
+position = Vector2(2229.9004, 171.75002)
+scale = Vector2(0.29642862, 0.29642862)
+texture = ExtResource("6_conveyor")
+
+[node name="B2Conveer_05" type="Sprite2D" parent="Background/MidConveyorLayer" unique_id=1699001016]
+position = Vector2(2725.529, 171.75002)
+scale = Vector2(0.29642862, 0.29642862)
+texture = ExtResource("6_conveyor")
+flip_h = true
+
+[node name="B2Conveer_06" type="Sprite2D" parent="Background/MidConveyorLayer" unique_id=1699001017]
+position = Vector2(3221.1577, 171.75002)
+scale = Vector2(0.29642862, 0.29642862)
+texture = ExtResource("6_conveyor")
+
+[node name="B2Conveer_07" type="Sprite2D" parent="Background/MidConveyorLayer" unique_id=1699001018]
+position = Vector2(3716.7864, 171.75002)
+scale = Vector2(0.29642862, 0.29642862)
+texture = ExtResource("6_conveyor")
+flip_h = true
+
+[node name="B2Conveer_08" type="Sprite2D" parent="Background/MidConveyorLayer" unique_id=1699001019]
+position = Vector2(4212.415, 171.75002)
+scale = Vector2(0.29642862, 0.29642862)
+texture = ExtResource("6_conveyor")
+
+[node name="B2Conveer_09" type="Sprite2D" parent="Background/MidConveyorLayer" unique_id=1699001020]
+position = Vector2(4708.0435, 171.75002)
+scale = Vector2(0.29642862, 0.29642862)
+texture = ExtResource("6_conveyor")
+flip_h = true
+
+[node name="B2Conveer_10" type="Sprite2D" parent="Background/MidConveyorLayer" unique_id=1699001021]
+position = Vector2(5203.6724, 171.75002)
+scale = Vector2(0.29642862, 0.29642862)
+texture = ExtResource("6_conveyor")
+
+[node name="B2Conveer_11" type="Sprite2D" parent="Background/MidConveyorLayer" unique_id=1699001022]
+position = Vector2(5699.301, 171.75002)
+scale = Vector2(0.29642862, 0.29642862)
+texture = ExtResource("6_conveyor")
+flip_h = true
+
+[node name="NearFloorLayer" type="ParallaxLayer" parent="Background" unique_id=301128645]
+motion_scale = Vector2(1, 1)
+motion_mirroring = Vector2(473.73358, 0)
+
+[node name="Bg1FabricFloor" type="Sprite2D" parent="Background/NearFloorLayer" unique_id=1918469799]
+position = Vector2(238, 250.99997)
+scale = Vector2(0.28333348, 0.28333348)
+texture = ExtResource("7_floor")
+
+[node name="Bg1FabricFloor_01" type="Sprite2D" parent="Background/NearFloorLayer" unique_id=1699001001]
+position = Vector2(711.7336, 250.99997)
+scale = Vector2(0.28333348, 0.28333348)
+texture = ExtResource("7_floor")
+flip_h = true
+
+[node name="Bg1FabricFloor_02" type="Sprite2D" parent="Background/NearFloorLayer" unique_id=1699001002]
+position = Vector2(1185.4672, 250.99997)
+scale = Vector2(0.28333348, 0.28333348)
+texture = ExtResource("7_floor")
+
+[node name="Bg1FabricFloor_03" type="Sprite2D" parent="Background/NearFloorLayer" unique_id=1699001003]
+position = Vector2(1659.2007, 250.99997)
+scale = Vector2(0.28333348, 0.28333348)
+texture = ExtResource("7_floor")
+flip_h = true
+
+[node name="Bg1FabricFloor_04" type="Sprite2D" parent="Background/NearFloorLayer" unique_id=1699001004]
+position = Vector2(2132.9343, 250.99997)
+scale = Vector2(0.28333348, 0.28333348)
+texture = ExtResource("7_floor")
+
+[node name="Bg1FabricFloor_05" type="Sprite2D" parent="Background/NearFloorLayer" unique_id=1699001005]
+position = Vector2(2606.668, 250.99997)
+scale = Vector2(0.28333348, 0.28333348)
+texture = ExtResource("7_floor")
+flip_h = true
+
+[node name="Bg1FabricFloor_06" type="Sprite2D" parent="Background/NearFloorLayer" unique_id=1699001006]
+position = Vector2(3080.4014, 250.99997)
+scale = Vector2(0.28333348, 0.28333348)
+texture = ExtResource("7_floor")
+
+[node name="Bg1FabricFloor_07" type="Sprite2D" parent="Background/NearFloorLayer" unique_id=1699001007]
+position = Vector2(3554.135, 250.99997)
+scale = Vector2(0.28333348, 0.28333348)
+texture = ExtResource("7_floor")
+flip_h = true
+
+[node name="Bg1FabricFloor_08" type="Sprite2D" parent="Background/NearFloorLayer" unique_id=1699001008]
+position = Vector2(4027.8687, 250.99997)
+scale = Vector2(0.28333348, 0.28333348)
+texture = ExtResource("7_floor")
+
+[node name="Bg1FabricFloor_09" type="Sprite2D" parent="Background/NearFloorLayer" unique_id=1699001009]
+position = Vector2(4501.602, 250.99997)
+scale = Vector2(0.28333348, 0.28333348)
+texture = ExtResource("7_floor")
+flip_h = true
+
+[node name="Bg1FabricFloor_10" type="Sprite2D" parent="Background/NearFloorLayer" unique_id=1699001010]
+position = Vector2(4975.336, 250.99997)
+scale = Vector2(0.28333348, 0.28333348)
+texture = ExtResource("7_floor")
+
+[node name="Bg1FabricFloor_11" type="Sprite2D" parent="Background/NearFloorLayer" unique_id=1699001011]
+position = Vector2(5449.0693, 250.99997)
+scale = Vector2(0.28333348, 0.28333348)
+texture = ExtResource("7_floor")
+flip_h = true
+
+[node name="Floor" type="StaticBody2D" parent="." unique_id=1314246593]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=999058150]
+position = Vector2(2700, 252)
+shape = SubResource("RectangleShape2D_floor")
+
+[node name="DepthBands" type="Node2D" parent="." unique_id=1645391591]
+visible = false
+
+[node name="FarLane" type="ColorRect" parent="DepthBands" unique_id=512687129]
+offset_top = 158.0
+offset_right = 5400.0
+offset_bottom = 184.0
+color = Color(0.18, 0.21, 0.24, 0.38)
+
+[node name="CenterLane" type="ColorRect" parent="DepthBands" unique_id=1897757468]
+offset_top = 184.0
+offset_right = 5400.0
+offset_bottom = 212.0
+color = Color(0.24, 0.24, 0.22, 0.34)
+
+[node name="NearLane" type="ColorRect" parent="DepthBands" unique_id=1096498743]
+offset_left = 67.0
+offset_top = 212.0
+offset_right = 5467.0
+offset_bottom = 240.0
+color = Color(0.28, 0.22, 0.18, 0.34)
+
+[node name="EncounterLabels" type="Node2D" parent="." unique_id=1007163661]
+
+[node name="Title" type="Label" parent="EncounterLabels" unique_id=681923942]
+offset_left = 32.0
+offset_top = 36.0
+offset_right = 720.0
+offset_bottom = 60.0
+theme_override_font_sizes/font_size = 13
+text = "Factory combat ladder: Charger / Launcher / Welder"
+metadata/_edit_use_anchors_ = true
+
+[node name="E01_Label" type="Label" parent="EncounterLabels" unique_id=1885289371]
+offset_left = 560.0
+offset_top = 92.0
+offset_right = 1120.0
+offset_bottom = 116.0
+theme_override_font_sizes/font_size = 10
+text = "01 - 1 Charger: same-depth melee, step depth to miss"
+
+[node name="E02_Label" type="Label" parent="EncounterLabels" unique_id=379577955]
+offset_left = 1280.0
+offset_top = 92.0
+offset_right = 1860.0
+offset_bottom = 116.0
+theme_override_font_sizes/font_size = 10
+text = "02 - 2 Chargers: stagger, interrupt, punish recovery"
+
+[node name="E03_Label" type="Label" parent="EncounterLabels" unique_id=1729974384]
+offset_left = 2120.0
+offset_top = 92.0
+offset_right = 2800.0
+offset_bottom = 116.0
+theme_override_font_sizes/font_size = 10
+text = "03 - Charger + Launcher: leave the shot line, punish reload"
+
+[node name="E04_Label" type="Label" parent="EncounterLabels" unique_id=270388496]
+offset_left = 3080.0
+offset_top = 92.0
+offset_right = 3740.0
+offset_bottom = 116.0
+theme_override_font_sizes/font_size = 10
+text = "04 - Charger + Welder: interrupt startup or punish recovery"
+
+[node name="E05_Label" type="Label" parent="EncounterLabels" unique_id=427170262]
+offset_left = 4180.0
+offset_top = 92.0
+offset_right = 5160.0
+offset_bottom = 116.0
+theme_override_font_sizes/font_size = 10
+text = "05 - Trio: near lane remains the reset route, reload/recovery are punish windows"
+
+[node name="Enemies" type="Node2D" parent="." unique_id=1765802496]
+
+[node name="E01_Charger" parent="Enemies" unique_id=531672919 instance=ExtResource("2_charger")]
+position = Vector2(720, 205)
+rusher_walk_speed = 72.0
+rusher_run_speed = 124.0
+rusher_run_switch_distance = 200.0
+rusher_stop_distance_px = 12.0
+rusher_attack_range_px = 24.0
+rusher_attack_damage = 4
+rusher_attack_cooldown_sec = 0.82
+rusher_attack_hit_delay_sec = 0.18
+rusher_depth_follow_distance_px = 240.0
+rusher_support_hold_distance_px = 36.0
+rusher_max_attackers = 2
+start_lane = 1
+drop_on_death = false
+
+[node name="E02_ChargerA" parent="Enemies" unique_id=874528983 instance=ExtResource("2_charger")]
+position = Vector2(1187, 205)
+rusher_walk_speed = 72.0
+rusher_run_speed = 124.0
+rusher_run_switch_distance = 200.0
+rusher_stop_distance_px = 12.0
+rusher_attack_range_px = 24.0
+rusher_attack_damage = 4
+rusher_attack_cooldown_sec = 0.82
+rusher_attack_hit_delay_sec = 0.18
+rusher_depth_follow_distance_px = 240.0
+rusher_support_hold_distance_px = 36.0
+rusher_max_attackers = 2
+start_lane = 0
+drop_on_death = false
+
+[node name="E02_ChargerB" parent="Enemies" unique_id=980066444 instance=ExtResource("2_charger")]
+position = Vector2(1240, 205)
+rusher_walk_speed = 72.0
+rusher_run_speed = 124.0
+rusher_run_switch_distance = 200.0
+rusher_stop_distance_px = 12.0
+rusher_attack_range_px = 24.0
+rusher_attack_damage = 4
+rusher_attack_cooldown_sec = 0.82
+rusher_attack_hit_delay_sec = 0.18
+rusher_depth_follow_distance_px = 240.0
+rusher_support_hold_distance_px = 36.0
+rusher_max_attackers = 2
+start_lane = 2
+drop_on_death = false
+
+[node name="E03_Charger" parent="Enemies" unique_id=603740835 instance=ExtResource("2_charger")]
+position = Vector2(1747, 205)
+rusher_walk_speed = 72.0
+rusher_run_speed = 124.0
+rusher_run_switch_distance = 200.0
+rusher_stop_distance_px = 12.0
+rusher_attack_range_px = 24.0
+rusher_attack_damage = 4
+rusher_attack_cooldown_sec = 0.82
+rusher_attack_hit_delay_sec = 0.18
+rusher_depth_follow_distance_px = 240.0
+rusher_support_hold_distance_px = 36.0
+rusher_max_attackers = 2
+start_lane = 1
+drop_on_death = false
+
+[node name="E03_Launcher" parent="Enemies" unique_id=924989397 instance=ExtResource("3_launcher")]
+position = Vector2(1933, 205)
+launcher_walk_speed = 46.0
+launcher_preferred_range_px = 150.0
+launcher_range_tolerance_px = 14.0
+launcher_fire_range_px = 190.0
+launcher_attack_range_y_px = 22.0
+launcher_depth_follow_distance_px = 260.0
+launcher_telegraph_sec = 0.34
+launcher_recovery_sec = 0.55
+launcher_reload_sec = 1.55
+launcher_projectile_scene = ExtResource("6_1i3pa")
+launcher_projectile_speed = 150.0
+launcher_projectile_damage = 2
+launcher_projectile_knockback = 80.0
+launcher_projectile_lifetime = 1.45
+launcher_projectile_depth_tolerance = 8.0
+launcher_projectile_spawn_offset = Vector2(22, -18)
+start_lane = 0
+drop_on_death = false
+
+[node name="E04_Charger" parent="Enemies" unique_id=2112149238 instance=ExtResource("2_charger")]
+position = Vector2(2387, 205)
+rusher_walk_speed = 72.0
+rusher_run_speed = 124.0
+rusher_run_switch_distance = 200.0
+rusher_stop_distance_px = 12.0
+rusher_attack_range_px = 24.0
+rusher_attack_damage = 4
+rusher_attack_cooldown_sec = 0.82
+rusher_attack_hit_delay_sec = 0.18
+rusher_depth_follow_distance_px = 240.0
+rusher_support_hold_distance_px = 36.0
+rusher_max_attackers = 2
+start_lane = 1
+drop_on_death = false
+
+[node name="E04_Welder" parent="Enemies" unique_id=2140724721 instance=ExtResource("4_welder")]
+position = Vector2(2573, 205)
+welder_walk_speed = 42.0
+welder_attack_range_px = 64.0
+welder_attack_range_y_px = 4.0
+welder_attack_damage = 4
+welder_attack_cooldown_sec = 1.45
+welder_telegraph_sec = 0.42
+welder_active_sec = 0.26
+welder_recovery_sec = 0.36
+welder_depth_follow_distance_px = 190.0
+welder_arc_size = Vector2(56, 24)
+welder_arc_local_center = Vector2(28, -19)
+start_lane = 1
+drop_on_death = false
+
+[node name="E05_Charger" parent="Enemies" unique_id=440719528 instance=ExtResource("2_charger")]
+position = Vector2(3120, 205)
+rusher_walk_speed = 72.0
+rusher_run_speed = 124.0
+rusher_run_switch_distance = 200.0
+rusher_stop_distance_px = 12.0
+rusher_attack_range_px = 24.0
+rusher_attack_damage = 4
+rusher_attack_cooldown_sec = 0.82
+rusher_attack_hit_delay_sec = 0.18
+rusher_depth_follow_distance_px = 240.0
+rusher_support_hold_distance_px = 36.0
+rusher_max_attackers = 2
+start_lane = 1
+drop_on_death = false
+
+[node name="E05_Launcher" parent="Enemies" unique_id=44139913 instance=ExtResource("3_launcher")]
+position = Vector2(3293, 205)
+launcher_walk_speed = 46.0
+launcher_preferred_range_px = 150.0
+launcher_range_tolerance_px = 14.0
+launcher_fire_range_px = 190.0
+launcher_attack_range_y_px = 22.0
+launcher_depth_follow_distance_px = 260.0
+launcher_telegraph_sec = 0.34
+launcher_recovery_sec = 0.55
+launcher_reload_sec = 1.55
+launcher_projectile_scene = ExtResource("6_1i3pa")
+launcher_projectile_speed = 150.0
+launcher_projectile_damage = 2
+launcher_projectile_knockback = 80.0
+launcher_projectile_lifetime = 1.45
+launcher_projectile_depth_tolerance = 8.0
+launcher_projectile_spawn_offset = Vector2(22, -18)
+start_lane = 0
+drop_on_death = false
+
+[node name="E05_Welder" parent="Enemies" unique_id=542628951 instance=ExtResource("4_welder")]
+position = Vector2(3413, 205)
+welder_walk_speed = 42.0
+welder_attack_range_px = 64.0
+welder_attack_range_y_px = 4.0
+welder_attack_damage = 4
+welder_attack_cooldown_sec = 1.45
+welder_telegraph_sec = 0.42
+welder_active_sec = 0.26
+welder_recovery_sec = 0.36
+welder_depth_follow_distance_px = 190.0
+welder_arc_size = Vector2(56, 24)
+welder_arc_local_center = Vector2(28, -19)
+start_lane = 1
+drop_on_death = false
+
+[node name="Player" parent="." unique_id=1581964067 instance=ExtResource("1_player")]
+position = Vector2(120, 205)
+collision_mask = 5
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=1573086578 groups=["Player"]]
+position = Vector2(1, -48)
+zoom = Vector2(3.6, 3.6)
+limit_left = 0
+limit_top = 0
+limit_right = 5400
+limit_bottom = 292
+limit_smoothed = true
+position_smoothing_enabled = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 50
+
+[node name="SkillSelectMenu" parent="CanvasLayer" groups=["skill_menu"] instance=ExtResource("4_skills")]
+visible = false
+offset_left = 60.0
+offset_top = 107.0
+offset_right = -93.0
+offset_bottom = -98.0
+
+[node name="Main" type="Node" parent="."]
+script = ExtResource("1_main")
+player_path = NodePath("../Player")
+
+[node name="UI" type="CanvasLayer" parent="Main"]

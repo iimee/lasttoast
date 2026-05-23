@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="DodgeSkill" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://skills/impl/cigarette/DodgeSkill.gd" id="1_dodge"]
+[ext_resource type="Texture2D" uid="uid://vrtyxwmv40yd" path="res://World/Skill icons/dash.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_dodge")
+cooldown = 0.0
+invulnerability_time = 0.22
+nicotine_cost = 1
+dodge_anim_name = &"dodge"
+id = &"Dodge"
+title = "Dodge"
+icon = ExtResource("2_icon")
+sort_key = 1

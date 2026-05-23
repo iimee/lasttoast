@@ -9,16 +9,19 @@ class_name SmokeRing
 @export var height_offset: float = -24.0
 
 @export var recoil_in_flight: bool = true
+@export var hp_cost: int = 1
 @export var nicotine_cost: int = 1
 
 # время каста (длина анимации запуска на персонаже)
-@export var cast_delay: float = 0.8
+@export var cast_delay: float = 1
 
 func _init() -> void:
 	cooldown = 0.40
 
 func can_use(user: Node) -> bool:
 	if user == null:
+		return false
+	if not _can_pay_hp(user, hp_cost):
 		return false
 	if nicotine_cost <= 0:
 		return true
@@ -34,6 +37,8 @@ func execute(user: Node) -> void:
 	if projectile == null or user == null:
 		return
 	if not can_use(user):
+		return
+	if hp_cost > 0 and not _spend_hp(user, hp_cost):
 		return
 
 	# списать никотин
@@ -62,6 +67,7 @@ func execute(user: Node) -> void:
 	# где будет спавн
 	var spawn_pos: Vector2 = u.global_position + dir * forward_offset
 	spawn_pos.y += height_offset
+	var lane_depth_y: float = _get_user_lane_depth_y(user)
 
 	# ---------- PHASE 1: создать, но НЕ показывать/не коллайдить/не двигать ----------
 	var p := projectile.instantiate()
@@ -99,6 +105,14 @@ func execute(user: Node) -> void:
 			p.lane_index = lane_i
 		elif p.has_method("set_lane_index"):
 			p.set_lane_index(lane_i)
+
+	# Keep projectile visual depth aligned with player's current depth within lane.
+	if p.has_method("set_depth_y"):
+		p.call("set_depth_y", lane_depth_y)
+	elif "depth_y" in p:
+		p.depth_y = lane_depth_y
+		if p.has_method("_apply_lane_visual"):
+			p.call("_apply_lane_visual")
 
 	# выключить коллизию/движение/видимость до конца анимации
 	if p is Area2D:
@@ -154,3 +168,35 @@ func execute(user: Node) -> void:
 				p._on_hit(ar)
 				if not is_instance_valid(p):
 					return
+
+func _get_user_lane_depth_y(user: Node) -> float:
+	if user == null:
+		return 0.0
+
+	if user is Object:
+		var uo := user as Object
+		var lb = uo.get("lane_body")
+		if lb != null and lb is Object:
+			var lbo := lb as Object
+			var dy = lbo.get("depth_y")
+			if typeof(dy) == TYPE_FLOAT or typeof(dy) == TYPE_INT:
+				return float(dy)
+
+	return 0.0
+
+func _can_pay_hp(user: Node, cost: int) -> bool:
+	if cost <= 0:
+		return true
+	if user.has_method("can_pay_hp_cost"):
+		return bool(user.call("can_pay_hp_cost", cost))
+	if user is Object:
+		var hp: int = int((user as Object).get("hp"))
+		return hp > cost
+	return false
+
+func _spend_hp(user: Node, cost: int) -> bool:
+	if cost <= 0:
+		return true
+	if user.has_method("spend_skill_hp"):
+		return bool(user.call("spend_skill_hp", cost))
+	return false

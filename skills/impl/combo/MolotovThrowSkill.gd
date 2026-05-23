@@ -8,6 +8,7 @@ const ItemDB = preload("res://db/ItemDB.gd")
 @export var offset_right: Vector2 = Vector2(16, -10)
 @export var offset_left:  Vector2 = Vector2(-16, -10)
 
+@export var hp_cost: int = 2
 @export var nicotine_cost: int = 1
 
 @export var action_name: StringName = &"skill_3"
@@ -26,7 +27,15 @@ const ItemDB = preload("res://db/ItemDB.gd")
 
 @export var hold_after_max_timeout: float = 3.0
 
-var _charging: bool = false
+enum CastState { IDLE, CHARGING, HOLDING, RELEASING }
+var _cast_state: CastState = CastState.IDLE
+
+func _is_cast_busy() -> bool:
+	match _cast_state:
+		CastState.CHARGING, CastState.HOLDING, CastState.RELEASING:
+			return true
+		_:
+			return false
 
 
 func can_use(user: Node) -> bool:
@@ -43,13 +52,15 @@ func can_use(user: Node) -> bool:
 		return false
 
 	var nic: int = int(res.get("nicotine"))
-	return nic >= nicotine_cost
+	if nic < nicotine_cost:
+		return false
+	return _can_pay_hp(user, hp_cost)
 
 
 func execute(user: Node) -> void:
 	if user == null or projectile == null:
 		return
-	if _charging:
+	if _is_cast_busy():
 		return
 	if not can_use(user):
 		return
@@ -58,7 +69,7 @@ func execute(user: Node) -> void:
 	if u == null:
 		return
 
-	_charging = true
+	_cast_state = CastState.CHARGING
 
 	var aim_dir: Vector2 = Vector2.RIGHT
 	if user.has_method("skills_get_aim_dir"):
@@ -71,6 +82,9 @@ func execute(user: Node) -> void:
 
 	var origin: Vector2 = _origin(user, u)
 	var lane_depth_y: float = _get_user_lane_depth_y(user)
+	var flight: Dictionary = _resolve_projectile_flight_params()
+	var preview_upward: float = float(flight.get("upward_boost", preview_upward_boost))
+	var preview_gravity: float = float(flight.get("gravity_force", preview_gravity_force))
 
 	var arc: ArcPreview = null
 	if user.has_method("skills_get_arc_preview"):
@@ -86,9 +100,11 @@ func execute(user: Node) -> void:
 		charge_t += dt
 		var k: float = clampf(charge_t / max_charge_time, 0.0, 1.0)
 		var spd_now: float = speed * lerpf(min_speed_mul, max_speed_mul, k)
+		origin = _origin(user, u)
+		lane_depth_y = _get_user_lane_depth_y(user)
 
 		if arc != null and is_instance_valid(arc):
-			arc.update_arc(origin + spawn_offset, aim_dir, spd_now, preview_upward_boost, preview_gravity_force, lane_depth_y)
+			arc.update_arc(origin + spawn_offset, aim_dir, spd_now, preview_upward, preview_gravity, lane_depth_y)
 
 		await user.get_tree().process_frame
 
@@ -97,17 +113,28 @@ func execute(user: Node) -> void:
 
 	var hold_time: float = 0.0
 	var frame_skip: int = 0
+	var prev_preview_origin: Vector2 = origin
+	var prev_preview_depth: float = lane_depth_y
+	_cast_state = CastState.HOLDING
 
 	while Input.is_action_pressed(action_name):
 		hold_time += dt
 		if hold_after_max_timeout > 0.0 and hold_time >= hold_after_max_timeout:
 			break
+		origin = _origin(user, u)
+		lane_depth_y = _get_user_lane_depth_y(user)
 
+		var moved_for_preview: bool = (
+			origin.distance_squared_to(prev_preview_origin) > 0.01
+			or absf(lane_depth_y - prev_preview_depth) > 0.01
+		)
 		frame_skip += 1
-		if frame_skip >= 6:
+		if moved_for_preview or frame_skip >= 6:
 			frame_skip = 0
+			prev_preview_origin = origin
+			prev_preview_depth = lane_depth_y
 			if arc != null and is_instance_valid(arc):
-				arc.update_arc(origin + spawn_offset, aim_dir, final_speed, preview_upward_boost, preview_gravity_force, lane_depth_y)
+				arc.update_arc(origin + spawn_offset, aim_dir, final_speed, preview_upward, preview_gravity, lane_depth_y)
 
 		await user.get_tree().process_frame
 
@@ -115,12 +142,13 @@ func execute(user: Node) -> void:
 		arc.hide_preview()
 
 	if hold_after_max_timeout > 0.0 and hold_time >= hold_after_max_timeout:
-		_charging = false
+		_cast_state = CastState.IDLE
 		return
 
 	if not _spend_cost(user):
-		_charging = false
+		_cast_state = CastState.IDLE
 		return
+	_cast_state = CastState.RELEASING
 
 	if user.has_method("play_cast_anim"):
 		user.call("play_cast_anim", "throw")
@@ -132,9 +160,10 @@ func execute(user: Node) -> void:
 		await user.get_tree().create_timer(fallback_delay_sec).timeout
 
 	var dir_for_projectile: Vector2 = aim_dir.normalized()
+	origin = _origin(user, u)
 	user.call("skills_spawn_projectile", projectile, origin + spawn_offset, dir_for_projectile, final_speed)
 
-	_charging = false
+	_cast_state = CastState.IDLE
 
 
 func _origin(user: Node, u: Node2D) -> Vector2:
@@ -158,6 +187,30 @@ func _get_user_lane_depth_y(user: Node) -> float:
 				return float(dy)
 	return 0.0
 
+func _resolve_projectile_flight_params() -> Dictionary:
+	var result: Dictionary = {
+		"upward_boost": preview_upward_boost,
+		"gravity_force": preview_gravity_force,
+	}
+	if projectile == null:
+		return result
+
+	var inst: Node = projectile.instantiate()
+	if inst == null:
+		return result
+
+	if inst is Object:
+		var io: Object = inst as Object
+		var ub: Variant = io.get("upward_boost")
+		if typeof(ub) == TYPE_FLOAT or typeof(ub) == TYPE_INT:
+			result["upward_boost"] = float(ub)
+		var gf: Variant = io.get("gravity_force")
+		if typeof(gf) == TYPE_FLOAT or typeof(gf) == TYPE_INT:
+			result["gravity_force"] = float(gf)
+
+	inst.queue_free()
+	return result
+
 
 func _spend_cost(user: Node) -> bool:
 	var inv: Node = user.get_tree().root.get_node_or_null("Inventory")
@@ -165,9 +218,13 @@ func _spend_cost(user: Node) -> bool:
 	if inv == null or res == null:
 		return false
 
+	if not _can_pay_hp(user, hp_cost):
+		return false
 	if not bool(inv.call("take", ItemDB.FULL_BOTTLE, 1)):
 		return false
 
+	if not _spend_hp(user, hp_cost):
+		return false
 	if nicotine_cost > 0:
 		res.call("add_nicotine", -nicotine_cost)
 
@@ -195,3 +252,20 @@ func _fixed_dt() -> float:
 	if tps <= 0.0:
 		tps = 60.0
 	return 1.0 / tps
+
+func _can_pay_hp(user: Node, cost: int) -> bool:
+	if cost <= 0:
+		return true
+	if user.has_method("can_pay_hp_cost"):
+		return bool(user.call("can_pay_hp_cost", cost))
+	if user is Object:
+		var hp: int = int((user as Object).get("hp"))
+		return hp > cost
+	return false
+
+func _spend_hp(user: Node, cost: int) -> bool:
+	if cost <= 0:
+		return true
+	if user.has_method("spend_skill_hp"):
+		return bool(user.call("spend_skill_hp", cost))
+	return false

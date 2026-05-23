@@ -6,6 +6,8 @@
 [resource]
 script = ExtResource("1_vtje0")
 fire_breath_scene = ExtResource("2_8570e")
+hp_cost = 2
+nicotine_cost = 1
 id = &"FireBreathSkill"
 title = "Fire Breath"
 metadata/_custom_type_script = "uid://ce84i0w75c8w7"

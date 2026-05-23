@@ -4,7 +4,8 @@
 
 [resource]
 script = ExtResource("1_5u323")
-inebriation_cost = 0
+hp_cost = 0
+nicotine_cost = 2
 id = &"Berserk"
 title = "Berserk"
 sort_key = 3

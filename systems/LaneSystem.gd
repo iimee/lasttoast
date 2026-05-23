@@ -4,11 +4,11 @@ extends Node
 const LANE_COUNT := 3
 
 # Обычные массивы — это валидные константные выражения
-const LANE_CENTERS := [-14.0, 0.0, 14.0]
-const LANE_BOUNDS  := [-7.0, 7.0]
+const LANE_CENTERS := [-24.0, 0.0, 24.0]
+const LANE_BOUNDS  := [-12.0, 12.0]
 
-const DEPTH_MIN := -14.0
-const DEPTH_MAX :=  14.0
+const DEPTH_MIN := -24.0
+const DEPTH_MAX :=  24.0
 
 # physics layers для полос (9..11)
 const LAYER_LANE_0 := 1 << 8

@@ -1,0 +1,1023 @@
+[gd_scene load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://World/main.gd" id="1_main"]
+[ext_resource type="PackedScene" path="res://Player/player.tscn" id="2_player"]
+[ext_resource type="PackedScene" path="res://UI/SkillSelectMenu.tscn" id="3_skills"]
+[ext_resource type="PackedScene" path="res://Enemies/hobo1/hobo1_bruiser.tscn" id="4_shover"]
+[ext_resource type="PackedScene" path="res://Enemies/hobo1/hobo1_poker.tscn" id="5_thrower"]
+[ext_resource type="PackedScene" path="res://Enemies/hobo1/hobo1_flanker.tscn" id="6_runner"]
+[ext_resource type="PackedScene" path="res://Enemies/hobo1/hobo1_rusher.tscn" id="7_rusher"]
+[ext_resource type="Texture2D" path="res://assets/incoming/stadium/layers/stadium_far_parallax_strip_01.png" id="8_far"]
+[ext_resource type="Texture2D" path="res://assets/incoming/stadium/layers/stadium_mid_background_strip_01.png" id="9_mid"]
+[ext_resource type="Texture2D" path="res://assets/incoming/stadium/layers/stadium_road_playfield_strip_01.png" id="10_road"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
+size = Vector2(10240, 104)
+
+[node name="StadiumLevel2" type="Node2D"]
+
+[node name="Background" type="Node2D" parent="."]
+
+[node name="GeneratedBackgrounds" type="Node2D" parent="Background"]
+
+[node name="FarParallaxLayer" type="Node2D" parent="Background/GeneratedBackgrounds"]
+
+[node name="FarParallaxStrip" type="Sprite2D" parent="Background/GeneratedBackgrounds/FarParallaxLayer"]
+modulate = Color(1, 1, 1, 0.44)
+position = Vector2(-80, 16)
+scale = Vector2(1, 0.18)
+texture = ExtResource("8_far")
+centered = false
+
+[node name="MidBackgroundLayer" type="Node2D" parent="Background/GeneratedBackgrounds"]
+
+[node name="MidBackgroundStrip" type="Sprite2D" parent="Background/GeneratedBackgrounds/MidBackgroundLayer"]
+modulate = Color(1, 1, 1, 0.56)
+position = Vector2(-80, 72)
+scale = Vector2(1, 0.22)
+texture = ExtResource("9_mid")
+centered = false
+
+[node name="RoadPlayfieldLayer" type="Node2D" parent="Background/GeneratedBackgrounds"]
+
+[node name="RoadPlayfieldStrip" type="Sprite2D" parent="Background/GeneratedBackgrounds/RoadPlayfieldLayer"]
+modulate = Color(1, 1, 1, 0.36)
+position = Vector2(-80, 154)
+scale = Vector2(1, 0.28)
+texture = ExtResource("10_road")
+centered = false
+
+[node name="NightSky" type="ColorRect" parent="Background"]
+offset_left = -80.0
+offset_top = 16.0
+offset_right = 10320.0
+offset_bottom = 92.0
+color = Color(0.08, 0.10, 0.13, 0.22)
+
+[node name="ConcreteStands" type="ColorRect" parent="Background"]
+offset_left = -80.0
+offset_top = 72.0
+offset_right = 10320.0
+offset_bottom = 146.0
+color = Color(0.28, 0.29, 0.29, 0.24)
+
+[node name="BrokenSector" type="ColorRect" parent="Background"]
+offset_left = 5720.0
+offset_top = 92.0
+offset_right = 6460.0
+offset_bottom = 146.0
+color = Color(0.18, 0.18, 0.18, 1)
+
+[node name="FloodlightFarA" type="ColorRect" parent="Background"]
+offset_left = 1180.0
+offset_top = 50.0
+offset_right = 1224.0
+offset_bottom = 146.0
+color = Color(0.52, 0.48, 0.30, 1)
+
+[node name="FloodlightFarB" type="ColorRect" parent="Background"]
+offset_left = 7820.0
+offset_top = 50.0
+offset_right = 7864.0
+offset_bottom = 146.0
+color = Color(0.52, 0.48, 0.30, 1)
+
+[node name="TornBannerA" type="ColorRect" parent="Background"]
+offset_left = 2500.0
+offset_top = 104.0
+offset_right = 2920.0
+offset_bottom = 116.0
+color = Color(0.52, 0.12, 0.10, 1)
+
+[node name="TornBannerB" type="ColorRect" parent="Background"]
+offset_left = 7240.0
+offset_top = 104.0
+offset_right = 7640.0
+offset_bottom = 116.0
+color = Color(0.40, 0.13, 0.12, 1)
+
+[node name="DepthBands" type="Node2D" parent="."]
+
+[node name="FarLane" type="ColorRect" parent="DepthBands"]
+offset_left = -80.0
+offset_top = 154.0
+offset_right = 10320.0
+offset_bottom = 181.0
+color = Color(0.22, 0.27, 0.25, 1)
+
+[node name="CenterLane" type="ColorRect" parent="DepthBands"]
+offset_left = -80.0
+offset_top = 181.0
+offset_right = 10320.0
+offset_bottom = 214.0
+color = Color(0.29, 0.33, 0.28, 1)
+
+[node name="NearLane" type="ColorRect" parent="DepthBands"]
+offset_left = -80.0
+offset_top = 214.0
+offset_right = 10320.0
+offset_bottom = 258.0
+color = Color(0.34, 0.34, 0.32, 1)
+
+[node name="FloorCollision" type="StaticBody2D" parent="."]
+collision_layer = 1
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorCollision"]
+position = Vector2(5040, 207)
+shape = SubResource("RectangleShape2D_floor")
+
+[node name="Setpieces" type="Node2D" parent="."]
+
+[node name="Zone_01_Gate" type="Node2D" parent="Setpieces"]
+
+[node name="SeamlessSceneLayers" type="Node2D" parent="Setpieces/Zone_01_Gate"]
+z_index = -2
+
+
+[node name="FarBackdropBand" type="ColorRect" parent="Setpieces/Zone_01_Gate/SeamlessSceneLayers"]
+offset_left = 64
+offset_top = 24
+offset_right = 1076
+offset_bottom = 84
+color = Color(0.06, 0.08, 0.11, 0.34)
+
+[node name="FarSilhouetteA" type="ColorRect" parent="Setpieces/Zone_01_Gate/SeamlessSceneLayers"]
+offset_left = 169
+offset_top = 48
+offset_right = 261
+offset_bottom = 128
+color = Color(0.06, 0.08, 0.11, 0.34)
+
+[node name="FarSilhouetteB" type="ColorRect" parent="Setpieces/Zone_01_Gate/SeamlessSceneLayers"]
+offset_left = 559
+offset_top = 58
+offset_right = 699
+offset_bottom = 132
+color = Color(0.06, 0.08, 0.11, 0.34)
+
+[node name="NearSceneBand" type="ColorRect" parent="Setpieces/Zone_01_Gate/SeamlessSceneLayers"]
+offset_left = 64
+offset_top = 86
+offset_right = 1076
+offset_bottom = 151
+color = Color(0.18, 0.19, 0.18, 0.42)
+
+[node name="NearLandmarkA" type="ColorRect" parent="Setpieces/Zone_01_Gate/SeamlessSceneLayers"]
+offset_left = 205
+offset_top = 104
+offset_right = 357
+offset_bottom = 148
+color = Color(0.18, 0.19, 0.18, 0.42)
+
+[node name="NearLandmarkB" type="ColorRect" parent="Setpieces/Zone_01_Gate/SeamlessSceneLayers"]
+offset_left = 664
+offset_top = 98
+offset_right = 868
+offset_bottom = 148
+color = Color(0.18, 0.19, 0.18, 0.42)
+
+[node name="FloorFarDepthWash" type="ColorRect" parent="Setpieces/Zone_01_Gate/SeamlessSceneLayers"]
+offset_left = 64
+offset_top = 154
+offset_right = 1076
+offset_bottom = 181
+color = Color(0.15, 0.23, 0.18, 0.24)
+
+[node name="FloorCenterDepthWash" type="ColorRect" parent="Setpieces/Zone_01_Gate/SeamlessSceneLayers"]
+offset_left = 64
+offset_top = 181
+offset_right = 1076
+offset_bottom = 214
+color = Color(0.15, 0.23, 0.18, 0.24)
+
+[node name="FloorNearDepthWash" type="ColorRect" parent="Setpieces/Zone_01_Gate/SeamlessSceneLayers"]
+offset_left = 64
+offset_top = 214
+offset_right = 1076
+offset_bottom = 258
+color = Color(0.15, 0.23, 0.18, 0.24)
+
+[node name="DepthSeamA" type="ColorRect" parent="Setpieces/Zone_01_Gate/SeamlessSceneLayers"]
+offset_left = 64
+offset_top = 180
+offset_right = 1076
+offset_bottom = 182
+color = Color(0.40, 0.36, 0.22, 0.20)
+
+[node name="DepthSeamB" type="ColorRect" parent="Setpieces/Zone_01_Gate/SeamlessSceneLayers"]
+offset_left = 64
+offset_top = 213
+offset_right = 1076
+offset_bottom = 215
+color = Color(0.40, 0.36, 0.22, 0.20)
+
+[node name="SceneAccentA" type="ColorRect" parent="Setpieces/Zone_01_Gate/SeamlessSceneLayers"]
+offset_left = 181
+offset_top = 150
+offset_right = 285
+offset_bottom = 154
+color = Color(0.62, 0.14, 0.10, 0.34)
+
+[node name="SceneAccentB" type="ColorRect" parent="Setpieces/Zone_01_Gate/SeamlessSceneLayers"]
+offset_left = 587
+offset_top = 216
+offset_right = 707
+offset_bottom = 220
+color = Color(0.62, 0.14, 0.10, 0.34)
+
+[node name="GateSign" type="Label" parent="Setpieces/Zone_01_Gate"]
+offset_left = 160.0
+offset_top = 62.0
+offset_right = 560.0
+offset_bottom = 82.0
+theme_override_font_sizes/font_size = 10
+text = "Zone 01 Gate: crowd pressure reads one center lane"
+
+[node name="GateBooth" type="ColorRect" parent="Setpieces/Zone_01_Gate"]
+offset_left = 260.0
+offset_top = 100.0
+offset_right = 420.0
+offset_bottom = 148.0
+color = Color(0.20, 0.22, 0.22, 1)
+
+[node name="CrowdSurgeRead" type="ColorRect" parent="Setpieces/Zone_01_Gate"]
+offset_left = 720.0
+offset_top = 181.0
+offset_right = 980.0
+offset_bottom = 214.0
+color = Color(0.56, 0.54, 0.47, 0.35)
+
+[node name="Zone_02_Turnstiles" type="Node2D" parent="Setpieces"]
+
+[node name="SeamlessSceneLayers" type="Node2D" parent="Setpieces/Zone_02_Turnstiles"]
+z_index = -2
+
+
+[node name="FarBackdropBand" type="ColorRect" parent="Setpieces/Zone_02_Turnstiles/SeamlessSceneLayers"]
+offset_left = 1524
+offset_top = 24
+offset_right = 2356
+offset_bottom = 84
+color = Color(0.06, 0.08, 0.11, 0.34)
+
+[node name="FarSilhouetteA" type="ColorRect" parent="Setpieces/Zone_02_Turnstiles/SeamlessSceneLayers"]
+offset_left = 1756
+offset_top = 48
+offset_right = 1848
+offset_bottom = 128
+color = Color(0.06, 0.08, 0.11, 0.34)
+
+[node name="FarSilhouetteB" type="ColorRect" parent="Setpieces/Zone_02_Turnstiles/SeamlessSceneLayers"]
+offset_left = 1939
+offset_top = 58
+offset_right = 2079
+offset_bottom = 132
+color = Color(0.06, 0.08, 0.11, 0.34)
+
+[node name="NearSceneBand" type="ColorRect" parent="Setpieces/Zone_02_Turnstiles/SeamlessSceneLayers"]
+offset_left = 1524
+offset_top = 86
+offset_right = 2356
+offset_bottom = 151
+color = Color(0.18, 0.19, 0.18, 0.42)
+
+[node name="NearLandmarkA" type="ColorRect" parent="Setpieces/Zone_02_Turnstiles/SeamlessSceneLayers"]
+offset_left = 1792
+offset_top = 104
+offset_right = 1944
+offset_bottom = 148
+color = Color(0.18, 0.19, 0.18, 0.42)
+
+[node name="NearLandmarkB" type="ColorRect" parent="Setpieces/Zone_02_Turnstiles/SeamlessSceneLayers"]
+offset_left = 1947
+offset_top = 98
+offset_right = 2151
+offset_bottom = 148
+color = Color(0.18, 0.19, 0.18, 0.42)
+
+[node name="FloorFarDepthWash" type="ColorRect" parent="Setpieces/Zone_02_Turnstiles/SeamlessSceneLayers"]
+offset_left = 1524
+offset_top = 154
+offset_right = 2356
+offset_bottom = 181
+color = Color(0.15, 0.23, 0.18, 0.24)
+
+[node name="FloorCenterDepthWash" type="ColorRect" parent="Setpieces/Zone_02_Turnstiles/SeamlessSceneLayers"]
+offset_left = 1524
+offset_top = 181
+offset_right = 2356
+offset_bottom = 214
+color = Color(0.15, 0.23, 0.18, 0.24)
+
+[node name="FloorNearDepthWash" type="ColorRect" parent="Setpieces/Zone_02_Turnstiles/SeamlessSceneLayers"]
+offset_left = 1524
+offset_top = 214
+offset_right = 2356
+offset_bottom = 258
+color = Color(0.15, 0.23, 0.18, 0.24)
+
+[node name="DepthSeamA" type="ColorRect" parent="Setpieces/Zone_02_Turnstiles/SeamlessSceneLayers"]
+offset_left = 1524
+offset_top = 180
+offset_right = 2356
+offset_bottom = 182
+color = Color(0.40, 0.36, 0.22, 0.20)
+
+[node name="DepthSeamB" type="ColorRect" parent="Setpieces/Zone_02_Turnstiles/SeamlessSceneLayers"]
+offset_left = 1524
+offset_top = 213
+offset_right = 2356
+offset_bottom = 215
+color = Color(0.40, 0.36, 0.22, 0.20)
+
+[node name="SceneAccentA" type="ColorRect" parent="Setpieces/Zone_02_Turnstiles/SeamlessSceneLayers"]
+offset_left = 1768
+offset_top = 150
+offset_right = 1872
+offset_bottom = 154
+color = Color(0.62, 0.14, 0.10, 0.34)
+
+[node name="SceneAccentB" type="ColorRect" parent="Setpieces/Zone_02_Turnstiles/SeamlessSceneLayers"]
+offset_left = 1967
+offset_top = 216
+offset_right = 2087
+offset_bottom = 220
+color = Color(0.62, 0.14, 0.10, 0.34)
+
+[node name="TurnstileSign" type="Label" parent="Setpieces/Zone_02_Turnstiles"]
+offset_left = 1620.0
+offset_top = 62.0
+offset_right = 2100.0
+offset_bottom = 82.0
+theme_override_font_sizes/font_size = 10
+text = "Zone 02 Turnstiles: compression without trapping all lanes"
+
+[node name="TurnstileNear" type="ColorRect" parent="Setpieces/Zone_02_Turnstiles"]
+offset_left = 1680.0
+offset_top = 218.0
+offset_right = 1780.0
+offset_bottom = 232.0
+color = Color(0.48, 0.42, 0.22, 1)
+
+[node name="TurnstileCenter" type="ColorRect" parent="Setpieces/Zone_02_Turnstiles"]
+offset_left = 1920.0
+offset_top = 188.0
+offset_right = 2020.0
+offset_bottom = 202.0
+color = Color(0.48, 0.42, 0.22, 1)
+
+[node name="TurnstileFar" type="ColorRect" parent="Setpieces/Zone_02_Turnstiles"]
+offset_left = 2160.0
+offset_top = 160.0
+offset_right = 2260.0
+offset_bottom = 174.0
+color = Color(0.48, 0.42, 0.22, 1)
+
+[node name="Zone_03_LowerCorridor" type="Node2D" parent="Setpieces"]
+
+[node name="SeamlessSceneLayers" type="Node2D" parent="Setpieces/Zone_03_LowerCorridor"]
+z_index = -2
+
+
+[node name="FarBackdropBand" type="ColorRect" parent="Setpieces/Zone_03_LowerCorridor/SeamlessSceneLayers"]
+offset_left = 3084
+offset_top = 24
+offset_right = 4416
+offset_bottom = 84
+color = Color(0.06, 0.08, 0.11, 0.34)
+
+[node name="FarSilhouetteA" type="ColorRect" parent="Setpieces/Zone_03_LowerCorridor/SeamlessSceneLayers"]
+offset_left = 3211
+offset_top = 48
+offset_right = 3303
+offset_bottom = 128
+color = Color(0.06, 0.08, 0.11, 0.34)
+
+[node name="FarSilhouetteB" type="ColorRect" parent="Setpieces/Zone_03_LowerCorridor/SeamlessSceneLayers"]
+offset_left = 3754
+offset_top = 58
+offset_right = 3894
+offset_bottom = 132
+color = Color(0.06, 0.08, 0.11, 0.34)
+
+[node name="NearSceneBand" type="ColorRect" parent="Setpieces/Zone_03_LowerCorridor/SeamlessSceneLayers"]
+offset_left = 3084
+offset_top = 86
+offset_right = 4416
+offset_bottom = 151
+color = Color(0.18, 0.19, 0.18, 0.42)
+
+[node name="NearLandmarkA" type="ColorRect" parent="Setpieces/Zone_03_LowerCorridor/SeamlessSceneLayers"]
+offset_left = 3247
+offset_top = 104
+offset_right = 3399
+offset_bottom = 148
+color = Color(0.18, 0.19, 0.18, 0.42)
+
+[node name="NearLandmarkB" type="ColorRect" parent="Setpieces/Zone_03_LowerCorridor/SeamlessSceneLayers"]
+offset_left = 3912
+offset_top = 98
+offset_right = 4116
+offset_bottom = 148
+color = Color(0.18, 0.19, 0.18, 0.42)
+
+[node name="FloorFarDepthWash" type="ColorRect" parent="Setpieces/Zone_03_LowerCorridor/SeamlessSceneLayers"]
+offset_left = 3084
+offset_top = 154
+offset_right = 4416
+offset_bottom = 181
+color = Color(0.15, 0.23, 0.18, 0.24)
+
+[node name="FloorCenterDepthWash" type="ColorRect" parent="Setpieces/Zone_03_LowerCorridor/SeamlessSceneLayers"]
+offset_left = 3084
+offset_top = 181
+offset_right = 4416
+offset_bottom = 214
+color = Color(0.15, 0.23, 0.18, 0.24)
+
+[node name="FloorNearDepthWash" type="ColorRect" parent="Setpieces/Zone_03_LowerCorridor/SeamlessSceneLayers"]
+offset_left = 3084
+offset_top = 214
+offset_right = 4416
+offset_bottom = 258
+color = Color(0.15, 0.23, 0.18, 0.24)
+
+[node name="DepthSeamA" type="ColorRect" parent="Setpieces/Zone_03_LowerCorridor/SeamlessSceneLayers"]
+offset_left = 3084
+offset_top = 180
+offset_right = 4416
+offset_bottom = 182
+color = Color(0.40, 0.36, 0.22, 0.20)
+
+[node name="DepthSeamB" type="ColorRect" parent="Setpieces/Zone_03_LowerCorridor/SeamlessSceneLayers"]
+offset_left = 3084
+offset_top = 213
+offset_right = 4416
+offset_bottom = 215
+color = Color(0.40, 0.36, 0.22, 0.20)
+
+[node name="SceneAccentA" type="ColorRect" parent="Setpieces/Zone_03_LowerCorridor/SeamlessSceneLayers"]
+offset_left = 3223
+offset_top = 150
+offset_right = 3327
+offset_bottom = 154
+color = Color(0.62, 0.14, 0.10, 0.34)
+
+[node name="SceneAccentB" type="ColorRect" parent="Setpieces/Zone_03_LowerCorridor/SeamlessSceneLayers"]
+offset_left = 3782
+offset_top = 216
+offset_right = 3902
+offset_bottom = 220
+color = Color(0.62, 0.14, 0.10, 0.34)
+
+[node name="LowerCorridorSign" type="Label" parent="Setpieces/Zone_03_LowerCorridor"]
+offset_left = 3220.0
+offset_top = 62.0
+offset_right = 3740.0
+offset_bottom = 82.0
+theme_override_font_sizes/font_size = 10
+text = "Zone 03 Lower Corridor: bottles and flankers under flicker"
+
+[node name="LowCeiling" type="ColorRect" parent="Setpieces/Zone_03_LowerCorridor"]
+offset_left = 3180.0
+offset_top = 96.0
+offset_right = 4320.0
+offset_bottom = 122.0
+color = Color(0.15, 0.15, 0.16, 1)
+
+[node name="BottleLandingMarkA" type="ColorRect" parent="Setpieces/Zone_03_LowerCorridor"]
+offset_left = 3600.0
+offset_top = 184.0
+offset_right = 3740.0
+offset_bottom = 206.0
+color = Color(0.66, 0.48, 0.20, 0.35)
+
+[node name="BottleLandingMarkB" type="ColorRect" parent="Setpieces/Zone_03_LowerCorridor"]
+offset_left = 4040.0
+offset_top = 218.0
+offset_right = 4180.0
+offset_bottom = 242.0
+color = Color(0.66, 0.48, 0.20, 0.30)
+
+[node name="Zone_04_Stands" type="Node2D" parent="Setpieces"]
+
+[node name="SeamlessSceneLayers" type="Node2D" parent="Setpieces/Zone_04_Stands"]
+z_index = -2
+
+
+[node name="FarBackdropBand" type="ColorRect" parent="Setpieces/Zone_04_Stands/SeamlessSceneLayers"]
+offset_left = 4824
+offset_top = 24
+offset_right = 6416
+offset_bottom = 84
+color = Color(0.06, 0.08, 0.11, 0.34)
+
+[node name="FarSilhouetteA" type="ColorRect" parent="Setpieces/Zone_04_Stands/SeamlessSceneLayers"]
+offset_left = 4997
+offset_top = 48
+offset_right = 5089
+offset_bottom = 128
+color = Color(0.06, 0.08, 0.11, 0.34)
+
+[node name="FarSilhouetteB" type="ColorRect" parent="Setpieces/Zone_04_Stands/SeamlessSceneLayers"]
+offset_left = 5665
+offset_top = 58
+offset_right = 5805
+offset_bottom = 132
+color = Color(0.06, 0.08, 0.11, 0.34)
+
+[node name="NearSceneBand" type="ColorRect" parent="Setpieces/Zone_04_Stands/SeamlessSceneLayers"]
+offset_left = 4824
+offset_top = 86
+offset_right = 6416
+offset_bottom = 151
+color = Color(0.18, 0.19, 0.18, 0.42)
+
+[node name="NearLandmarkA" type="ColorRect" parent="Setpieces/Zone_04_Stands/SeamlessSceneLayers"]
+offset_left = 5033
+offset_top = 104
+offset_right = 5185
+offset_bottom = 148
+color = Color(0.18, 0.19, 0.18, 0.42)
+
+[node name="NearLandmarkB" type="ColorRect" parent="Setpieces/Zone_04_Stands/SeamlessSceneLayers"]
+offset_left = 5809
+offset_top = 98
+offset_right = 6013
+offset_bottom = 148
+color = Color(0.18, 0.19, 0.18, 0.42)
+
+[node name="FloorFarDepthWash" type="ColorRect" parent="Setpieces/Zone_04_Stands/SeamlessSceneLayers"]
+offset_left = 4824
+offset_top = 154
+offset_right = 6416
+offset_bottom = 181
+color = Color(0.15, 0.23, 0.18, 0.24)
+
+[node name="FloorCenterDepthWash" type="ColorRect" parent="Setpieces/Zone_04_Stands/SeamlessSceneLayers"]
+offset_left = 4824
+offset_top = 181
+offset_right = 6416
+offset_bottom = 214
+color = Color(0.15, 0.23, 0.18, 0.24)
+
+[node name="FloorNearDepthWash" type="ColorRect" parent="Setpieces/Zone_04_Stands/SeamlessSceneLayers"]
+offset_left = 4824
+offset_top = 214
+offset_right = 6416
+offset_bottom = 258
+color = Color(0.15, 0.23, 0.18, 0.24)
+
+[node name="DepthSeamA" type="ColorRect" parent="Setpieces/Zone_04_Stands/SeamlessSceneLayers"]
+offset_left = 4824
+offset_top = 180
+offset_right = 6416
+offset_bottom = 182
+color = Color(0.40, 0.36, 0.22, 0.20)
+
+[node name="DepthSeamB" type="ColorRect" parent="Setpieces/Zone_04_Stands/SeamlessSceneLayers"]
+offset_left = 4824
+offset_top = 213
+offset_right = 6416
+offset_bottom = 215
+color = Color(0.40, 0.36, 0.22, 0.20)
+
+[node name="SceneAccentA" type="ColorRect" parent="Setpieces/Zone_04_Stands/SeamlessSceneLayers"]
+offset_left = 5009
+offset_top = 150
+offset_right = 5113
+offset_bottom = 154
+color = Color(0.62, 0.14, 0.10, 0.34)
+
+[node name="SceneAccentB" type="ColorRect" parent="Setpieces/Zone_04_Stands/SeamlessSceneLayers"]
+offset_left = 5693
+offset_top = 216
+offset_right = 5813
+offset_bottom = 220
+color = Color(0.62, 0.14, 0.10, 0.34)
+
+[node name="StandsSign" type="Label" parent="Setpieces/Zone_04_Stands"]
+offset_left = 4920.0
+offset_top = 62.0
+offset_right = 5480.0
+offset_bottom = 82.0
+theme_override_font_sizes/font_size = 10
+text = "Zone 04 Stands: crowd wave terrain and a route drop"
+
+[node name="StandStepFar" type="ColorRect" parent="Setpieces/Zone_04_Stands"]
+offset_left = 5000.0
+offset_top = 150.0
+offset_right = 6320.0
+offset_bottom = 158.0
+color = Color(0.18, 0.18, 0.18, 1)
+
+[node name="StandStepCenter" type="ColorRect" parent="Setpieces/Zone_04_Stands"]
+offset_left = 5080.0
+offset_top = 180.0
+offset_right = 6280.0
+offset_bottom = 188.0
+color = Color(0.20, 0.20, 0.20, 1)
+
+[node name="CrowdWaveLane" type="ColorRect" parent="Setpieces/Zone_04_Stands"]
+offset_left = 5480.0
+offset_top = 154.0
+offset_right = 5740.0
+offset_bottom = 181.0
+color = Color(0.58, 0.56, 0.50, 0.35)
+
+[node name="CollapsedStepRouteTurn" type="ColorRect" parent="Setpieces/Zone_04_Stands"]
+offset_left = 6120.0
+offset_top = 181.0
+offset_right = 6320.0
+offset_bottom = 214.0
+color = Color(0.12, 0.12, 0.12, 1)
+
+[node name="Zone_05_FieldEdge" type="Node2D" parent="Setpieces"]
+
+[node name="SeamlessSceneLayers" type="Node2D" parent="Setpieces/Zone_05_FieldEdge"]
+z_index = -2
+
+
+[node name="FarBackdropBand" type="ColorRect" parent="Setpieces/Zone_05_FieldEdge/SeamlessSceneLayers"]
+offset_left = 6664
+offset_top = 24
+offset_right = 8056
+offset_bottom = 84
+color = Color(0.06, 0.08, 0.11, 0.34)
+
+[node name="FarSilhouetteA" type="ColorRect" parent="Setpieces/Zone_05_FieldEdge/SeamlessSceneLayers"]
+offset_left = 6859
+offset_top = 48
+offset_right = 6951
+offset_bottom = 128
+color = Color(0.06, 0.08, 0.11, 0.34)
+
+[node name="FarSilhouetteB" type="ColorRect" parent="Setpieces/Zone_05_FieldEdge/SeamlessSceneLayers"]
+offset_left = 7371
+offset_top = 58
+offset_right = 7511
+offset_bottom = 132
+color = Color(0.06, 0.08, 0.11, 0.34)
+
+[node name="NearSceneBand" type="ColorRect" parent="Setpieces/Zone_05_FieldEdge/SeamlessSceneLayers"]
+offset_left = 6664
+offset_top = 86
+offset_right = 8056
+offset_bottom = 151
+color = Color(0.18, 0.19, 0.18, 0.42)
+
+[node name="NearLandmarkA" type="ColorRect" parent="Setpieces/Zone_05_FieldEdge/SeamlessSceneLayers"]
+offset_left = 6895
+offset_top = 104
+offset_right = 7047
+offset_bottom = 148
+color = Color(0.18, 0.19, 0.18, 0.42)
+
+[node name="NearLandmarkB" type="ColorRect" parent="Setpieces/Zone_05_FieldEdge/SeamlessSceneLayers"]
+offset_left = 7561
+offset_top = 98
+offset_right = 7765
+offset_bottom = 148
+color = Color(0.18, 0.19, 0.18, 0.42)
+
+[node name="FloorFarDepthWash" type="ColorRect" parent="Setpieces/Zone_05_FieldEdge/SeamlessSceneLayers"]
+offset_left = 6664
+offset_top = 154
+offset_right = 8056
+offset_bottom = 181
+color = Color(0.15, 0.23, 0.18, 0.24)
+
+[node name="FloorCenterDepthWash" type="ColorRect" parent="Setpieces/Zone_05_FieldEdge/SeamlessSceneLayers"]
+offset_left = 6664
+offset_top = 181
+offset_right = 8056
+offset_bottom = 214
+color = Color(0.15, 0.23, 0.18, 0.24)
+
+[node name="FloorNearDepthWash" type="ColorRect" parent="Setpieces/Zone_05_FieldEdge/SeamlessSceneLayers"]
+offset_left = 6664
+offset_top = 214
+offset_right = 8056
+offset_bottom = 258
+color = Color(0.15, 0.23, 0.18, 0.24)
+
+[node name="DepthSeamA" type="ColorRect" parent="Setpieces/Zone_05_FieldEdge/SeamlessSceneLayers"]
+offset_left = 6664
+offset_top = 180
+offset_right = 8056
+offset_bottom = 182
+color = Color(0.40, 0.36, 0.22, 0.20)
+
+[node name="DepthSeamB" type="ColorRect" parent="Setpieces/Zone_05_FieldEdge/SeamlessSceneLayers"]
+offset_left = 6664
+offset_top = 213
+offset_right = 8056
+offset_bottom = 215
+color = Color(0.40, 0.36, 0.22, 0.20)
+
+[node name="SceneAccentA" type="ColorRect" parent="Setpieces/Zone_05_FieldEdge/SeamlessSceneLayers"]
+offset_left = 6871
+offset_top = 150
+offset_right = 6975
+offset_bottom = 154
+color = Color(0.62, 0.14, 0.10, 0.34)
+
+[node name="SceneAccentB" type="ColorRect" parent="Setpieces/Zone_05_FieldEdge/SeamlessSceneLayers"]
+offset_left = 7399
+offset_top = 216
+offset_right = 7519
+offset_bottom = 220
+color = Color(0.62, 0.14, 0.10, 0.34)
+
+[node name="FieldEdgeSign" type="Label" parent="Setpieces/Zone_05_FieldEdge"]
+offset_left = 6760.0
+offset_top = 62.0
+offset_right = 7280.0
+offset_bottom = 82.0
+theme_override_font_sizes/font_size = 10
+text = "Zone 05 Field Edge: clean lanes, floodlight rush reads"
+
+[node name="FieldStripeNear" type="ColorRect" parent="Setpieces/Zone_05_FieldEdge"]
+offset_left = 6820.0
+offset_top = 232.0
+offset_right = 7960.0
+offset_bottom = 236.0
+color = Color(0.78, 0.78, 0.62, 1)
+
+[node name="FieldStripeCenter" type="ColorRect" parent="Setpieces/Zone_05_FieldEdge"]
+offset_left = 6820.0
+offset_top = 196.0
+offset_right = 7960.0
+offset_bottom = 200.0
+color = Color(0.78, 0.78, 0.62, 1)
+
+[node name="FloodlightLaneRead" type="ColorRect" parent="Setpieces/Zone_05_FieldEdge"]
+offset_left = 7380.0
+offset_top = 181.0
+offset_right = 7700.0
+offset_bottom = 214.0
+color = Color(0.95, 0.88, 0.45, 0.28)
+
+[node name="Zone_06_CenterEventArea" type="Node2D" parent="Setpieces"]
+
+[node name="SeamlessSceneLayers" type="Node2D" parent="Setpieces/Zone_06_CenterEventArea"]
+z_index = -2
+
+
+[node name="FarBackdropBand" type="ColorRect" parent="Setpieces/Zone_06_CenterEventArea/SeamlessSceneLayers"]
+offset_left = 8364
+offset_top = 24
+offset_right = 10196
+offset_bottom = 84
+color = Color(0.06, 0.08, 0.11, 0.34)
+
+[node name="FarSilhouetteA" type="ColorRect" parent="Setpieces/Zone_06_CenterEventArea/SeamlessSceneLayers"]
+offset_left = 8599
+offset_top = 48
+offset_right = 8691
+offset_bottom = 128
+color = Color(0.06, 0.08, 0.11, 0.34)
+
+[node name="FarSilhouetteB" type="ColorRect" parent="Setpieces/Zone_06_CenterEventArea/SeamlessSceneLayers"]
+offset_left = 9322
+offset_top = 58
+offset_right = 9462
+offset_bottom = 132
+color = Color(0.06, 0.08, 0.11, 0.34)
+
+[node name="NearSceneBand" type="ColorRect" parent="Setpieces/Zone_06_CenterEventArea/SeamlessSceneLayers"]
+offset_left = 8364
+offset_top = 86
+offset_right = 10196
+offset_bottom = 151
+color = Color(0.18, 0.19, 0.18, 0.42)
+
+[node name="NearLandmarkA" type="ColorRect" parent="Setpieces/Zone_06_CenterEventArea/SeamlessSceneLayers"]
+offset_left = 8635
+offset_top = 104
+offset_right = 8787
+offset_bottom = 148
+color = Color(0.18, 0.19, 0.18, 0.42)
+
+[node name="NearLandmarkB" type="ColorRect" parent="Setpieces/Zone_06_CenterEventArea/SeamlessSceneLayers"]
+offset_left = 9564
+offset_top = 98
+offset_right = 9768
+offset_bottom = 148
+color = Color(0.18, 0.19, 0.18, 0.42)
+
+[node name="FloorFarDepthWash" type="ColorRect" parent="Setpieces/Zone_06_CenterEventArea/SeamlessSceneLayers"]
+offset_left = 8364
+offset_top = 154
+offset_right = 10196
+offset_bottom = 181
+color = Color(0.15, 0.23, 0.18, 0.24)
+
+[node name="FloorCenterDepthWash" type="ColorRect" parent="Setpieces/Zone_06_CenterEventArea/SeamlessSceneLayers"]
+offset_left = 8364
+offset_top = 181
+offset_right = 10196
+offset_bottom = 214
+color = Color(0.15, 0.23, 0.18, 0.24)
+
+[node name="FloorNearDepthWash" type="ColorRect" parent="Setpieces/Zone_06_CenterEventArea/SeamlessSceneLayers"]
+offset_left = 8364
+offset_top = 214
+offset_right = 10196
+offset_bottom = 258
+color = Color(0.15, 0.23, 0.18, 0.24)
+
+[node name="DepthSeamA" type="ColorRect" parent="Setpieces/Zone_06_CenterEventArea/SeamlessSceneLayers"]
+offset_left = 8364
+offset_top = 180
+offset_right = 10196
+offset_bottom = 182
+color = Color(0.40, 0.36, 0.22, 0.20)
+
+[node name="DepthSeamB" type="ColorRect" parent="Setpieces/Zone_06_CenterEventArea/SeamlessSceneLayers"]
+offset_left = 8364
+offset_top = 213
+offset_right = 10196
+offset_bottom = 215
+color = Color(0.40, 0.36, 0.22, 0.20)
+
+[node name="SceneAccentA" type="ColorRect" parent="Setpieces/Zone_06_CenterEventArea/SeamlessSceneLayers"]
+offset_left = 8611
+offset_top = 150
+offset_right = 8715
+offset_bottom = 154
+color = Color(0.62, 0.14, 0.10, 0.34)
+
+[node name="SceneAccentB" type="ColorRect" parent="Setpieces/Zone_06_CenterEventArea/SeamlessSceneLayers"]
+offset_left = 9350
+offset_top = 216
+offset_right = 9470
+offset_bottom = 220
+color = Color(0.62, 0.14, 0.10, 0.34)
+
+[node name="CenterEventSign" type="Label" parent="Setpieces/Zone_06_CenterEventArea"]
+offset_left = 8460.0
+offset_top = 62.0
+offset_right = 9140.0
+offset_bottom = 82.0
+theme_override_font_sizes/font_size = 10
+text = "Zone 06 Center Event: Champion placeholder, marked crowd shockwaves"
+
+[node name="RopeFar" type="ColorRect" parent="Setpieces/Zone_06_CenterEventArea"]
+offset_left = 8520.0
+offset_top = 154.0
+offset_right = 9680.0
+offset_bottom = 158.0
+color = Color(0.68, 0.60, 0.34, 1)
+
+[node name="RopeNear" type="ColorRect" parent="Setpieces/Zone_06_CenterEventArea"]
+offset_left = 8520.0
+offset_top = 252.0
+offset_right = 9680.0
+offset_bottom = 256.0
+color = Color(0.68, 0.60, 0.34, 1)
+
+[node name="ShockwaveMarkCenter" type="ColorRect" parent="Setpieces/Zone_06_CenterEventArea"]
+offset_left = 8940.0
+offset_top = 181.0
+offset_right = 9340.0
+offset_bottom = 214.0
+color = Color(0.84, 0.77, 0.42, 0.30)
+
+[node name="ReturnRead" type="Label" parent="Setpieces/Zone_06_CenterEventArea"]
+offset_left = 9620.0
+offset_top = 262.0
+offset_right = 10100.0
+offset_bottom = 284.0
+theme_override_font_sizes/font_size = 10
+text = "Return to city exit is generated by World/main.gd"
+
+[node name="RouteLabels" type="Node2D" parent="."]
+
+[node name="LaneHint" type="Label" parent="RouteLabels"]
+offset_left = 58.0
+offset_top = 262.0
+offset_right = 500.0
+offset_bottom = 284.0
+theme_override_font_sizes/font_size = 10
+text = "One continuous stadium route: pressure marks lanes, never all depth bands"
+
+[node name="EnemyRoleHint" type="Label" parent="RouteLabels"]
+offset_left = 3180.0
+offset_top = 262.0
+offset_right = 3820.0
+offset_bottom = 284.0
+theme_override_font_sizes/font_size = 10
+text = "Placeholders: Shovers = bruisers, Throwers = poker, Runners = flankers/rushers"
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Gate_TurnstileShover" parent="Enemies" instance=ExtResource("4_shover")]
+position = Vector2(920, 199)
+
+[node name="Turnstiles_ShoverA" parent="Enemies" instance=ExtResource("4_shover")]
+position = Vector2(1780, 214)
+
+[node name="Turnstiles_ShoverB" parent="Enemies" instance=ExtResource("4_shover")]
+position = Vector2(2240, 166)
+
+[node name="Turnstiles_BottleThrower" parent="Enemies" instance=ExtResource("5_thrower")]
+position = Vector2(2500, 194)
+
+[node name="Corridor_BottleThrower" parent="Enemies" instance=ExtResource("5_thrower")]
+position = Vector2(3660, 166)
+
+[node name="Corridor_FlagRunner" parent="Enemies" instance=ExtResource("6_runner")]
+position = Vector2(4100, 214)
+
+[node name="Stands_TurnstileShover" parent="Enemies" instance=ExtResource("4_shover")]
+position = Vector2(5220, 194)
+
+[node name="Stands_FlagRunner" parent="Enemies" instance=ExtResource("6_runner")]
+position = Vector2(5840, 214)
+
+[node name="FieldEdge_FlagRunnerA" parent="Enemies" instance=ExtResource("6_runner")]
+position = Vector2(7080, 214)
+
+[node name="FieldEdge_FlagRunnerB" parent="Enemies" instance=ExtResource("7_rusher")]
+position = Vector2(7680, 194)
+
+[node name="Center_ChampionPlaceholder" parent="Enemies" instance=ExtResource("4_shover")]
+position = Vector2(9100, 199)
+
+[node name="Center_BottleThrowerSupport" parent="Enemies" instance=ExtResource("5_thrower")]
+position = Vector2(9520, 166)
+
+[node name="Player" parent="." instance=ExtResource("2_player")]
+position = Vector2(150, 205)
+collision_mask = 5
+
+[node name="Camera2D" type="Camera2D" parent="Player" groups=["Player"]]
+position = Vector2(1, -48)
+zoom = Vector2(3.6, 3.6)
+limit_left = 0
+limit_top = 0
+limit_right = 10180
+limit_bottom = 292
+limit_smoothed = true
+position_smoothing_enabled = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 50
+
+[node name="SkillSelectMenu" parent="CanvasLayer" groups=["skill_menu"] instance=ExtResource("3_skills")]
+visible = false
+offset_left = 60.0
+offset_top = 107.0
+offset_right = -93.0
+offset_bottom = -98.0
+
+[node name="Main" type="Node" parent="."]
+script = ExtResource("1_main")
+player_path = NodePath("../Player")
+
+[node name="UI" type="CanvasLayer" parent="Main"]
+
+[node name="FullBottleLabel" type="Label" parent="Main/UI"]
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 78.0
+offset_bottom = 28.0
+theme_override_font_sizes/font_size = 12
+text = "Full Bottles: 0"
+
+[node name="EmptyBottleLabel" type="Label" parent="Main/UI"]
+offset_left = 5.0
+offset_top = 19.0
+offset_right = 99.0
+offset_bottom = 42.0
+theme_override_font_sizes/font_size = 12
+text = "Empty Bottles: 0"
+
+[node name="CigPackLabel" type="Label" parent="Main/UI"]
+offset_left = 5.0
+offset_top = 32.0
+offset_right = 78.0
+offset_bottom = 55.0
+theme_override_font_sizes/font_size = 12
+text = "Cigarettes: 0"
+
+[node name="InebriationLabel" type="Label" parent="Main/UI"]
+offset_left = 5.0
+offset_top = 46.0
+offset_right = 78.0
+offset_bottom = 69.0
+theme_override_font_sizes/font_size = 12
+text = "Inebriation: 0"
+
+[node name="NicotineLabel" type="Label" parent="Main/UI"]
+offset_left = 5.0
+offset_top = 60.0
+offset_right = 83.0
+offset_bottom = 83.0
+theme_override_font_sizes/font_size = 12
+text = "Nicotine: 0"
+
+
+

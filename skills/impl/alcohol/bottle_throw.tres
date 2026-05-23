@@ -7,6 +7,7 @@
 [resource]
 script = ExtResource("3_qeyys")
 projectile = ExtResource("2_nxn0o")
+hp_cost = 1
 fallback_delay_sec = 0.4
 id = &"Bottle Throw"
 title = "Bottle Throw"

@@ -7,6 +7,8 @@
 [resource]
 script = ExtResource("3_h000l")
 projectile = ExtResource("2_h000l")
+hp_cost = 2
+nicotine_cost = 1
 speed = 100.0
 offset_right = Vector2(14, -8)
 offset_left = Vector2(-14, -8)

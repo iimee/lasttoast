@@ -1,8 +1,9 @@
 extends CharacterBody2D
+const SURFACE_SLOW_MIN: float = 0.1
 
 @export var speed: float = 140.0
 @export var arrival_threshold: float = 8.0
-@export var max_hp: int = 1
+@export var max_hp: int = 2
 @export var death_fx_scene: PackedScene
 
 @export_node_path var left_point_path: NodePath
@@ -14,12 +15,30 @@ var left_x: float
 var right_x: float
 var is_dead: bool = false
 var target: Node2D
+var _surface_slow_multiplier: float = 1.0
+var _surface_slow_until_msec: int = 0
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var body_cs: CollisionShape2D = $CollisionShape2D
 @onready var hitbox: Area2D = $Hitbox
 @onready var left_point: Node2D = null
 @onready var right_point: Node2D = null
+
+func apply_surface_slow(multiplier: float, duration_sec: float = 0.12) -> void:
+	var m: float = clampf(multiplier, SURFACE_SLOW_MIN, 1.0)
+	_surface_slow_multiplier = m
+	var until: int = Time.get_ticks_msec() + int(maxf(0.0, duration_sec) * 1000.0)
+	if until > _surface_slow_until_msec:
+		_surface_slow_until_msec = until
+
+func _surface_speed_multiplier() -> float:
+	if _surface_slow_until_msec <= 0:
+		return 1.0
+	if Time.get_ticks_msec() > _surface_slow_until_msec:
+		_surface_slow_until_msec = 0
+		_surface_slow_multiplier = 1.0
+		return 1.0
+	return _surface_slow_multiplier
 
 func _ready() -> void:
 	hp = max_hp
@@ -56,7 +75,7 @@ func _physics_process(delta: float) -> void:
 		return
 
 	velocity.y = 0.0
-	velocity.x = dir_x * speed
+	velocity.x = dir_x * speed * _surface_speed_multiplier()
 
 	if dir_x > 0 and global_position.x >= right_x - arrival_threshold:
 		_reverse()

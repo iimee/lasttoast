@@ -4,13 +4,14 @@ class_name DashSkill
 
 @export var duration: float = 0.14
 @export var speed: float = 620.0
+@export var dash_anim_name: StringName = &"dash"
 
 @export var inertia_time: float = 0.12
 @export var inertia_damping: float = 22.0
 
 @export var nicotine_cost: int = 1
 
-@export var damage: int = 2
+@export var damage: int = 3
 @export var knockback_force: float = 60.0
 @export var hit_radius: float = 18.0
 @export var enemy_collision_mask: int = 0 # 0 = использовать collision_mask игрока
@@ -20,6 +21,12 @@ class_name DashSkill
 
 func can_use(user: Node) -> bool:
 	if user == null:
+		return false
+	if user.has_method("_movement_locked") and bool(user.call("_movement_locked")):
+		return false
+
+	# Не даём накладывать второй дэш поверх активного.
+	if "is_dashing" in user and bool(user.is_dashing):
 		return false
 
 	# Запрет рывка в прыжке (только на полу)
@@ -91,6 +98,8 @@ func execute(user: Node) -> void:
 
 	ctrl.stop_on_wall = stop_on_wall
 	ctrl.stop_anim_on_wall = stop_anim_on_wall
+	if ctrl.has_method("set_dash_anim_name"):
+		ctrl.call("set_dash_anim_name", dash_anim_name)
 
 	user.add_child(ctrl)
 	ctrl.owner = user
@@ -106,11 +115,14 @@ func _play_dash_anim_no_lock(user: Node) -> void:
 		return
 	if spr.sprite_frames == null:
 		return
-	if not spr.sprite_frames.has_animation("dash"):
+	var anim_name: StringName = dash_anim_name
+	if anim_name == StringName():
+		anim_name = &"dash"
+	if not spr.sprite_frames.has_animation(anim_name):
 		return
 
 	# Гарантируем что не стоит speed_scale=0 после чужих локов
 	if spr.speed_scale == 0.0:
 		spr.speed_scale = 1.0
 
-	spr.play("dash")
+	spr.play(String(anim_name))

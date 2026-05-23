@@ -1,0 +1,1222 @@
+[gd_scene load_steps=12 format=3 uid="uid://dk2najcja5il0"]
+
+[ext_resource type="Script" uid="uid://cpgrvwy3odr3y" path="res://World/main.gd" id="1_main"]
+[ext_resource type="PackedScene" uid="uid://bapvy71043313" path="res://Player/player.tscn" id="2_player"]
+[ext_resource type="PackedScene" uid="uid://c62ijxjydlv8m" path="res://UI/SkillSelectMenu.tscn" id="3_skills"]
+[ext_resource type="PackedScene" path="res://Enemies/hobo1/hobo1_flanker.tscn" id="4_runner"]
+[ext_resource type="PackedScene" path="res://Enemies/hobo1/hobo1_poker.tscn" id="5_ember"]
+[ext_resource type="PackedScene" path="res://Enemies/hobo1/hobo1_bruiser.tscn" id="6_brute"]
+[ext_resource type="PackedScene" uid="uid://c7v3q2ede0yrd" path="res://Enemies/hobo1/hobo1_static.tscn" id="7_forester"]
+[ext_resource type="Texture2D" uid="uid://b57h78keg8rmb" path="res://assets/incoming/forest_camp/layers/forest_camp_far_parallax_strip_01.png" id="8_far"]
+[ext_resource type="Texture2D" uid="uid://dks73t7g6qhwk" path="res://assets/incoming/forest_camp/layers/forest_camp_mid_background_strip_01.png" id="9_mid"]
+[ext_resource type="Texture2D" uid="uid://bpbyvyhvvrmlt" path="res://assets/incoming/forest_camp/layers/forest_camp_road_playfield_strip_01.png" id="10_road"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
+size = Vector2(11840, 104)
+
+[node name="ForestCampLevel5" type="Node2D" unique_id=1622352731]
+
+[node name="Background" type="Node2D" parent="." unique_id=390676371]
+
+[node name="GeneratedBackgrounds" type="Node2D" parent="Background" unique_id=1900840486]
+
+[node name="FarParallaxLayer" type="Node2D" parent="Background/GeneratedBackgrounds" unique_id=1775834761]
+
+[node name="FarParallaxStrip" type="Sprite2D" parent="Background/GeneratedBackgrounds/FarParallaxLayer" unique_id=1321151474]
+modulate = Color(1, 1, 1, 0.42)
+position = Vector2(-80, 14)
+scale = Vector2(0.18, 0.18)
+texture = ExtResource("8_far")
+centered = false
+
+[node name="MidBackgroundLayer" type="Node2D" parent="Background/GeneratedBackgrounds" unique_id=1760041645]
+
+[node name="MidBackgroundStrip" type="Sprite2D" parent="Background/GeneratedBackgrounds/MidBackgroundLayer" unique_id=1891488605]
+modulate = Color(1, 1, 1, 0.55)
+position = Vector2(-80, 68)
+scale = Vector2(0.18, 0.22)
+texture = ExtResource("9_mid")
+centered = false
+
+[node name="RoadPlayfieldLayer" type="Node2D" parent="Background/GeneratedBackgrounds" unique_id=1292580325]
+
+[node name="RoadPlayfieldStrip" type="Sprite2D" parent="Background/GeneratedBackgrounds/RoadPlayfieldLayer" unique_id=954660459]
+modulate = Color(1, 1, 1, 0.36)
+position = Vector2(-80, 154)
+scale = Vector2(0.18, 0.28)
+texture = ExtResource("10_road")
+centered = false
+
+[node name="AshSky" type="ColorRect" parent="Background" unique_id=1002040911]
+visible = false
+offset_left = -80.0
+offset_top = 24.0
+offset_right = 11920.0
+offset_bottom = 96.0
+color = Color(0.12, 0.13, 0.13, 0.24)
+
+[node name="BurntTreeLine" type="ColorRect" parent="Background" unique_id=2009622219]
+visible = false
+offset_left = -80.0
+offset_top = 92.0
+offset_right = 11920.0
+offset_bottom = 150.0
+color = Color(0.07, 0.08, 0.07, 0.25)
+
+[node name="WaterTowerSilhouette" type="ColorRect" parent="Background" unique_id=339914153]
+visible = false
+offset_left = 9020.0
+offset_top = 54.0
+offset_right = 9120.0
+offset_bottom = 150.0
+color = Color(0.11, 0.12, 0.11, 1)
+
+[node name="DiningHallBack" type="ColorRect" parent="Background" unique_id=422086123]
+visible = false
+offset_left = 3300.0
+offset_top = 92.0
+offset_right = 4740.0
+offset_bottom = 150.0
+color = Color(0.18, 0.13, 0.1, 1)
+
+[node name="SmokeLayer" type="ColorRect" parent="Background" unique_id=544093533]
+visible = false
+offset_top = 104.0
+offset_right = 11800.0
+offset_bottom = 136.0
+color = Color(0.42, 0.43, 0.4, 0.16)
+
+[node name="DepthBands" type="Node2D" parent="." unique_id=684827939]
+visible = false
+
+[node name="FarLane" type="ColorRect" parent="DepthBands" unique_id=1444565962]
+offset_left = -80.0
+offset_top = 154.0
+offset_right = 11920.0
+offset_bottom = 181.0
+color = Color(0.17, 0.2, 0.17, 1)
+
+[node name="CenterLane" type="ColorRect" parent="DepthBands" unique_id=1056738605]
+offset_left = -80.0
+offset_top = 181.0
+offset_right = 11920.0
+offset_bottom = 214.0
+color = Color(0.24, 0.24, 0.21, 1)
+
+[node name="NearLane" type="ColorRect" parent="DepthBands" unique_id=1289469449]
+offset_left = -80.0
+offset_top = 214.0
+offset_right = 11920.0
+offset_bottom = 258.0
+color = Color(0.32, 0.29, 0.25, 1)
+
+[node name="WetAshLine" type="ColorRect" parent="DepthBands" unique_id=660339603]
+offset_left = -80.0
+offset_top = 204.0
+offset_right = 11920.0
+offset_bottom = 208.0
+color = Color(0.48, 0.48, 0.44, 0.5)
+
+[node name="FloorCollision" type="StaticBody2D" parent="." unique_id=1098395981]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorCollision" unique_id=2125630724]
+position = Vector2(5840, 207)
+shape = SubResource("RectangleShape2D_floor")
+
+[node name="Setpieces" type="Node2D" parent="." unique_id=2025785363]
+
+[node name="Zone_01_RoadEdge" type="Node2D" parent="Setpieces" unique_id=227523232]
+
+[node name="SeamlessSceneLayers" type="Node2D" parent="Setpieces/Zone_01_RoadEdge"]
+z_index = -2
+
+
+[node name="FarBackdropBand" type="ColorRect" parent="Setpieces/Zone_01_RoadEdge/SeamlessSceneLayers"]
+offset_left = 24
+offset_top = 24
+offset_right = 1276
+offset_bottom = 84
+color = Color(0.05, 0.08, 0.05, 0.38)
+
+[node name="FarSilhouetteA" type="ColorRect" parent="Setpieces/Zone_01_RoadEdge/SeamlessSceneLayers"]
+offset_left = 146
+offset_top = 48
+offset_right = 238
+offset_bottom = 128
+color = Color(0.05, 0.08, 0.05, 0.38)
+
+[node name="FarSilhouetteB" type="ColorRect" parent="Setpieces/Zone_01_RoadEdge/SeamlessSceneLayers"]
+offset_left = 651
+offset_top = 58
+offset_right = 791
+offset_bottom = 132
+color = Color(0.05, 0.08, 0.05, 0.38)
+
+[node name="NearSceneBand" type="ColorRect" parent="Setpieces/Zone_01_RoadEdge/SeamlessSceneLayers"]
+offset_left = 24
+offset_top = 86
+offset_right = 1276
+offset_bottom = 151
+color = Color(0.14, 0.17, 0.12, 0.42)
+
+[node name="NearLandmarkA" type="ColorRect" parent="Setpieces/Zone_01_RoadEdge/SeamlessSceneLayers"]
+offset_left = 182
+offset_top = 104
+offset_right = 334
+offset_bottom = 148
+color = Color(0.14, 0.17, 0.12, 0.42)
+
+[node name="NearLandmarkB" type="ColorRect" parent="Setpieces/Zone_01_RoadEdge/SeamlessSceneLayers"]
+offset_left = 795
+offset_top = 98
+offset_right = 999
+offset_bottom = 148
+color = Color(0.14, 0.17, 0.12, 0.42)
+
+[node name="FloorFarDepthWash" type="ColorRect" parent="Setpieces/Zone_01_RoadEdge/SeamlessSceneLayers"]
+offset_left = 24
+offset_top = 154
+offset_right = 1276
+offset_bottom = 181
+color = Color(0.18, 0.20, 0.14, 0.24)
+
+[node name="FloorCenterDepthWash" type="ColorRect" parent="Setpieces/Zone_01_RoadEdge/SeamlessSceneLayers"]
+offset_left = 24
+offset_top = 181
+offset_right = 1276
+offset_bottom = 214
+color = Color(0.18, 0.20, 0.14, 0.24)
+
+[node name="FloorNearDepthWash" type="ColorRect" parent="Setpieces/Zone_01_RoadEdge/SeamlessSceneLayers"]
+offset_left = 24
+offset_top = 214
+offset_right = 1276
+offset_bottom = 258
+color = Color(0.18, 0.20, 0.14, 0.24)
+
+[node name="DepthSeamA" type="ColorRect" parent="Setpieces/Zone_01_RoadEdge/SeamlessSceneLayers"]
+offset_left = 24
+offset_top = 180
+offset_right = 1276
+offset_bottom = 182
+color = Color(0.42, 0.31, 0.20, 0.20)
+
+[node name="DepthSeamB" type="ColorRect" parent="Setpieces/Zone_01_RoadEdge/SeamlessSceneLayers"]
+offset_left = 24
+offset_top = 213
+offset_right = 1276
+offset_bottom = 215
+color = Color(0.42, 0.31, 0.20, 0.20)
+
+[node name="SceneAccentA" type="ColorRect" parent="Setpieces/Zone_01_RoadEdge/SeamlessSceneLayers"]
+offset_left = 158
+offset_top = 150
+offset_right = 262
+offset_bottom = 154
+color = Color(0.68, 0.26, 0.14, 0.30)
+
+[node name="SceneAccentB" type="ColorRect" parent="Setpieces/Zone_01_RoadEdge/SeamlessSceneLayers"]
+offset_left = 679
+offset_top = 216
+offset_right = 799
+offset_bottom = 220
+color = Color(0.68, 0.26, 0.14, 0.30)
+
+[node name="RoadEdgeSign" type="Label" parent="Setpieces/Zone_01_RoadEdge" unique_id=2012486151]
+offset_left = 120.0
+offset_top = 62.0
+offset_right = 640.0
+offset_bottom = 82.0
+theme_override_font_sizes/font_size = 10
+text = "Zone 01 Road Edge: rain, ash, and smoke silhouettes"
+
+[node name="AshTrailRead" type="ColorRect" parent="Setpieces/Zone_01_RoadEdge" unique_id=1718825609]
+offset_left = 620.0
+offset_top = 181.0
+offset_right = 900.0
+offset_bottom = 214.0
+color = Color(0.5, 0.5, 0.46, 0.28)
+
+[node name="TreeLineFar" type="ColorRect" parent="Setpieces/Zone_01_RoadEdge" unique_id=1965068672]
+offset_left = 940.0
+offset_top = 138.0
+offset_right = 1180.0
+offset_bottom = 176.0
+color = Color(0.08, 0.1, 0.08, 1)
+
+[node name="Zone_02_FirstCabins" type="Node2D" parent="Setpieces" unique_id=489870615]
+
+[node name="SeamlessSceneLayers" type="Node2D" parent="Setpieces/Zone_02_FirstCabins"]
+z_index = -2
+
+
+[node name="FarBackdropBand" type="ColorRect" parent="Setpieces/Zone_02_FirstCabins/SeamlessSceneLayers"]
+offset_left = 1644
+offset_top = 24
+offset_right = 2876
+offset_bottom = 84
+color = Color(0.05, 0.08, 0.05, 0.38)
+
+[node name="FarSilhouetteA" type="ColorRect" parent="Setpieces/Zone_02_FirstCabins/SeamlessSceneLayers"]
+offset_left = 1794
+offset_top = 48
+offset_right = 1886
+offset_bottom = 128
+color = Color(0.05, 0.08, 0.05, 0.38)
+
+[node name="FarSilhouetteB" type="ColorRect" parent="Setpieces/Zone_02_FirstCabins/SeamlessSceneLayers"]
+offset_left = 2289
+offset_top = 58
+offset_right = 2429
+offset_bottom = 132
+color = Color(0.05, 0.08, 0.05, 0.38)
+
+[node name="NearSceneBand" type="ColorRect" parent="Setpieces/Zone_02_FirstCabins/SeamlessSceneLayers"]
+offset_left = 1644
+offset_top = 86
+offset_right = 2876
+offset_bottom = 151
+color = Color(0.14, 0.17, 0.12, 0.42)
+
+[node name="NearLandmarkA" type="ColorRect" parent="Setpieces/Zone_02_FirstCabins/SeamlessSceneLayers"]
+offset_left = 1830
+offset_top = 104
+offset_right = 1982
+offset_bottom = 148
+color = Color(0.14, 0.17, 0.12, 0.42)
+
+[node name="NearLandmarkB" type="ColorRect" parent="Setpieces/Zone_02_FirstCabins/SeamlessSceneLayers"]
+offset_left = 2371
+offset_top = 98
+offset_right = 2575
+offset_bottom = 148
+color = Color(0.14, 0.17, 0.12, 0.42)
+
+[node name="FloorFarDepthWash" type="ColorRect" parent="Setpieces/Zone_02_FirstCabins/SeamlessSceneLayers"]
+offset_left = 1644
+offset_top = 154
+offset_right = 2876
+offset_bottom = 181
+color = Color(0.18, 0.20, 0.14, 0.24)
+
+[node name="FloorCenterDepthWash" type="ColorRect" parent="Setpieces/Zone_02_FirstCabins/SeamlessSceneLayers"]
+offset_left = 1644
+offset_top = 181
+offset_right = 2876
+offset_bottom = 214
+color = Color(0.18, 0.20, 0.14, 0.24)
+
+[node name="FloorNearDepthWash" type="ColorRect" parent="Setpieces/Zone_02_FirstCabins/SeamlessSceneLayers"]
+offset_left = 1644
+offset_top = 214
+offset_right = 2876
+offset_bottom = 258
+color = Color(0.18, 0.20, 0.14, 0.24)
+
+[node name="DepthSeamA" type="ColorRect" parent="Setpieces/Zone_02_FirstCabins/SeamlessSceneLayers"]
+offset_left = 1644
+offset_top = 180
+offset_right = 2876
+offset_bottom = 182
+color = Color(0.42, 0.31, 0.20, 0.20)
+
+[node name="DepthSeamB" type="ColorRect" parent="Setpieces/Zone_02_FirstCabins/SeamlessSceneLayers"]
+offset_left = 1644
+offset_top = 213
+offset_right = 2876
+offset_bottom = 215
+color = Color(0.42, 0.31, 0.20, 0.20)
+
+[node name="SceneAccentA" type="ColorRect" parent="Setpieces/Zone_02_FirstCabins/SeamlessSceneLayers"]
+offset_left = 1806
+offset_top = 150
+offset_right = 1910
+offset_bottom = 154
+color = Color(0.68, 0.26, 0.14, 0.30)
+
+[node name="SceneAccentB" type="ColorRect" parent="Setpieces/Zone_02_FirstCabins/SeamlessSceneLayers"]
+offset_left = 2317
+offset_top = 216
+offset_right = 2437
+offset_bottom = 220
+color = Color(0.68, 0.26, 0.14, 0.30)
+
+[node name="CabinsSign" type="Label" parent="Setpieces/Zone_02_FirstCabins" unique_id=1382366910]
+offset_left = 1740.0
+offset_top = 62.0
+offset_right = 2320.0
+offset_bottom = 82.0
+theme_override_font_sizes/font_size = 10
+text = "Zone 02 First Cabins: small fire patch, one lane at a time"
+
+[node name="CabinFar" type="ColorRect" parent="Setpieces/Zone_02_FirstCabins" unique_id=21781658]
+offset_left = 1840.0
+offset_top = 114.0
+offset_right = 2320.0
+offset_bottom = 176.0
+color = Color(0.2, 0.13, 0.09, 1)
+
+[node name="EmberPatchReadCenter" type="ColorRect" parent="Setpieces/Zone_02_FirstCabins" unique_id=1825365186]
+offset_left = 2220.0
+offset_top = 188.0
+offset_right = 2460.0
+offset_bottom = 206.0
+color = Color(0.86, 0.34, 0.12, 0.36)
+
+[node name="CollapsedPorchNear" type="ColorRect" parent="Setpieces/Zone_02_FirstCabins" unique_id=1869573054]
+offset_left = 2580.0
+offset_top = 222.0
+offset_right = 2780.0
+offset_bottom = 246.0
+color = Color(0.12, 0.08, 0.05, 1)
+
+[node name="Zone_03_DiningHall" type="Node2D" parent="Setpieces" unique_id=1951200827]
+
+[node name="SeamlessSceneLayers" type="Node2D" parent="Setpieces/Zone_03_DiningHall"]
+z_index = -2
+
+
+[node name="FarBackdropBand" type="ColorRect" parent="Setpieces/Zone_03_DiningHall/SeamlessSceneLayers"]
+offset_left = 3284
+offset_top = 24
+offset_right = 4736
+offset_bottom = 84
+color = Color(0.05, 0.08, 0.05, 0.38)
+
+[node name="FarSilhouetteA" type="ColorRect" parent="Setpieces/Zone_03_DiningHall/SeamlessSceneLayers"]
+offset_left = 3380
+offset_top = 48
+offset_right = 3472
+offset_bottom = 128
+color = Color(0.05, 0.08, 0.05, 0.38)
+
+[node name="FarSilhouetteB" type="ColorRect" parent="Setpieces/Zone_03_DiningHall/SeamlessSceneLayers"]
+offset_left = 3981
+offset_top = 58
+offset_right = 4121
+offset_bottom = 132
+color = Color(0.05, 0.08, 0.05, 0.38)
+
+[node name="NearSceneBand" type="ColorRect" parent="Setpieces/Zone_03_DiningHall/SeamlessSceneLayers"]
+offset_left = 3284
+offset_top = 86
+offset_right = 4736
+offset_bottom = 151
+color = Color(0.14, 0.17, 0.12, 0.42)
+
+[node name="NearLandmarkA" type="ColorRect" parent="Setpieces/Zone_03_DiningHall/SeamlessSceneLayers"]
+offset_left = 3416
+offset_top = 104
+offset_right = 3568
+offset_bottom = 148
+color = Color(0.14, 0.17, 0.12, 0.42)
+
+[node name="NearLandmarkB" type="ColorRect" parent="Setpieces/Zone_03_DiningHall/SeamlessSceneLayers"]
+offset_left = 4237
+offset_top = 98
+offset_right = 4441
+offset_bottom = 148
+color = Color(0.14, 0.17, 0.12, 0.42)
+
+[node name="FloorFarDepthWash" type="ColorRect" parent="Setpieces/Zone_03_DiningHall/SeamlessSceneLayers"]
+offset_left = 3284
+offset_top = 154
+offset_right = 4736
+offset_bottom = 181
+color = Color(0.18, 0.20, 0.14, 0.24)
+
+[node name="FloorCenterDepthWash" type="ColorRect" parent="Setpieces/Zone_03_DiningHall/SeamlessSceneLayers"]
+offset_left = 3284
+offset_top = 181
+offset_right = 4736
+offset_bottom = 214
+color = Color(0.18, 0.20, 0.14, 0.24)
+
+[node name="FloorNearDepthWash" type="ColorRect" parent="Setpieces/Zone_03_DiningHall/SeamlessSceneLayers"]
+offset_left = 3284
+offset_top = 214
+offset_right = 4736
+offset_bottom = 258
+color = Color(0.18, 0.20, 0.14, 0.24)
+
+[node name="DepthSeamA" type="ColorRect" parent="Setpieces/Zone_03_DiningHall/SeamlessSceneLayers"]
+offset_left = 3284
+offset_top = 180
+offset_right = 4736
+offset_bottom = 182
+color = Color(0.42, 0.31, 0.20, 0.20)
+
+[node name="DepthSeamB" type="ColorRect" parent="Setpieces/Zone_03_DiningHall/SeamlessSceneLayers"]
+offset_left = 3284
+offset_top = 213
+offset_right = 4736
+offset_bottom = 215
+color = Color(0.42, 0.31, 0.20, 0.20)
+
+[node name="SceneAccentA" type="ColorRect" parent="Setpieces/Zone_03_DiningHall/SeamlessSceneLayers"]
+offset_left = 3392
+offset_top = 150
+offset_right = 3496
+offset_bottom = 154
+color = Color(0.68, 0.26, 0.14, 0.30)
+
+[node name="SceneAccentB" type="ColorRect" parent="Setpieces/Zone_03_DiningHall/SeamlessSceneLayers"]
+offset_left = 4009
+offset_top = 216
+offset_right = 4129
+offset_bottom = 220
+color = Color(0.68, 0.26, 0.14, 0.30)
+
+[node name="DiningHallSign" type="Label" parent="Setpieces/Zone_03_DiningHall" unique_id=996733364]
+offset_left = 3380.0
+offset_top = 62.0
+offset_right = 3940.0
+offset_bottom = 82.0
+theme_override_font_sizes/font_size = 10
+text = "Zone 03 Dining Hall: brute breaks weak boards, guitar later"
+
+[node name="DiningDoorCenter" type="ColorRect" parent="Setpieces/Zone_03_DiningHall" unique_id=846067825]
+offset_left = 3680.0
+offset_top = 152.0
+offset_right = 3820.0
+offset_bottom = 214.0
+color = Color(0.08, 0.06, 0.05, 1)
+
+[node name="SmokeGustFar" type="ColorRect" parent="Setpieces/Zone_03_DiningHall" unique_id=296021795]
+offset_left = 4040.0
+offset_top = 154.0
+offset_right = 4320.0
+offset_bottom = 181.0
+color = Color(0.48, 0.49, 0.44, 0.25)
+
+[node name="WeakBoardsReadCenter" type="ColorRect" parent="Setpieces/Zone_03_DiningHall" unique_id=452751662]
+offset_left = 4340.0
+offset_top = 188.0
+offset_right = 4640.0
+offset_bottom = 206.0
+color = Color(0.38, 0.22, 0.12, 1)
+
+[node name="Zone_04_SportsGround" type="Node2D" parent="Setpieces" unique_id=1020143510]
+
+[node name="SeamlessSceneLayers" type="Node2D" parent="Setpieces/Zone_04_SportsGround"]
+z_index = -2
+
+
+[node name="FarBackdropBand" type="ColorRect" parent="Setpieces/Zone_04_SportsGround/SeamlessSceneLayers"]
+offset_left = 5024
+offset_top = 24
+offset_right = 6496
+offset_bottom = 84
+color = Color(0.05, 0.08, 0.05, 0.38)
+
+[node name="FarSilhouetteA" type="ColorRect" parent="Setpieces/Zone_04_SportsGround/SeamlessSceneLayers"]
+offset_left = 5219
+offset_top = 48
+offset_right = 5311
+offset_bottom = 128
+color = Color(0.05, 0.08, 0.05, 0.38)
+
+[node name="FarSilhouetteB" type="ColorRect" parent="Setpieces/Zone_04_SportsGround/SeamlessSceneLayers"]
+offset_left = 5770
+offset_top = 58
+offset_right = 5910
+offset_bottom = 132
+color = Color(0.05, 0.08, 0.05, 0.38)
+
+[node name="NearSceneBand" type="ColorRect" parent="Setpieces/Zone_04_SportsGround/SeamlessSceneLayers"]
+offset_left = 5024
+offset_top = 86
+offset_right = 6496
+offset_bottom = 151
+color = Color(0.14, 0.17, 0.12, 0.42)
+
+[node name="NearLandmarkA" type="ColorRect" parent="Setpieces/Zone_04_SportsGround/SeamlessSceneLayers"]
+offset_left = 5255
+offset_top = 104
+offset_right = 5407
+offset_bottom = 148
+color = Color(0.14, 0.17, 0.12, 0.42)
+
+[node name="NearLandmarkB" type="ColorRect" parent="Setpieces/Zone_04_SportsGround/SeamlessSceneLayers"]
+offset_left = 5983
+offset_top = 98
+offset_right = 6187
+offset_bottom = 148
+color = Color(0.14, 0.17, 0.12, 0.42)
+
+[node name="FloorFarDepthWash" type="ColorRect" parent="Setpieces/Zone_04_SportsGround/SeamlessSceneLayers"]
+offset_left = 5024
+offset_top = 154
+offset_right = 6496
+offset_bottom = 181
+color = Color(0.18, 0.20, 0.14, 0.24)
+
+[node name="FloorCenterDepthWash" type="ColorRect" parent="Setpieces/Zone_04_SportsGround/SeamlessSceneLayers"]
+offset_left = 5024
+offset_top = 181
+offset_right = 6496
+offset_bottom = 214
+color = Color(0.18, 0.20, 0.14, 0.24)
+
+[node name="FloorNearDepthWash" type="ColorRect" parent="Setpieces/Zone_04_SportsGround/SeamlessSceneLayers"]
+offset_left = 5024
+offset_top = 214
+offset_right = 6496
+offset_bottom = 258
+color = Color(0.18, 0.20, 0.14, 0.24)
+
+[node name="DepthSeamA" type="ColorRect" parent="Setpieces/Zone_04_SportsGround/SeamlessSceneLayers"]
+offset_left = 5024
+offset_top = 180
+offset_right = 6496
+offset_bottom = 182
+color = Color(0.42, 0.31, 0.20, 0.20)
+
+[node name="DepthSeamB" type="ColorRect" parent="Setpieces/Zone_04_SportsGround/SeamlessSceneLayers"]
+offset_left = 5024
+offset_top = 213
+offset_right = 6496
+offset_bottom = 215
+color = Color(0.42, 0.31, 0.20, 0.20)
+
+[node name="SceneAccentA" type="ColorRect" parent="Setpieces/Zone_04_SportsGround/SeamlessSceneLayers"]
+offset_left = 5231
+offset_top = 150
+offset_right = 5335
+offset_bottom = 154
+color = Color(0.68, 0.26, 0.14, 0.30)
+
+[node name="SceneAccentB" type="ColorRect" parent="Setpieces/Zone_04_SportsGround/SeamlessSceneLayers"]
+offset_left = 5798
+offset_top = 216
+offset_right = 5918
+offset_bottom = 220
+color = Color(0.68, 0.26, 0.14, 0.30)
+
+[node name="SportsGroundSign" type="Label" parent="Setpieces/Zone_04_SportsGround" unique_id=686812887]
+offset_left = 5120.0
+offset_top = 62.0
+offset_right = 5740.0
+offset_bottom = 82.0
+theme_override_font_sizes/font_size = 10
+text = "Zone 04 Sports Ground: open movement recovery and ember line"
+
+[node name="CourtLineNear" type="ColorRect" parent="Setpieces/Zone_04_SportsGround" unique_id=782130061]
+offset_left = 5200.0
+offset_top = 232.0
+offset_right = 6260.0
+offset_bottom = 236.0
+color = Color(0.72, 0.72, 0.58, 1)
+
+[node name="GoalFrameFar" type="ColorRect" parent="Setpieces/Zone_04_SportsGround" unique_id=415273502]
+offset_left = 5740.0
+offset_top = 142.0
+offset_right = 6060.0
+offset_bottom = 176.0
+color = Color(0.14, 0.14, 0.13, 1)
+
+[node name="EmberLineReadCenter" type="ColorRect" parent="Setpieces/Zone_04_SportsGround" unique_id=1588301589]
+offset_left = 6080.0
+offset_top = 188.0
+offset_right = 6400.0
+offset_bottom = 206.0
+color = Color(0.86, 0.34, 0.12, 0.32)
+
+[node name="Zone_05_PumpShed" type="Node2D" parent="Setpieces" unique_id=1160665072]
+
+[node name="SeamlessSceneLayers" type="Node2D" parent="Setpieces/Zone_05_PumpShed"]
+z_index = -2
+
+
+[node name="FarBackdropBand" type="ColorRect" parent="Setpieces/Zone_05_PumpShed/SeamlessSceneLayers"]
+offset_left = 6764
+offset_top = 24
+offset_right = 7996
+offset_bottom = 84
+color = Color(0.05, 0.08, 0.05, 0.38)
+
+[node name="FarSilhouetteA" type="ColorRect" parent="Setpieces/Zone_05_PumpShed/SeamlessSceneLayers"]
+offset_left = 6878
+offset_top = 48
+offset_right = 6970
+offset_bottom = 128
+color = Color(0.05, 0.08, 0.05, 0.38)
+
+[node name="FarSilhouetteB" type="ColorRect" parent="Setpieces/Zone_05_PumpShed/SeamlessSceneLayers"]
+offset_left = 7433
+offset_top = 58
+offset_right = 7573
+offset_bottom = 132
+color = Color(0.05, 0.08, 0.05, 0.38)
+
+[node name="NearSceneBand" type="ColorRect" parent="Setpieces/Zone_05_PumpShed/SeamlessSceneLayers"]
+offset_left = 6764
+offset_top = 86
+offset_right = 7996
+offset_bottom = 151
+color = Color(0.14, 0.17, 0.12, 0.42)
+
+[node name="NearLandmarkA" type="ColorRect" parent="Setpieces/Zone_05_PumpShed/SeamlessSceneLayers"]
+offset_left = 6914
+offset_top = 104
+offset_right = 7066
+offset_bottom = 148
+color = Color(0.14, 0.17, 0.12, 0.42)
+
+[node name="NearLandmarkB" type="ColorRect" parent="Setpieces/Zone_05_PumpShed/SeamlessSceneLayers"]
+offset_left = 7527
+offset_top = 98
+offset_right = 7731
+offset_bottom = 148
+color = Color(0.14, 0.17, 0.12, 0.42)
+
+[node name="FloorFarDepthWash" type="ColorRect" parent="Setpieces/Zone_05_PumpShed/SeamlessSceneLayers"]
+offset_left = 6764
+offset_top = 154
+offset_right = 7996
+offset_bottom = 181
+color = Color(0.18, 0.20, 0.14, 0.24)
+
+[node name="FloorCenterDepthWash" type="ColorRect" parent="Setpieces/Zone_05_PumpShed/SeamlessSceneLayers"]
+offset_left = 6764
+offset_top = 181
+offset_right = 7996
+offset_bottom = 214
+color = Color(0.18, 0.20, 0.14, 0.24)
+
+[node name="FloorNearDepthWash" type="ColorRect" parent="Setpieces/Zone_05_PumpShed/SeamlessSceneLayers"]
+offset_left = 6764
+offset_top = 214
+offset_right = 7996
+offset_bottom = 258
+color = Color(0.18, 0.20, 0.14, 0.24)
+
+[node name="DepthSeamA" type="ColorRect" parent="Setpieces/Zone_05_PumpShed/SeamlessSceneLayers"]
+offset_left = 6764
+offset_top = 180
+offset_right = 7996
+offset_bottom = 182
+color = Color(0.42, 0.31, 0.20, 0.20)
+
+[node name="DepthSeamB" type="ColorRect" parent="Setpieces/Zone_05_PumpShed/SeamlessSceneLayers"]
+offset_left = 6764
+offset_top = 213
+offset_right = 7996
+offset_bottom = 215
+color = Color(0.42, 0.31, 0.20, 0.20)
+
+[node name="SceneAccentA" type="ColorRect" parent="Setpieces/Zone_05_PumpShed/SeamlessSceneLayers"]
+offset_left = 6890
+offset_top = 150
+offset_right = 6994
+offset_bottom = 154
+color = Color(0.68, 0.26, 0.14, 0.30)
+
+[node name="SceneAccentB" type="ColorRect" parent="Setpieces/Zone_05_PumpShed/SeamlessSceneLayers"]
+offset_left = 7461
+offset_top = 216
+offset_right = 7581
+offset_bottom = 220
+color = Color(0.68, 0.26, 0.14, 0.30)
+
+[node name="PumpShedSign" type="Label" parent="Setpieces/Zone_05_PumpShed" unique_id=1154896096]
+offset_left = 6860.0
+offset_top = 62.0
+offset_right = 7460.0
+offset_bottom = 82.0
+theme_override_font_sizes/font_size = 10
+text = "Zone 05 Pump Shed: short recoverable water pump actions"
+
+[node name="PumpHandleFar" type="ColorRect" parent="Setpieces/Zone_05_PumpShed" unique_id=1414939861]
+offset_left = 7060.0
+offset_top = 130.0
+offset_right = 7120.0
+offset_bottom = 176.0
+color = Color(0.18, 0.28, 0.3, 1)
+
+[node name="HoseRouteCenter" type="ColorRect" parent="Setpieces/Zone_05_PumpShed" unique_id=353044223]
+offset_left = 7240.0
+offset_top = 196.0
+offset_right = 7760.0
+offset_bottom = 204.0
+color = Color(0.1, 0.18, 0.2, 1)
+
+[node name="FlareUpReadNear" type="ColorRect" parent="Setpieces/Zone_05_PumpShed" unique_id=1961261883]
+offset_left = 7620.0
+offset_top = 222.0
+offset_right = 7900.0
+offset_bottom = 246.0
+color = Color(0.9, 0.28, 0.08, 0.34)
+
+[node name="Zone_06_RoofBeamHazard" type="Node2D" parent="Setpieces" unique_id=347940536]
+
+[node name="SeamlessSceneLayers" type="Node2D" parent="Setpieces/Zone_06_RoofBeamHazard"]
+z_index = -2
+
+
+[node name="FarBackdropBand" type="ColorRect" parent="Setpieces/Zone_06_RoofBeamHazard/SeamlessSceneLayers"]
+offset_left = 8344
+offset_top = 24
+offset_right = 9916
+offset_bottom = 84
+color = Color(0.05, 0.08, 0.05, 0.38)
+
+[node name="FarSilhouetteA" type="ColorRect" parent="Setpieces/Zone_06_RoofBeamHazard/SeamlessSceneLayers"]
+offset_left = 8557
+offset_top = 48
+offset_right = 8649
+offset_bottom = 128
+color = Color(0.05, 0.08, 0.05, 0.38)
+
+[node name="FarSilhouetteB" type="ColorRect" parent="Setpieces/Zone_06_RoofBeamHazard/SeamlessSceneLayers"]
+offset_left = 9216
+offset_top = 58
+offset_right = 9356
+offset_bottom = 132
+color = Color(0.05, 0.08, 0.05, 0.38)
+
+[node name="NearSceneBand" type="ColorRect" parent="Setpieces/Zone_06_RoofBeamHazard/SeamlessSceneLayers"]
+offset_left = 8344
+offset_top = 86
+offset_right = 9916
+offset_bottom = 151
+color = Color(0.14, 0.17, 0.12, 0.42)
+
+[node name="NearLandmarkA" type="ColorRect" parent="Setpieces/Zone_06_RoofBeamHazard/SeamlessSceneLayers"]
+offset_left = 8593
+offset_top = 104
+offset_right = 8745
+offset_bottom = 148
+color = Color(0.14, 0.17, 0.12, 0.42)
+
+[node name="NearLandmarkB" type="ColorRect" parent="Setpieces/Zone_06_RoofBeamHazard/SeamlessSceneLayers"]
+offset_left = 9363
+offset_top = 98
+offset_right = 9567
+offset_bottom = 148
+color = Color(0.14, 0.17, 0.12, 0.42)
+
+[node name="FloorFarDepthWash" type="ColorRect" parent="Setpieces/Zone_06_RoofBeamHazard/SeamlessSceneLayers"]
+offset_left = 8344
+offset_top = 154
+offset_right = 9916
+offset_bottom = 181
+color = Color(0.18, 0.20, 0.14, 0.24)
+
+[node name="FloorCenterDepthWash" type="ColorRect" parent="Setpieces/Zone_06_RoofBeamHazard/SeamlessSceneLayers"]
+offset_left = 8344
+offset_top = 181
+offset_right = 9916
+offset_bottom = 214
+color = Color(0.18, 0.20, 0.14, 0.24)
+
+[node name="FloorNearDepthWash" type="ColorRect" parent="Setpieces/Zone_06_RoofBeamHazard/SeamlessSceneLayers"]
+offset_left = 8344
+offset_top = 214
+offset_right = 9916
+offset_bottom = 258
+color = Color(0.18, 0.20, 0.14, 0.24)
+
+[node name="DepthSeamA" type="ColorRect" parent="Setpieces/Zone_06_RoofBeamHazard/SeamlessSceneLayers"]
+offset_left = 8344
+offset_top = 180
+offset_right = 9916
+offset_bottom = 182
+color = Color(0.42, 0.31, 0.20, 0.20)
+
+[node name="DepthSeamB" type="ColorRect" parent="Setpieces/Zone_06_RoofBeamHazard/SeamlessSceneLayers"]
+offset_left = 8344
+offset_top = 213
+offset_right = 9916
+offset_bottom = 215
+color = Color(0.42, 0.31, 0.20, 0.20)
+
+[node name="SceneAccentA" type="ColorRect" parent="Setpieces/Zone_06_RoofBeamHazard/SeamlessSceneLayers"]
+offset_left = 8569
+offset_top = 150
+offset_right = 8673
+offset_bottom = 154
+color = Color(0.68, 0.26, 0.14, 0.30)
+
+[node name="SceneAccentB" type="ColorRect" parent="Setpieces/Zone_06_RoofBeamHazard/SeamlessSceneLayers"]
+offset_left = 9244
+offset_top = 216
+offset_right = 9364
+offset_bottom = 220
+color = Color(0.68, 0.26, 0.14, 0.30)
+
+[node name="BeamHazardSign" type="Label" parent="Setpieces/Zone_06_RoofBeamHazard" unique_id=122055887]
+offset_left = 8440.0
+offset_top = 62.0
+offset_right = 9140.0
+offset_bottom = 82.0
+theme_override_font_sizes/font_size = 10
+text = "Zone 06 Roof/Beam Hazard: creak shadow before beam drop"
+
+[node name="BeamShadowCenter" type="ColorRect" parent="Setpieces/Zone_06_RoofBeamHazard" unique_id=1648261372]
+offset_left = 8680.0
+offset_top = 181.0
+offset_right = 9020.0
+offset_bottom = 214.0
+color = Color(0.08, 0.06, 0.04, 0.55)
+
+[node name="FallenBeamRouteTurn" type="ColorRect" parent="Setpieces/Zone_06_RoofBeamHazard" unique_id=669623128]
+offset_left = 9200.0
+offset_top = 188.0
+offset_right = 9500.0
+offset_bottom = 206.0
+color = Color(0.18, 0.1, 0.05, 1)
+
+[node name="FarDetourRead" type="ColorRect" parent="Setpieces/Zone_06_RoofBeamHazard" unique_id=1380755076]
+offset_left = 9460.0
+offset_top = 154.0
+offset_right = 9820.0
+offset_bottom = 181.0
+color = Color(0.34, 0.35, 0.27, 0.35)
+
+[node name="Zone_07_FirelineFinale" type="Node2D" parent="Setpieces" unique_id=785303651]
+
+[node name="SeamlessSceneLayers" type="Node2D" parent="Setpieces/Zone_07_FirelineFinale"]
+z_index = -2
+
+
+[node name="FarBackdropBand" type="ColorRect" parent="Setpieces/Zone_07_FirelineFinale/SeamlessSceneLayers"]
+offset_left = 10004
+offset_top = 24
+offset_right = 11976
+offset_bottom = 84
+color = Color(0.05, 0.08, 0.05, 0.38)
+
+[node name="FarSilhouetteA" type="ColorRect" parent="Setpieces/Zone_07_FirelineFinale/SeamlessSceneLayers"]
+offset_left = 10206
+offset_top = 48
+offset_right = 10298
+offset_bottom = 128
+color = Color(0.05, 0.08, 0.05, 0.38)
+
+[node name="FarSilhouetteB" type="ColorRect" parent="Setpieces/Zone_07_FirelineFinale/SeamlessSceneLayers"]
+offset_left = 10997
+offset_top = 58
+offset_right = 11137
+offset_bottom = 132
+color = Color(0.05, 0.08, 0.05, 0.38)
+
+[node name="NearSceneBand" type="ColorRect" parent="Setpieces/Zone_07_FirelineFinale/SeamlessSceneLayers"]
+offset_left = 10004
+offset_top = 86
+offset_right = 11976
+offset_bottom = 151
+color = Color(0.14, 0.17, 0.12, 0.42)
+
+[node name="NearLandmarkA" type="ColorRect" parent="Setpieces/Zone_07_FirelineFinale/SeamlessSceneLayers"]
+offset_left = 10242
+offset_top = 104
+offset_right = 10394
+offset_bottom = 148
+color = Color(0.14, 0.17, 0.12, 0.42)
+
+[node name="NearLandmarkB" type="ColorRect" parent="Setpieces/Zone_07_FirelineFinale/SeamlessSceneLayers"]
+offset_left = 11346
+offset_top = 98
+offset_right = 11550
+offset_bottom = 148
+color = Color(0.14, 0.17, 0.12, 0.42)
+
+[node name="FloorFarDepthWash" type="ColorRect" parent="Setpieces/Zone_07_FirelineFinale/SeamlessSceneLayers"]
+offset_left = 10004
+offset_top = 154
+offset_right = 11976
+offset_bottom = 181
+color = Color(0.18, 0.20, 0.14, 0.24)
+
+[node name="FloorCenterDepthWash" type="ColorRect" parent="Setpieces/Zone_07_FirelineFinale/SeamlessSceneLayers"]
+offset_left = 10004
+offset_top = 181
+offset_right = 11976
+offset_bottom = 214
+color = Color(0.18, 0.20, 0.14, 0.24)
+
+[node name="FloorNearDepthWash" type="ColorRect" parent="Setpieces/Zone_07_FirelineFinale/SeamlessSceneLayers"]
+offset_left = 10004
+offset_top = 214
+offset_right = 11976
+offset_bottom = 258
+color = Color(0.18, 0.20, 0.14, 0.24)
+
+[node name="DepthSeamA" type="ColorRect" parent="Setpieces/Zone_07_FirelineFinale/SeamlessSceneLayers"]
+offset_left = 10004
+offset_top = 180
+offset_right = 11976
+offset_bottom = 182
+color = Color(0.42, 0.31, 0.20, 0.20)
+
+[node name="DepthSeamB" type="ColorRect" parent="Setpieces/Zone_07_FirelineFinale/SeamlessSceneLayers"]
+offset_left = 10004
+offset_top = 213
+offset_right = 11976
+offset_bottom = 215
+color = Color(0.42, 0.31, 0.20, 0.20)
+
+[node name="SceneAccentA" type="ColorRect" parent="Setpieces/Zone_07_FirelineFinale/SeamlessSceneLayers"]
+offset_left = 10218
+offset_top = 150
+offset_right = 10322
+offset_bottom = 154
+color = Color(0.68, 0.26, 0.14, 0.30)
+
+[node name="SceneAccentB" type="ColorRect" parent="Setpieces/Zone_07_FirelineFinale/SeamlessSceneLayers"]
+offset_left = 11025
+offset_top = 216
+offset_right = 11145
+offset_bottom = 220
+color = Color(0.68, 0.26, 0.14, 0.30)
+
+[node name="FirelineFinaleSign" type="Label" parent="Setpieces/Zone_07_FirelineFinale" unique_id=2054090213]
+offset_left = 10100.0
+offset_top = 62.0
+offset_right = 10880.0
+offset_bottom = 82.0
+theme_override_font_sizes/font_size = 10
+text = "Zone 07 Fireline Finale: Forester placeholder, fireline and pump window"
+
+[node name="FirelineFar" type="ColorRect" parent="Setpieces/Zone_07_FirelineFinale" unique_id=639915196]
+offset_left = 10260.0
+offset_top = 154.0
+offset_right = 10960.0
+offset_bottom = 181.0
+color = Color(0.92, 0.26, 0.08, 0.35)
+
+[node name="FinalPumpCenter" type="ColorRect" parent="Setpieces/Zone_07_FirelineFinale" unique_id=323301768]
+offset_left = 10620.0
+offset_top = 176.0
+offset_right = 10720.0
+offset_bottom = 214.0
+color = Color(0.16, 0.28, 0.3, 1)
+
+[node name="WetAshSafeNear" type="ColorRect" parent="Setpieces/Zone_07_FirelineFinale" unique_id=1861693017]
+offset_left = 10880.0
+offset_top = 222.0
+offset_right = 11280.0
+offset_bottom = 246.0
+color = Color(0.42, 0.42, 0.38, 0.38)
+
+[node name="ReturnRead" type="Label" parent="Setpieces/Zone_07_FirelineFinale" unique_id=2018816936]
+offset_left = 11320.0
+offset_top = 262.0
+offset_right = 11880.0
+offset_bottom = 284.0
+theme_override_font_sizes/font_size = 10
+text = "Return to city exit is generated by World/main.gd"
+
+[node name="RouteLabels" type="Node2D" parent="." unique_id=1648444032]
+
+[node name="LaneHint" type="Label" parent="RouteLabels" unique_id=2103926912]
+offset_left = 58.0
+offset_top = 262.0
+offset_right = 660.0
+offset_bottom = 284.0
+theme_override_font_sizes/font_size = 10
+text = "One continuous forest camp route: smoke softens background but never hides active lanes"
+
+[node name="EnemyRoleHint" type="Label" parent="RouteLabels" unique_id=1840080294]
+offset_left = 3500.0
+offset_top = 262.0
+offset_right = 4300.0
+offset_bottom = 284.0
+theme_override_font_sizes/font_size = 10
+text = "Placeholders: Ash = flanker, Ember = poker, Plank = bruiser, Forester = static"
+
+[node name="Enemies" type="Node2D" parent="." unique_id=1863019231]
+
+[node name="RoadEdge_AshRunner" parent="Enemies" unique_id=783088300 instance=ExtResource("4_runner")]
+position = Vector2(860, 194)
+flank_back_offset_px = 42.0
+flank_run_speed = 98.0
+
+[node name="Cabins_EmberCarrier" parent="Enemies" unique_id=1955539326 instance=ExtResource("5_ember")]
+position = Vector2(2180, 194)
+poker_walk_speed = 58.0
+poker_run_speed = 96.0
+poker_back_offset_px = 56.0
+poker_stop_distance_px = 40.0
+poker_attack_range_px = 44.0
+poker_attack_range_y_px = 24.0
+poker_attack_damage = 3
+poker_attack_cooldown_sec = 1.18
+poker_support_hold_distance_px = 96.0
+poker_post_attack_reposition_sec = 1.0
+
+[node name="Cabins_AshRunner" parent="Enemies" unique_id=1358166678 instance=ExtResource("4_runner")]
+position = Vector2(2600, 214)
+flank_back_offset_px = 42.0
+flank_run_speed = 98.0
+
+[node name="DiningHall_WetPlankBrute" parent="Enemies" unique_id=607772918 instance=ExtResource("6_brute")]
+position = Vector2(3760, 199)
+bruiser_walk_speed = 42.0
+bruiser_attack_range_px = 38.0
+bruiser_attack_range_y_px = 26.0
+bruiser_attack_damage = 7
+bruiser_attack_cooldown_sec = 1.35
+bruiser_hit_delay_sec = 0.26
+bruiser_hp_max = 16
+bruiser_hurt_stun_sec = 0.62
+bruiser_knockback = Vector2(150, -120)
+bruiser_support_hold_distance_px = 82.0
+
+[node name="DiningHall_EmberCarrier" parent="Enemies" unique_id=240190557 instance=ExtResource("5_ember")]
+position = Vector2(4320, 214)
+poker_walk_speed = 58.0
+poker_run_speed = 96.0
+poker_back_offset_px = 56.0
+poker_stop_distance_px = 40.0
+poker_attack_range_px = 44.0
+poker_attack_range_y_px = 24.0
+poker_attack_damage = 3
+poker_attack_cooldown_sec = 1.18
+poker_support_hold_distance_px = 96.0
+poker_post_attack_reposition_sec = 1.0
+
+[node name="SportsGround_AshRunnerA" parent="Enemies" unique_id=831655839 instance=ExtResource("4_runner")]
+position = Vector2(5540, 214)
+flank_back_offset_px = 42.0
+flank_run_speed = 98.0
+
+[node name="SportsGround_AshRunnerB" parent="Enemies" unique_id=1955681438 instance=ExtResource("4_runner")]
+position = Vector2(6200, 194)
+flank_back_offset_px = 42.0
+flank_run_speed = 98.0
+
+[node name="PumpShed_WetPlankBrute" parent="Enemies" unique_id=2107016541 instance=ExtResource("6_brute")]
+position = Vector2(7160, 199)
+bruiser_walk_speed = 42.0
+bruiser_attack_range_px = 38.0
+bruiser_attack_range_y_px = 26.0
+bruiser_attack_damage = 7
+bruiser_attack_cooldown_sec = 1.35
+bruiser_hit_delay_sec = 0.26
+bruiser_hp_max = 16
+bruiser_hurt_stun_sec = 0.62
+bruiser_knockback = Vector2(150, -120)
+bruiser_support_hold_distance_px = 82.0
+
+[node name="PumpShed_EmberCarrier" parent="Enemies" unique_id=870884789 instance=ExtResource("5_ember")]
+position = Vector2(7740, 214)
+poker_walk_speed = 58.0
+poker_run_speed = 96.0
+poker_back_offset_px = 56.0
+poker_stop_distance_px = 40.0
+poker_attack_range_px = 44.0
+poker_attack_range_y_px = 24.0
+poker_attack_damage = 3
+poker_attack_cooldown_sec = 1.18
+poker_support_hold_distance_px = 96.0
+poker_post_attack_reposition_sec = 1.0
+
+[node name="BeamHazard_AshRunner" parent="Enemies" unique_id=388446335 instance=ExtResource("4_runner")]
+position = Vector2(8860, 194)
+flank_back_offset_px = 42.0
+flank_run_speed = 98.0
+
+[node name="BeamHazard_WetPlankBrute" parent="Enemies" unique_id=1921331155 instance=ExtResource("6_brute")]
+position = Vector2(9440, 214)
+bruiser_walk_speed = 42.0
+bruiser_attack_range_px = 38.0
+bruiser_attack_range_y_px = 26.0
+bruiser_attack_damage = 7
+bruiser_attack_cooldown_sec = 1.35
+bruiser_hit_delay_sec = 0.26
+bruiser_hp_max = 16
+bruiser_hurt_stun_sec = 0.62
+bruiser_knockback = Vector2(150, -120)
+bruiser_support_hold_distance_px = 82.0
+
+[node name="Fireline_ForesterPlaceholder" parent="Enemies" unique_id=1904211450 instance=ExtResource("7_forester")]
+position = Vector2(10680, 199)
+
+[node name="Fireline_EmberSupport" parent="Enemies" unique_id=1506136473 instance=ExtResource("5_ember")]
+position = Vector2(11100, 166)
+poker_walk_speed = 58.0
+poker_run_speed = 96.0
+poker_back_offset_px = 56.0
+poker_stop_distance_px = 40.0
+poker_attack_range_px = 44.0
+poker_attack_range_y_px = 24.0
+poker_attack_damage = 3
+poker_attack_cooldown_sec = 1.18
+poker_support_hold_distance_px = 96.0
+poker_post_attack_reposition_sec = 1.0
+
+[node name="Player" parent="." unique_id=537109359 instance=ExtResource("2_player")]
+position = Vector2(150, 205)
+collision_mask = 5
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=1970601979 groups=["Player"]]
+position = Vector2(1, -48)
+zoom = Vector2(3.6, 3.6)
+limit_left = 0
+limit_top = 0
+limit_right = 11760
+limit_bottom = 292
+limit_smoothed = true
+position_smoothing_enabled = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1607642925]
+layer = 50
+
+[node name="SkillSelectMenu" parent="CanvasLayer" unique_id=813269490 groups=["skill_menu"] instance=ExtResource("3_skills")]
+visible = false
+offset_left = 60.0
+offset_top = 107.0
+offset_right = -93.0
+offset_bottom = -98.0
+
+[node name="Main" type="Node" parent="." unique_id=1722575639]
+script = ExtResource("1_main")
+player_path = NodePath("../Player")
+
+[node name="UI" type="CanvasLayer" parent="Main" unique_id=1728667471]
+
+[node name="FullBottleLabel" type="Label" parent="Main/UI" unique_id=608347843]
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 78.0
+offset_bottom = 28.0
+theme_override_font_sizes/font_size = 12
+text = "Full Bottles: 0"
+
+[node name="EmptyBottleLabel" type="Label" parent="Main/UI" unique_id=1576264231]
+offset_left = 5.0
+offset_top = 19.0
+offset_right = 99.0
+offset_bottom = 42.0
+theme_override_font_sizes/font_size = 12
+text = "Empty Bottles: 0"
+
+[node name="CigPackLabel" type="Label" parent="Main/UI" unique_id=1498718298]
+offset_left = 5.0
+offset_top = 32.0
+offset_right = 78.0
+offset_bottom = 55.0
+theme_override_font_sizes/font_size = 12
+text = "Cigarettes: 0"
+
+[node name="InebriationLabel" type="Label" parent="Main/UI" unique_id=1768021708]
+offset_left = 5.0
+offset_top = 46.0
+offset_right = 78.0
+offset_bottom = 69.0
+theme_override_font_sizes/font_size = 12
+text = "Inebriation: 0"
+
+[node name="NicotineLabel" type="Label" parent="Main/UI" unique_id=1795808441]
+offset_left = 5.0
+offset_top = 60.0
+offset_right = 83.0
+offset_bottom = 83.0
+theme_override_font_sizes/font_size = 12
+text = "Nicotine: 0"
+
+
+

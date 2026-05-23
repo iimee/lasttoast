@@ -1,0 +1,1125 @@
+[gd_scene load_steps=13 format=3 uid="uid://4piaqkh05cf1"]
+
+[ext_resource type="Script" uid="uid://cpgrvwy3odr3y" path="res://World/main.gd" id="1_main"]
+[ext_resource type="Texture2D" uid="uid://cxctpsxxv1u5a" path="res://assets/incoming/bridge/bridge_first_pass_bg_candidate_01.png" id="1_qty3v"]
+[ext_resource type="PackedScene" uid="uid://bapvy71043313" path="res://Player/player.tscn" id="2_player"]
+[ext_resource type="PackedScene" uid="uid://c62ijxjydlv8m" path="res://UI/SkillSelectMenu.tscn" id="3_skills"]
+[ext_resource type="PackedScene" path="res://Enemies/hobo1/hobo1_poker.tscn" id="4_hook"]
+[ext_resource type="PackedScene" path="res://Enemies/hobo1/hobo1_bruiser.tscn" id="5_guard"]
+[ext_resource type="PackedScene" path="res://Enemies/hobo1/hobo1_rusher.tscn" id="6_sprinter"]
+[ext_resource type="PackedScene" uid="uid://c7v3q2ede0yrd" path="res://Enemies/hobo1/hobo1_static.tscn" id="7_engineer"]
+[ext_resource type="Texture2D" uid="uid://8sgtn88drtta" path="res://assets/incoming/bridge/layers/bridge_far_parallax_strip_01.png" id="8_far"]
+[ext_resource type="Texture2D" uid="uid://bv72ow4eb6lyi" path="res://assets/incoming/bridge/layers/bridge_mid_background_strip_01.png" id="9_mid"]
+[ext_resource type="Texture2D" uid="uid://ckm5plhjer5p2" path="res://assets/incoming/bridge/layers/bridge_road_playfield_strip_01.png" id="10_road"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
+size = Vector2(10560, 104)
+
+[node name="BridgeLevel3" type="Node2D" unique_id=1949963651]
+
+[node name="Background" type="Node2D" parent="." unique_id=1901442537]
+
+[node name="BridgeFirstPassBgCandidate01" type="Sprite2D" parent="Background" unique_id=2047223824]
+position = Vector2(114.000015, 198.00002)
+scale = Vector2(0.2630181, 0.26301807)
+texture = ExtResource("1_qty3v")
+offset = Vector2(404, -334)
+
+[node name="GeneratedBackgrounds" type="Node2D" parent="Background" unique_id=359063959]
+visible = false
+
+[node name="FarParallaxLayer" type="Node2D" parent="Background/GeneratedBackgrounds" unique_id=2129004912]
+
+[node name="FarParallaxStrip" type="Sprite2D" parent="Background/GeneratedBackgrounds/FarParallaxLayer" unique_id=738916959]
+modulate = Color(1, 1, 1, 0.44)
+position = Vector2(-80, 14)
+scale = Vector2(0.18, 0.18)
+texture = ExtResource("8_far")
+centered = false
+
+[node name="MidBackgroundLayer" type="Node2D" parent="Background/GeneratedBackgrounds" unique_id=1007684775]
+
+[node name="MidBackgroundStrip" type="Sprite2D" parent="Background/GeneratedBackgrounds/MidBackgroundLayer" unique_id=2109931038]
+modulate = Color(1, 1, 1, 0.54)
+position = Vector2(-80, 70)
+scale = Vector2(0.18, 0.22)
+texture = ExtResource("9_mid")
+centered = false
+
+[node name="RoadPlayfieldLayer" type="Node2D" parent="Background/GeneratedBackgrounds" unique_id=537590950]
+
+[node name="RoadPlayfieldStrip" type="Sprite2D" parent="Background/GeneratedBackgrounds/RoadPlayfieldLayer" unique_id=619170305]
+modulate = Color(1, 1, 1, 0.34)
+position = Vector2(-80, 154)
+scale = Vector2(0.18, 0.28)
+texture = ExtResource("10_road")
+centered = false
+
+[node name="RiverDarkness" type="ColorRect" parent="Background" unique_id=2110179430]
+visible = false
+offset_left = -80.0
+offset_top = 28.0
+offset_right = 10640.0
+offset_bottom = 152.0
+color = Color(0.04, 0.06, 0.08, 0.22)
+
+[node name="DistantCityLights" type="ColorRect" parent="Background" unique_id=374588542]
+visible = false
+offset_left = 640.0
+offset_top = 68.0
+offset_right = 10320.0
+offset_bottom = 74.0
+color = Color(0.5, 0.42, 0.22, 0.65)
+
+[node name="ChainFence" type="ColorRect" parent="Background" unique_id=811210674]
+visible = false
+offset_left = -80.0
+offset_top = 104.0
+offset_right = 10640.0
+offset_bottom = 134.0
+color = Color(0.15, 0.16, 0.17, 0.34)
+
+[node name="BrokenSpanHint" type="ColorRect" parent="Background" unique_id=1617594084]
+visible = false
+offset_left = 8600.0
+offset_top = 112.0
+offset_right = 9480.0
+offset_bottom = 146.0
+color = Color(0.02, 0.025, 0.03, 1)
+
+[node name="LampA" type="ColorRect" parent="Background" unique_id=1154772945]
+visible = false
+offset_left = 1120.0
+offset_top = 64.0
+offset_right = 1150.0
+offset_bottom = 150.0
+color = Color(0.45, 0.38, 0.18, 1)
+
+[node name="LampB" type="ColorRect" parent="Background" unique_id=653730508]
+visible = false
+offset_left = 4860.0
+offset_top = 64.0
+offset_right = 4890.0
+offset_bottom = 150.0
+color = Color(0.45, 0.38, 0.18, 1)
+
+[node name="LampC" type="ColorRect" parent="Background" unique_id=1805949776]
+visible = false
+offset_left = 8240.0
+offset_top = 64.0
+offset_right = 8270.0
+offset_bottom = 150.0
+color = Color(0.45, 0.38, 0.18, 1)
+
+[node name="DepthBands" type="Node2D" parent="." unique_id=2140770786]
+visible = false
+
+[node name="FarLane" type="ColorRect" parent="DepthBands" unique_id=1399580009]
+offset_left = -80.0
+offset_top = 154.0
+offset_right = 10640.0
+offset_bottom = 181.0
+color = Color(0.17, 0.19, 0.2, 1)
+
+[node name="CenterLane" type="ColorRect" parent="DepthBands" unique_id=1664800687]
+offset_left = -80.0
+offset_top = 181.0
+offset_right = 10640.0
+offset_bottom = 214.0
+color = Color(0.22, 0.23, 0.23, 1)
+
+[node name="NearLane" type="ColorRect" parent="DepthBands" unique_id=1160009963]
+offset_left = -80.0
+offset_top = 214.0
+offset_right = 10640.0
+offset_bottom = 258.0
+color = Color(0.29, 0.28, 0.27, 1)
+
+[node name="WetCenterLine" type="ColorRect" parent="DepthBands" unique_id=4608380]
+offset_left = -80.0
+offset_top = 196.0
+offset_right = 10640.0
+offset_bottom = 200.0
+color = Color(0.52, 0.54, 0.5, 0.55)
+
+[node name="FloorCollision" type="StaticBody2D" parent="." unique_id=591807664]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorCollision" unique_id=732921725]
+visible = false
+position = Vector2(5200, 207)
+shape = SubResource("RectangleShape2D_floor")
+
+[node name="Setpieces" type="Node2D" parent="." unique_id=68727122]
+
+[node name="Zone_01_ApproachRoad" type="Node2D" parent="Setpieces" unique_id=853859089]
+
+[node name="SeamlessSceneLayers" type="Node2D" parent="Setpieces/Zone_01_ApproachRoad"]
+z_index = -2
+
+
+[node name="FarBackdropBand" type="ColorRect" parent="Setpieces/Zone_01_ApproachRoad/SeamlessSceneLayers"]
+offset_left = 24
+offset_top = 24
+offset_right = 1216
+offset_bottom = 84
+color = Color(0.05, 0.08, 0.11, 0.36)
+
+[node name="FarSilhouetteA" type="ColorRect" parent="Setpieces/Zone_01_ApproachRoad/SeamlessSceneLayers"]
+offset_left = 227
+offset_top = 48
+offset_right = 319
+offset_bottom = 128
+color = Color(0.05, 0.08, 0.11, 0.36)
+
+[node name="FarSilhouetteB" type="ColorRect" parent="Setpieces/Zone_01_ApproachRoad/SeamlessSceneLayers"]
+offset_left = 643
+offset_top = 58
+offset_right = 783
+offset_bottom = 132
+color = Color(0.05, 0.08, 0.11, 0.36)
+
+[node name="NearSceneBand" type="ColorRect" parent="Setpieces/Zone_01_ApproachRoad/SeamlessSceneLayers"]
+offset_left = 24
+offset_top = 86
+offset_right = 1216
+offset_bottom = 151
+color = Color(0.19, 0.20, 0.19, 0.42)
+
+[node name="NearLandmarkA" type="ColorRect" parent="Setpieces/Zone_01_ApproachRoad/SeamlessSceneLayers"]
+offset_left = 263
+offset_top = 104
+offset_right = 415
+offset_bottom = 148
+color = Color(0.19, 0.20, 0.19, 0.42)
+
+[node name="NearLandmarkB" type="ColorRect" parent="Setpieces/Zone_01_ApproachRoad/SeamlessSceneLayers"]
+offset_left = 757
+offset_top = 98
+offset_right = 961
+offset_bottom = 148
+color = Color(0.19, 0.20, 0.19, 0.42)
+
+[node name="FloorFarDepthWash" type="ColorRect" parent="Setpieces/Zone_01_ApproachRoad/SeamlessSceneLayers"]
+offset_left = 24
+offset_top = 154
+offset_right = 1216
+offset_bottom = 181
+color = Color(0.18, 0.19, 0.20, 0.24)
+
+[node name="FloorCenterDepthWash" type="ColorRect" parent="Setpieces/Zone_01_ApproachRoad/SeamlessSceneLayers"]
+offset_left = 24
+offset_top = 181
+offset_right = 1216
+offset_bottom = 214
+color = Color(0.18, 0.19, 0.20, 0.24)
+
+[node name="FloorNearDepthWash" type="ColorRect" parent="Setpieces/Zone_01_ApproachRoad/SeamlessSceneLayers"]
+offset_left = 24
+offset_top = 214
+offset_right = 1216
+offset_bottom = 258
+color = Color(0.18, 0.19, 0.20, 0.24)
+
+[node name="DepthSeamA" type="ColorRect" parent="Setpieces/Zone_01_ApproachRoad/SeamlessSceneLayers"]
+offset_left = 24
+offset_top = 180
+offset_right = 1216
+offset_bottom = 182
+color = Color(0.44, 0.38, 0.24, 0.20)
+
+[node name="DepthSeamB" type="ColorRect" parent="Setpieces/Zone_01_ApproachRoad/SeamlessSceneLayers"]
+offset_left = 24
+offset_top = 213
+offset_right = 1216
+offset_bottom = 215
+color = Color(0.44, 0.38, 0.24, 0.20)
+
+[node name="SceneAccentA" type="ColorRect" parent="Setpieces/Zone_01_ApproachRoad/SeamlessSceneLayers"]
+offset_left = 239
+offset_top = 150
+offset_right = 343
+offset_bottom = 154
+color = Color(0.68, 0.55, 0.24, 0.34)
+
+[node name="SceneAccentB" type="ColorRect" parent="Setpieces/Zone_01_ApproachRoad/SeamlessSceneLayers"]
+offset_left = 671
+offset_top = 216
+offset_right = 791
+offset_bottom = 220
+color = Color(0.68, 0.55, 0.24, 0.34)
+
+[node name="ApproachSign" type="Label" parent="Setpieces/Zone_01_ApproachRoad" unique_id=1582926429]
+visible = false
+offset_left = 120.0
+offset_top = 62.0
+offset_right = 620.0
+offset_bottom = 82.0
+theme_override_font_sizes/font_size = 10
+text = "Zone 01 Approach Road: wind read, no damage spike"
+
+[node name="LooseSignWindRead" type="ColorRect" parent="Setpieces/Zone_01_ApproachRoad" unique_id=762788529]
+offset_left = 540.0
+offset_top = 181.0
+offset_right = 760.0
+offset_bottom = 214.0
+color = Color(0.54, 0.57, 0.62, 0.28)
+
+[node name="ParkedDebrisFar" type="ColorRect" parent="Setpieces/Zone_01_ApproachRoad" unique_id=1421923281]
+offset_left = 900.0
+offset_top = 154.0
+offset_right = 1120.0
+offset_bottom = 178.0
+color = Color(0.16, 0.13, 0.11, 1)
+
+[node name="Zone_02_FirstRailing" type="Node2D" parent="Setpieces" unique_id=1287150823]
+
+[node name="SeamlessSceneLayers" type="Node2D" parent="Setpieces/Zone_02_FirstRailing"]
+z_index = -2
+
+
+[node name="FarBackdropBand" type="ColorRect" parent="Setpieces/Zone_02_FirstRailing/SeamlessSceneLayers"]
+offset_left = 1584
+offset_top = 24
+offset_right = 2596
+offset_bottom = 84
+color = Color(0.05, 0.08, 0.11, 0.36)
+
+[node name="FarSilhouetteA" type="ColorRect" parent="Setpieces/Zone_02_FirstRailing/SeamlessSceneLayers"]
+offset_left = 1720
+offset_top = 48
+offset_right = 1812
+offset_bottom = 128
+color = Color(0.05, 0.08, 0.11, 0.36)
+
+[node name="FarSilhouetteB" type="ColorRect" parent="Setpieces/Zone_02_FirstRailing/SeamlessSceneLayers"]
+offset_left = 2110
+offset_top = 58
+offset_right = 2250
+offset_bottom = 132
+color = Color(0.05, 0.08, 0.11, 0.36)
+
+[node name="NearSceneBand" type="ColorRect" parent="Setpieces/Zone_02_FirstRailing/SeamlessSceneLayers"]
+offset_left = 1584
+offset_top = 86
+offset_right = 2596
+offset_bottom = 151
+color = Color(0.19, 0.20, 0.19, 0.42)
+
+[node name="NearLandmarkA" type="ColorRect" parent="Setpieces/Zone_02_FirstRailing/SeamlessSceneLayers"]
+offset_left = 1756
+offset_top = 104
+offset_right = 1908
+offset_bottom = 148
+color = Color(0.19, 0.20, 0.19, 0.42)
+
+[node name="NearLandmarkB" type="ColorRect" parent="Setpieces/Zone_02_FirstRailing/SeamlessSceneLayers"]
+offset_left = 2153
+offset_top = 98
+offset_right = 2357
+offset_bottom = 148
+color = Color(0.19, 0.20, 0.19, 0.42)
+
+[node name="FloorFarDepthWash" type="ColorRect" parent="Setpieces/Zone_02_FirstRailing/SeamlessSceneLayers"]
+offset_left = 1584
+offset_top = 154
+offset_right = 2596
+offset_bottom = 181
+color = Color(0.18, 0.19, 0.20, 0.24)
+
+[node name="FloorCenterDepthWash" type="ColorRect" parent="Setpieces/Zone_02_FirstRailing/SeamlessSceneLayers"]
+offset_left = 1584
+offset_top = 181
+offset_right = 2596
+offset_bottom = 214
+color = Color(0.18, 0.19, 0.20, 0.24)
+
+[node name="FloorNearDepthWash" type="ColorRect" parent="Setpieces/Zone_02_FirstRailing/SeamlessSceneLayers"]
+offset_left = 1584
+offset_top = 214
+offset_right = 2596
+offset_bottom = 258
+color = Color(0.18, 0.19, 0.20, 0.24)
+
+[node name="DepthSeamA" type="ColorRect" parent="Setpieces/Zone_02_FirstRailing/SeamlessSceneLayers"]
+offset_left = 1584
+offset_top = 180
+offset_right = 2596
+offset_bottom = 182
+color = Color(0.44, 0.38, 0.24, 0.20)
+
+[node name="DepthSeamB" type="ColorRect" parent="Setpieces/Zone_02_FirstRailing/SeamlessSceneLayers"]
+offset_left = 1584
+offset_top = 213
+offset_right = 2596
+offset_bottom = 215
+color = Color(0.44, 0.38, 0.24, 0.20)
+
+[node name="SceneAccentA" type="ColorRect" parent="Setpieces/Zone_02_FirstRailing/SeamlessSceneLayers"]
+offset_left = 1732
+offset_top = 150
+offset_right = 1836
+offset_bottom = 154
+color = Color(0.68, 0.55, 0.24, 0.34)
+
+[node name="SceneAccentB" type="ColorRect" parent="Setpieces/Zone_02_FirstRailing/SeamlessSceneLayers"]
+offset_left = 2138
+offset_top = 216
+offset_right = 2258
+offset_bottom = 220
+color = Color(0.68, 0.55, 0.24, 0.34)
+
+[node name="FirstRailingSign" type="Label" parent="Setpieces/Zone_02_FirstRailing" unique_id=1687371930]
+offset_left = 1680.0
+offset_top = 62.0
+offset_right = 2220.0
+offset_bottom = 82.0
+theme_override_font_sizes/font_size = 10
+text = "Zone 02 First Railing: cable hook line and snapped near lane"
+
+[node name="SnappedCableRead" type="ColorRect" parent="Setpieces/Zone_02_FirstRailing" unique_id=1626870989]
+offset_left = 1900.0
+offset_top = 218.0
+offset_right = 2180.0
+offset_bottom = 242.0
+color = Color(0.75, 0.78, 0.72, 0.35)
+
+[node name="RailingBlockNear" type="ColorRect" parent="Setpieces/Zone_02_FirstRailing" unique_id=707067410]
+offset_left = 2320.0
+offset_top = 226.0
+offset_right = 2500.0
+offset_bottom = 248.0
+color = Color(0.1, 0.1, 0.1, 1)
+
+[node name="Zone_03_TruckLane" type="Node2D" parent="Setpieces" unique_id=823351799]
+
+[node name="SeamlessSceneLayers" type="Node2D" parent="Setpieces/Zone_03_TruckLane"]
+z_index = -2
+
+
+[node name="FarBackdropBand" type="ColorRect" parent="Setpieces/Zone_03_TruckLane/SeamlessSceneLayers"]
+offset_left = 3164
+offset_top = 24
+offset_right = 4656
+offset_bottom = 84
+color = Color(0.05, 0.08, 0.11, 0.36)
+
+[node name="FarSilhouetteA" type="ColorRect" parent="Setpieces/Zone_03_TruckLane/SeamlessSceneLayers"]
+offset_left = 3417
+offset_top = 48
+offset_right = 3509
+offset_bottom = 128
+color = Color(0.05, 0.08, 0.11, 0.36)
+
+[node name="FarSilhouetteB" type="ColorRect" parent="Setpieces/Zone_03_TruckLane/SeamlessSceneLayers"]
+offset_left = 3977
+offset_top = 58
+offset_right = 4117
+offset_bottom = 132
+color = Color(0.05, 0.08, 0.11, 0.36)
+
+[node name="NearSceneBand" type="ColorRect" parent="Setpieces/Zone_03_TruckLane/SeamlessSceneLayers"]
+offset_left = 3164
+offset_top = 86
+offset_right = 4656
+offset_bottom = 151
+color = Color(0.19, 0.20, 0.19, 0.42)
+
+[node name="NearLandmarkA" type="ColorRect" parent="Setpieces/Zone_03_TruckLane/SeamlessSceneLayers"]
+offset_left = 3453
+offset_top = 104
+offset_right = 3605
+offset_bottom = 148
+color = Color(0.19, 0.20, 0.19, 0.42)
+
+[node name="NearLandmarkB" type="ColorRect" parent="Setpieces/Zone_03_TruckLane/SeamlessSceneLayers"]
+offset_left = 4081
+offset_top = 98
+offset_right = 4285
+offset_bottom = 148
+color = Color(0.19, 0.20, 0.19, 0.42)
+
+[node name="FloorFarDepthWash" type="ColorRect" parent="Setpieces/Zone_03_TruckLane/SeamlessSceneLayers"]
+offset_left = 3164
+offset_top = 154
+offset_right = 4656
+offset_bottom = 181
+color = Color(0.18, 0.19, 0.20, 0.24)
+
+[node name="FloorCenterDepthWash" type="ColorRect" parent="Setpieces/Zone_03_TruckLane/SeamlessSceneLayers"]
+offset_left = 3164
+offset_top = 181
+offset_right = 4656
+offset_bottom = 214
+color = Color(0.18, 0.19, 0.20, 0.24)
+
+[node name="FloorNearDepthWash" type="ColorRect" parent="Setpieces/Zone_03_TruckLane/SeamlessSceneLayers"]
+offset_left = 3164
+offset_top = 214
+offset_right = 4656
+offset_bottom = 258
+color = Color(0.18, 0.19, 0.20, 0.24)
+
+[node name="DepthSeamA" type="ColorRect" parent="Setpieces/Zone_03_TruckLane/SeamlessSceneLayers"]
+offset_left = 3164
+offset_top = 180
+offset_right = 4656
+offset_bottom = 182
+color = Color(0.44, 0.38, 0.24, 0.20)
+
+[node name="DepthSeamB" type="ColorRect" parent="Setpieces/Zone_03_TruckLane/SeamlessSceneLayers"]
+offset_left = 3164
+offset_top = 213
+offset_right = 4656
+offset_bottom = 215
+color = Color(0.44, 0.38, 0.24, 0.20)
+
+[node name="SceneAccentA" type="ColorRect" parent="Setpieces/Zone_03_TruckLane/SeamlessSceneLayers"]
+offset_left = 3429
+offset_top = 150
+offset_right = 3533
+offset_bottom = 154
+color = Color(0.68, 0.55, 0.24, 0.34)
+
+[node name="SceneAccentB" type="ColorRect" parent="Setpieces/Zone_03_TruckLane/SeamlessSceneLayers"]
+offset_left = 4005
+offset_top = 216
+offset_right = 4125
+offset_bottom = 220
+color = Color(0.68, 0.55, 0.24, 0.34)
+
+[node name="TruckLaneSign" type="Label" parent="Setpieces/Zone_03_TruckLane" unique_id=988948972]
+offset_left = 3260.0
+offset_top = 62.0
+offset_right = 3820.0
+offset_bottom = 82.0
+theme_override_font_sizes/font_size = 10
+text = "Zone 03 Truck Lane: headlights mark center before rush"
+
+[node name="HeadlightLaneCenter" type="ColorRect" parent="Setpieces/Zone_03_TruckLane" unique_id=310543449]
+offset_left = 3500.0
+offset_top = 181.0
+offset_right = 3900.0
+offset_bottom = 214.0
+color = Color(0.92, 0.86, 0.5, 0.32)
+
+[node name="TruckShadow" type="ColorRect" parent="Setpieces/Zone_03_TruckLane" unique_id=1120077403]
+offset_left = 4120.0
+offset_top = 164.0
+offset_right = 4560.0
+offset_bottom = 238.0
+color = Color(0.08, 0.08, 0.08, 0.85)
+
+[node name="Zone_04_ServiceShoulder" type="Node2D" parent="Setpieces" unique_id=351342469]
+
+[node name="SeamlessSceneLayers" type="Node2D" parent="Setpieces/Zone_04_ServiceShoulder"]
+z_index = -2
+
+
+[node name="FarBackdropBand" type="ColorRect" parent="Setpieces/Zone_04_ServiceShoulder/SeamlessSceneLayers"]
+offset_left = 4844
+offset_top = 24
+offset_right = 6376
+offset_bottom = 84
+color = Color(0.05, 0.08, 0.11, 0.36)
+
+[node name="FarSilhouetteA" type="ColorRect" parent="Setpieces/Zone_04_ServiceShoulder/SeamlessSceneLayers"]
+offset_left = 5034
+offset_top = 48
+offset_right = 5126
+offset_bottom = 128
+color = Color(0.05, 0.08, 0.11, 0.36)
+
+[node name="FarSilhouetteB" type="ColorRect" parent="Setpieces/Zone_04_ServiceShoulder/SeamlessSceneLayers"]
+offset_left = 5613
+offset_top = 58
+offset_right = 5753
+offset_bottom = 132
+color = Color(0.05, 0.08, 0.11, 0.36)
+
+[node name="NearSceneBand" type="ColorRect" parent="Setpieces/Zone_04_ServiceShoulder/SeamlessSceneLayers"]
+offset_left = 4844
+offset_top = 86
+offset_right = 6376
+offset_bottom = 151
+color = Color(0.19, 0.20, 0.19, 0.42)
+
+[node name="NearLandmarkA" type="ColorRect" parent="Setpieces/Zone_04_ServiceShoulder/SeamlessSceneLayers"]
+offset_left = 5070
+offset_top = 104
+offset_right = 5222
+offset_bottom = 148
+color = Color(0.19, 0.20, 0.19, 0.42)
+
+[node name="NearLandmarkB" type="ColorRect" parent="Setpieces/Zone_04_ServiceShoulder/SeamlessSceneLayers"]
+offset_left = 5855
+offset_top = 98
+offset_right = 6059
+offset_bottom = 148
+color = Color(0.19, 0.20, 0.19, 0.42)
+
+[node name="FloorFarDepthWash" type="ColorRect" parent="Setpieces/Zone_04_ServiceShoulder/SeamlessSceneLayers"]
+offset_left = 4844
+offset_top = 154
+offset_right = 6376
+offset_bottom = 181
+color = Color(0.18, 0.19, 0.20, 0.24)
+
+[node name="FloorCenterDepthWash" type="ColorRect" parent="Setpieces/Zone_04_ServiceShoulder/SeamlessSceneLayers"]
+offset_left = 4844
+offset_top = 181
+offset_right = 6376
+offset_bottom = 214
+color = Color(0.18, 0.19, 0.20, 0.24)
+
+[node name="FloorNearDepthWash" type="ColorRect" parent="Setpieces/Zone_04_ServiceShoulder/SeamlessSceneLayers"]
+offset_left = 4844
+offset_top = 214
+offset_right = 6376
+offset_bottom = 258
+color = Color(0.18, 0.19, 0.20, 0.24)
+
+[node name="DepthSeamA" type="ColorRect" parent="Setpieces/Zone_04_ServiceShoulder/SeamlessSceneLayers"]
+offset_left = 4844
+offset_top = 180
+offset_right = 6376
+offset_bottom = 182
+color = Color(0.44, 0.38, 0.24, 0.20)
+
+[node name="DepthSeamB" type="ColorRect" parent="Setpieces/Zone_04_ServiceShoulder/SeamlessSceneLayers"]
+offset_left = 4844
+offset_top = 213
+offset_right = 6376
+offset_bottom = 215
+color = Color(0.44, 0.38, 0.24, 0.20)
+
+[node name="SceneAccentA" type="ColorRect" parent="Setpieces/Zone_04_ServiceShoulder/SeamlessSceneLayers"]
+offset_left = 5046
+offset_top = 150
+offset_right = 5150
+offset_bottom = 154
+color = Color(0.68, 0.55, 0.24, 0.34)
+
+[node name="SceneAccentB" type="ColorRect" parent="Setpieces/Zone_04_ServiceShoulder/SeamlessSceneLayers"]
+offset_left = 5641
+offset_top = 216
+offset_right = 5761
+offset_bottom = 220
+color = Color(0.68, 0.55, 0.24, 0.34)
+
+[node name="ServiceShoulderSign" type="Label" parent="Setpieces/Zone_04_ServiceShoulder" unique_id=1720570527]
+offset_left = 4940.0
+offset_top = 62.0
+offset_right = 5540.0
+offset_bottom = 82.0
+theme_override_font_sizes/font_size = 10
+text = "Zone 04 Service Shoulder: far strip bypass and puddle spark reads"
+
+[node name="ServiceStripFar" type="ColorRect" parent="Setpieces/Zone_04_ServiceShoulder" unique_id=1804251492]
+offset_left = 5000.0
+offset_top = 154.0
+offset_right = 6280.0
+offset_bottom = 166.0
+color = Color(0.34, 0.35, 0.32, 1)
+
+[node name="SparkPuddleCenter" type="ColorRect" parent="Setpieces/Zone_04_ServiceShoulder" unique_id=211932049]
+offset_left = 5480.0
+offset_top = 188.0
+offset_right = 5740.0
+offset_bottom = 206.0
+color = Color(0.62, 0.74, 0.8, 0.33)
+
+[node name="RailGapNear" type="ColorRect" parent="Setpieces/Zone_04_ServiceShoulder" unique_id=1368393090]
+offset_left = 6020.0
+offset_top = 222.0
+offset_right = 6280.0
+offset_bottom = 250.0
+color = Color(0.04, 0.05, 0.06, 0.8)
+
+[node name="Zone_05_CrackedSpan" type="Node2D" parent="Setpieces" unique_id=169258435]
+
+[node name="SeamlessSceneLayers" type="Node2D" parent="Setpieces/Zone_05_CrackedSpan"]
+z_index = -2
+
+
+[node name="FarBackdropBand" type="ColorRect" parent="Setpieces/Zone_05_CrackedSpan/SeamlessSceneLayers"]
+offset_left = 6724
+offset_top = 24
+offset_right = 8196
+offset_bottom = 84
+color = Color(0.05, 0.08, 0.11, 0.36)
+
+[node name="FarSilhouetteA" type="ColorRect" parent="Setpieces/Zone_05_CrackedSpan/SeamlessSceneLayers"]
+offset_left = 6856
+offset_top = 48
+offset_right = 6948
+offset_bottom = 128
+color = Color(0.05, 0.08, 0.11, 0.36)
+
+[node name="FarSilhouetteB" type="ColorRect" parent="Setpieces/Zone_05_CrackedSpan/SeamlessSceneLayers"]
+offset_left = 7527
+offset_top = 58
+offset_right = 7667
+offset_bottom = 132
+color = Color(0.05, 0.08, 0.11, 0.36)
+
+[node name="NearSceneBand" type="ColorRect" parent="Setpieces/Zone_05_CrackedSpan/SeamlessSceneLayers"]
+offset_left = 6724
+offset_top = 86
+offset_right = 8196
+offset_bottom = 151
+color = Color(0.19, 0.20, 0.19, 0.42)
+
+[node name="NearLandmarkA" type="ColorRect" parent="Setpieces/Zone_05_CrackedSpan/SeamlessSceneLayers"]
+offset_left = 6892
+offset_top = 104
+offset_right = 7044
+offset_bottom = 148
+color = Color(0.19, 0.20, 0.19, 0.42)
+
+[node name="NearLandmarkB" type="ColorRect" parent="Setpieces/Zone_05_CrackedSpan/SeamlessSceneLayers"]
+offset_left = 7656
+offset_top = 98
+offset_right = 7860
+offset_bottom = 148
+color = Color(0.19, 0.20, 0.19, 0.42)
+
+[node name="FloorFarDepthWash" type="ColorRect" parent="Setpieces/Zone_05_CrackedSpan/SeamlessSceneLayers"]
+offset_left = 6724
+offset_top = 154
+offset_right = 8196
+offset_bottom = 181
+color = Color(0.18, 0.19, 0.20, 0.24)
+
+[node name="FloorCenterDepthWash" type="ColorRect" parent="Setpieces/Zone_05_CrackedSpan/SeamlessSceneLayers"]
+offset_left = 6724
+offset_top = 181
+offset_right = 8196
+offset_bottom = 214
+color = Color(0.18, 0.19, 0.20, 0.24)
+
+[node name="FloorNearDepthWash" type="ColorRect" parent="Setpieces/Zone_05_CrackedSpan/SeamlessSceneLayers"]
+offset_left = 6724
+offset_top = 214
+offset_right = 8196
+offset_bottom = 258
+color = Color(0.18, 0.19, 0.20, 0.24)
+
+[node name="DepthSeamA" type="ColorRect" parent="Setpieces/Zone_05_CrackedSpan/SeamlessSceneLayers"]
+offset_left = 6724
+offset_top = 180
+offset_right = 8196
+offset_bottom = 182
+color = Color(0.44, 0.38, 0.24, 0.20)
+
+[node name="DepthSeamB" type="ColorRect" parent="Setpieces/Zone_05_CrackedSpan/SeamlessSceneLayers"]
+offset_left = 6724
+offset_top = 213
+offset_right = 8196
+offset_bottom = 215
+color = Color(0.44, 0.38, 0.24, 0.20)
+
+[node name="SceneAccentA" type="ColorRect" parent="Setpieces/Zone_05_CrackedSpan/SeamlessSceneLayers"]
+offset_left = 6868
+offset_top = 150
+offset_right = 6972
+offset_bottom = 154
+color = Color(0.68, 0.55, 0.24, 0.34)
+
+[node name="SceneAccentB" type="ColorRect" parent="Setpieces/Zone_05_CrackedSpan/SeamlessSceneLayers"]
+offset_left = 7555
+offset_top = 216
+offset_right = 7675
+offset_bottom = 220
+color = Color(0.68, 0.55, 0.24, 0.34)
+
+[node name="CrackedSpanSign" type="Label" parent="Setpieces/Zone_05_CrackedSpan" unique_id=528756180]
+offset_left = 6820.0
+offset_top = 62.0
+offset_right = 7380.0
+offset_bottom = 82.0
+theme_override_font_sizes/font_size = 10
+text = "Zone 05 Cracked Span: rotating safe lane before panel drop"
+
+[node name="CrackFar" type="ColorRect" parent="Setpieces/Zone_05_CrackedSpan" unique_id=506765803]
+offset_left = 6900.0
+offset_top = 160.0
+offset_right = 7220.0
+offset_bottom = 170.0
+color = Color(0.02, 0.02, 0.025, 1)
+
+[node name="CrackCenter" type="ColorRect" parent="Setpieces/Zone_05_CrackedSpan" unique_id=732830015]
+offset_left = 7300.0
+offset_top = 194.0
+offset_right = 7620.0
+offset_bottom = 204.0
+color = Color(0.02, 0.02, 0.025, 1)
+
+[node name="PanelDropReadNear" type="ColorRect" parent="Setpieces/Zone_05_CrackedSpan" unique_id=498488690]
+offset_left = 7780.0
+offset_top = 222.0
+offset_right = 8100.0
+offset_bottom = 248.0
+color = Color(0.68, 0.46, 0.25, 0.35)
+
+[node name="Zone_06_CentralBreak" type="Node2D" parent="Setpieces" unique_id=1102045639]
+
+[node name="SeamlessSceneLayers" type="Node2D" parent="Setpieces/Zone_06_CentralBreak"]
+z_index = -2
+
+
+[node name="FarBackdropBand" type="ColorRect" parent="Setpieces/Zone_06_CentralBreak/SeamlessSceneLayers"]
+offset_left = 8584
+offset_top = 24
+offset_right = 10476
+offset_bottom = 84
+color = Color(0.05, 0.08, 0.11, 0.36)
+
+[node name="FarSilhouetteA" type="ColorRect" parent="Setpieces/Zone_06_CentralBreak/SeamlessSceneLayers"]
+offset_left = 8732
+offset_top = 48
+offset_right = 8824
+offset_bottom = 128
+color = Color(0.05, 0.08, 0.11, 0.36)
+
+[node name="FarSilhouetteB" type="ColorRect" parent="Setpieces/Zone_06_CentralBreak/SeamlessSceneLayers"]
+offset_left = 9604
+offset_top = 58
+offset_right = 9744
+offset_bottom = 132
+color = Color(0.05, 0.08, 0.11, 0.36)
+
+[node name="NearSceneBand" type="ColorRect" parent="Setpieces/Zone_06_CentralBreak/SeamlessSceneLayers"]
+offset_left = 8584
+offset_top = 86
+offset_right = 10476
+offset_bottom = 151
+color = Color(0.19, 0.20, 0.19, 0.42)
+
+[node name="NearLandmarkA" type="ColorRect" parent="Setpieces/Zone_06_CentralBreak/SeamlessSceneLayers"]
+offset_left = 8768
+offset_top = 104
+offset_right = 8920
+offset_bottom = 148
+color = Color(0.19, 0.20, 0.19, 0.42)
+
+[node name="NearLandmarkB" type="ColorRect" parent="Setpieces/Zone_06_CentralBreak/SeamlessSceneLayers"]
+offset_left = 9828
+offset_top = 98
+offset_right = 10032
+offset_bottom = 148
+color = Color(0.19, 0.20, 0.19, 0.42)
+
+[node name="FloorFarDepthWash" type="ColorRect" parent="Setpieces/Zone_06_CentralBreak/SeamlessSceneLayers"]
+offset_left = 8584
+offset_top = 154
+offset_right = 10476
+offset_bottom = 181
+color = Color(0.18, 0.19, 0.20, 0.24)
+
+[node name="FloorCenterDepthWash" type="ColorRect" parent="Setpieces/Zone_06_CentralBreak/SeamlessSceneLayers"]
+offset_left = 8584
+offset_top = 181
+offset_right = 10476
+offset_bottom = 214
+color = Color(0.18, 0.19, 0.20, 0.24)
+
+[node name="FloorNearDepthWash" type="ColorRect" parent="Setpieces/Zone_06_CentralBreak/SeamlessSceneLayers"]
+offset_left = 8584
+offset_top = 214
+offset_right = 10476
+offset_bottom = 258
+color = Color(0.18, 0.19, 0.20, 0.24)
+
+[node name="DepthSeamA" type="ColorRect" parent="Setpieces/Zone_06_CentralBreak/SeamlessSceneLayers"]
+offset_left = 8584
+offset_top = 180
+offset_right = 10476
+offset_bottom = 182
+color = Color(0.44, 0.38, 0.24, 0.20)
+
+[node name="DepthSeamB" type="ColorRect" parent="Setpieces/Zone_06_CentralBreak/SeamlessSceneLayers"]
+offset_left = 8584
+offset_top = 213
+offset_right = 10476
+offset_bottom = 215
+color = Color(0.44, 0.38, 0.24, 0.20)
+
+[node name="SceneAccentA" type="ColorRect" parent="Setpieces/Zone_06_CentralBreak/SeamlessSceneLayers"]
+offset_left = 8744
+offset_top = 150
+offset_right = 8848
+offset_bottom = 154
+color = Color(0.68, 0.55, 0.24, 0.34)
+
+[node name="SceneAccentB" type="ColorRect" parent="Setpieces/Zone_06_CentralBreak/SeamlessSceneLayers"]
+offset_left = 9632
+offset_top = 216
+offset_right = 9752
+offset_bottom = 220
+color = Color(0.68, 0.55, 0.24, 0.34)
+
+[node name="CentralBreakSign" type="Label" parent="Setpieces/Zone_06_CentralBreak" unique_id=606770485]
+offset_left = 8680.0
+offset_top = 62.0
+offset_right = 9400.0
+offset_bottom = 82.0
+theme_override_font_sizes/font_size = 10
+text = "Zone 06 Central Break: Engineer placeholder, cable console, marked whip lanes"
+
+[node name="CableConsoleFar" type="ColorRect" parent="Setpieces/Zone_06_CentralBreak" unique_id=1303774255]
+offset_left = 9000.0
+offset_top = 130.0
+offset_right = 9080.0
+offset_bottom = 176.0
+color = Color(0.18, 0.22, 0.24, 1)
+
+[node name="CableWhipReadCenter" type="ColorRect" parent="Setpieces/Zone_06_CentralBreak" unique_id=506099018]
+offset_left = 9240.0
+offset_top = 181.0
+offset_right = 9640.0
+offset_bottom = 214.0
+color = Color(0.76, 0.79, 0.72, 0.34)
+
+[node name="PuddlePressureNear" type="ColorRect" parent="Setpieces/Zone_06_CentralBreak" unique_id=312539445]
+offset_left = 8880.0
+offset_top = 222.0
+offset_right = 9160.0
+offset_bottom = 246.0
+color = Color(0.23, 0.31, 0.34, 0.6)
+
+[node name="ReturnRead" type="Label" parent="Setpieces/Zone_06_CentralBreak" unique_id=1824711341]
+offset_left = 9820.0
+offset_top = 262.0
+offset_right = 10380.0
+offset_bottom = 284.0
+theme_override_font_sizes/font_size = 10
+text = "Return to city exit is generated by World/main.gd"
+
+[node name="RouteLabels" type="Node2D" parent="." unique_id=1268905975]
+
+[node name="LaneHint" type="Label" parent="RouteLabels" unique_id=1093822814]
+offset_left = 58.0
+offset_top = 262.0
+offset_right = 540.0
+offset_bottom = 284.0
+theme_override_font_sizes/font_size = 10
+text = "One continuous bridge deck: cables, headlights, and cracks mark lanes first"
+
+[node name="EnemyRoleHint" type="Label" parent="RouteLabels" unique_id=1920398218]
+offset_left = 3340.0
+offset_top = 262.0
+offset_right = 4020.0
+offset_bottom = 284.0
+theme_override_font_sizes/font_size = 10
+text = "Placeholders: Hooks = poker, Guards = bruisers, Sprinters = rushers, Engineer = static"
+
+[node name="Enemies" type="Node2D" parent="." unique_id=889195474]
+
+[node name="Approach_RaincoatGuard" parent="Enemies" unique_id=1316825336 instance=ExtResource("5_guard")]
+position = Vector2(880, 199)
+bruiser_walk_speed = 42.0
+bruiser_attack_range_px = 38.0
+bruiser_attack_range_y_px = 26.0
+bruiser_attack_damage = 7
+bruiser_attack_cooldown_sec = 1.35
+bruiser_hit_delay_sec = 0.26
+bruiser_hp_max = 16
+bruiser_hurt_stun_sec = 0.62
+bruiser_knockback = Vector2(150, -120)
+bruiser_support_hold_distance_px = 82.0
+
+[node name="FirstRailing_CableHook" parent="Enemies" unique_id=1937284124 instance=ExtResource("4_hook")]
+position = Vector2(1900, 194)
+poker_walk_speed = 58.0
+poker_run_speed = 96.0
+poker_back_offset_px = 56.0
+poker_stop_distance_px = 40.0
+poker_attack_range_px = 44.0
+poker_attack_range_y_px = 24.0
+poker_attack_damage = 3
+poker_attack_cooldown_sec = 1.18
+poker_support_hold_distance_px = 96.0
+poker_post_attack_reposition_sec = 1.0
+
+[node name="FirstRailing_RaincoatGuard" parent="Enemies" unique_id=1060360693 instance=ExtResource("5_guard")]
+position = Vector2(2320, 214)
+bruiser_walk_speed = 42.0
+bruiser_attack_range_px = 38.0
+bruiser_attack_range_y_px = 26.0
+bruiser_attack_damage = 7
+bruiser_attack_cooldown_sec = 1.35
+bruiser_hit_delay_sec = 0.26
+bruiser_hp_max = 16
+bruiser_hurt_stun_sec = 0.62
+bruiser_knockback = Vector2(150, -120)
+bruiser_support_hold_distance_px = 82.0
+
+[node name="TruckLane_HeadlightSprinter" parent="Enemies" unique_id=1627617712 instance=ExtResource("6_sprinter")]
+position = Vector2(3680, 199)
+rusher_walk_speed = 72.0
+rusher_run_speed = 124.0
+rusher_run_switch_distance = 200.0
+rusher_stop_distance_px = 12.0
+rusher_attack_range_px = 24.0
+rusher_attack_damage = 4
+rusher_attack_cooldown_sec = 0.82
+rusher_attack_hit_delay_sec = 0.18
+rusher_depth_follow_distance_px = 240.0
+rusher_support_hold_distance_px = 36.0
+rusher_max_attackers = 2
+
+[node name="TruckLane_CableHook" parent="Enemies" unique_id=2061689397 instance=ExtResource("4_hook")]
+position = Vector2(4300, 166)
+poker_walk_speed = 58.0
+poker_run_speed = 96.0
+poker_back_offset_px = 56.0
+poker_stop_distance_px = 40.0
+poker_attack_range_px = 44.0
+poker_attack_range_y_px = 24.0
+poker_attack_damage = 3
+poker_attack_cooldown_sec = 1.18
+poker_support_hold_distance_px = 96.0
+poker_post_attack_reposition_sec = 1.0
+
+[node name="ServiceShoulder_RaincoatGuardA" parent="Enemies" unique_id=755736795 instance=ExtResource("5_guard")]
+position = Vector2(5260, 214)
+bruiser_walk_speed = 42.0
+bruiser_attack_range_px = 38.0
+bruiser_attack_range_y_px = 26.0
+bruiser_attack_damage = 7
+bruiser_attack_cooldown_sec = 1.35
+bruiser_hit_delay_sec = 0.26
+bruiser_hp_max = 16
+bruiser_hurt_stun_sec = 0.62
+bruiser_knockback = Vector2(150, -120)
+bruiser_support_hold_distance_px = 82.0
+
+[node name="ServiceShoulder_RaincoatGuardB" parent="Enemies" unique_id=1972519961 instance=ExtResource("5_guard")]
+position = Vector2(5940, 166)
+bruiser_walk_speed = 42.0
+bruiser_attack_range_px = 38.0
+bruiser_attack_range_y_px = 26.0
+bruiser_attack_damage = 7
+bruiser_attack_cooldown_sec = 1.35
+bruiser_hit_delay_sec = 0.26
+bruiser_hp_max = 16
+bruiser_hurt_stun_sec = 0.62
+bruiser_knockback = Vector2(150, -120)
+bruiser_support_hold_distance_px = 82.0
+
+[node name="CrackedSpan_CableHook" parent="Enemies" unique_id=1178652751 instance=ExtResource("4_hook")]
+position = Vector2(7160, 194)
+poker_walk_speed = 58.0
+poker_run_speed = 96.0
+poker_back_offset_px = 56.0
+poker_stop_distance_px = 40.0
+poker_attack_range_px = 44.0
+poker_attack_range_y_px = 24.0
+poker_attack_damage = 3
+poker_attack_cooldown_sec = 1.18
+poker_support_hold_distance_px = 96.0
+poker_post_attack_reposition_sec = 1.0
+
+[node name="CrackedSpan_HeadlightSprinter" parent="Enemies" unique_id=531086824 instance=ExtResource("6_sprinter")]
+position = Vector2(7900, 214)
+rusher_walk_speed = 72.0
+rusher_run_speed = 124.0
+rusher_run_switch_distance = 200.0
+rusher_stop_distance_px = 12.0
+rusher_attack_range_px = 24.0
+rusher_attack_damage = 4
+rusher_attack_cooldown_sec = 0.82
+rusher_attack_hit_delay_sec = 0.18
+rusher_depth_follow_distance_px = 240.0
+rusher_support_hold_distance_px = 36.0
+rusher_max_attackers = 2
+
+[node name="CentralBreak_EngineerPlaceholder" parent="Enemies" unique_id=1378024666 instance=ExtResource("7_engineer")]
+position = Vector2(9300, 199)
+
+[node name="CentralBreak_CableHookSupport" parent="Enemies" unique_id=1885262644 instance=ExtResource("4_hook")]
+position = Vector2(9660, 166)
+poker_walk_speed = 58.0
+poker_run_speed = 96.0
+poker_back_offset_px = 56.0
+poker_stop_distance_px = 40.0
+poker_attack_range_px = 44.0
+poker_attack_range_y_px = 24.0
+poker_attack_damage = 3
+poker_attack_cooldown_sec = 1.18
+poker_support_hold_distance_px = 96.0
+poker_post_attack_reposition_sec = 1.0
+
+[node name="Player" parent="." unique_id=2026131986 instance=ExtResource("2_player")]
+position = Vector2(150, 205)
+collision_mask = 5
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=500060905 groups=["Player"]]
+position = Vector2(1, -48)
+zoom = Vector2(3.6, 3.6)
+limit_left = 0
+limit_top = 0
+limit_right = 10480
+limit_bottom = 292
+limit_smoothed = true
+position_smoothing_enabled = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=437306684]
+layer = 50
+
+[node name="SkillSelectMenu" parent="CanvasLayer" unique_id=1738795291 groups=["skill_menu"] instance=ExtResource("3_skills")]
+visible = false
+offset_left = 60.0
+offset_top = 107.0
+offset_right = -93.0
+offset_bottom = -98.0
+
+[node name="Main" type="Node" parent="." unique_id=1746871932]
+script = ExtResource("1_main")
+player_path = NodePath("../Player")
+
+[node name="UI" type="CanvasLayer" parent="Main" unique_id=1966890774]
+
+[node name="FullBottleLabel" type="Label" parent="Main/UI" unique_id=842097568]
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 78.0
+offset_bottom = 28.0
+theme_override_font_sizes/font_size = 12
+text = "Full Bottles: 0"
+
+[node name="EmptyBottleLabel" type="Label" parent="Main/UI" unique_id=1665584699]
+offset_left = 5.0
+offset_top = 19.0
+offset_right = 99.0
+offset_bottom = 42.0
+theme_override_font_sizes/font_size = 12
+text = "Empty Bottles: 0"
+
+[node name="CigPackLabel" type="Label" parent="Main/UI" unique_id=539380894]
+offset_left = 5.0
+offset_top = 32.0
+offset_right = 78.0
+offset_bottom = 55.0
+theme_override_font_sizes/font_size = 12
+text = "Cigarettes: 0"
+
+[node name="InebriationLabel" type="Label" parent="Main/UI" unique_id=1438636349]
+offset_left = 5.0
+offset_top = 46.0
+offset_right = 78.0
+offset_bottom = 69.0
+theme_override_font_sizes/font_size = 12
+text = "Inebriation: 0"
+
+[node name="NicotineLabel" type="Label" parent="Main/UI" unique_id=1352591304]
+offset_left = 5.0
+offset_top = 60.0
+offset_right = 83.0
+offset_bottom = 83.0
+theme_override_font_sizes/font_size = 12
+text = "Nicotine: 0"
+
+
+

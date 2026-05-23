@@ -1,0 +1,225 @@
+[gd_scene format=3 uid="uid://dmf5avql1aull"]
+
+[ext_resource type="Script" uid="uid://cpgrvwy3odr3y" path="res://World/main.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://d3inn0asxct2u" path="res://World/Background/back.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://cjqroqx8fh773" path="res://World/Background/road.png" id="2_rxlgw"]
+[ext_resource type="PackedScene" uid="uid://bapvy71043313" path="res://Player/player.tscn" id="3"]
+[ext_resource type="Texture2D" uid="uid://oggcvalpctbp" path="res://World/Stadium/ChatGPT Image Feb 28, 2026, 09_49_21 AM.png" id="3_ejxo8"]
+[ext_resource type="PackedScene" uid="uid://c62ijxjydlv8m" path="res://UI/SkillSelectMenu.tscn" id="4"]
+[ext_resource type="AudioStream" uid="uid://birk5kr66r5jr" path="res://World/Stadium/Russian Doomer Music vol.3 (Superior).mp3" id="7_ejxo8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hy7im"]
+size = Vector2(13710.223, 256)
+
+[node name="Stadium" type="Node2D" unique_id=1374258550]
+
+[node name="Background" type="Sprite2D" parent="." unique_id=459579643]
+scale = Vector2(2.2, 2.2)
+texture = ExtResource("2")
+centered = false
+
+[node name="Road" type="Node2D" parent="." unique_id=1788131166]
+metadata/_edit_group_ = true
+
+[node name="Road5" type="Sprite2D" parent="Road" unique_id=1251833499]
+position = Vector2(405, 199.00002)
+scale = Vector2(0.0703125, 0.0703125)
+texture = ExtResource("2_rxlgw")
+
+[node name="Road6" type="Sprite2D" parent="Road" unique_id=2129735487]
+position = Vector2(495, 199.00002)
+scale = Vector2(0.0703125, 0.0703125)
+texture = ExtResource("2_rxlgw")
+
+[node name="Road7" type="Sprite2D" parent="Road" unique_id=1769884785]
+position = Vector2(585, 199.00002)
+scale = Vector2(0.0703125, 0.0703125)
+texture = ExtResource("2_rxlgw")
+
+[node name="Road8" type="Sprite2D" parent="Road" unique_id=1668440047]
+position = Vector2(675, 199.00002)
+scale = Vector2(0.0703125, 0.0703125)
+texture = ExtResource("2_rxlgw")
+
+[node name="Road9" type="Sprite2D" parent="Road" unique_id=291485203]
+position = Vector2(765, 199.00002)
+scale = Vector2(0.0703125, 0.0703125)
+texture = ExtResource("2_rxlgw")
+
+[node name="Road10" type="Sprite2D" parent="Road" unique_id=791016509]
+position = Vector2(855, 199.00002)
+scale = Vector2(0.0703125, 0.0703125)
+texture = ExtResource("2_rxlgw")
+
+[node name="Road11" type="Sprite2D" parent="Road" unique_id=519994402]
+position = Vector2(945, 199.00002)
+scale = Vector2(0.0703125, 0.0703125)
+texture = ExtResource("2_rxlgw")
+
+[node name="Road" type="Sprite2D" parent="Road" unique_id=360074638]
+position = Vector2(45, 199.00002)
+scale = Vector2(0.0703125, 0.0703125)
+texture = ExtResource("2_rxlgw")
+
+[node name="Road2" type="Sprite2D" parent="Road" unique_id=296977370]
+position = Vector2(135, 199.00002)
+scale = Vector2(0.0703125, 0.0703125)
+texture = ExtResource("2_rxlgw")
+
+[node name="Road3" type="Sprite2D" parent="Road" unique_id=1582498407]
+position = Vector2(225, 199.00002)
+scale = Vector2(0.0703125, 0.0703125)
+texture = ExtResource("2_rxlgw")
+
+[node name="Road4" type="Sprite2D" parent="Road" unique_id=1602764104]
+position = Vector2(315, 199.00002)
+scale = Vector2(0.0703125, 0.0703125)
+texture = ExtResource("2_rxlgw")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Road" unique_id=2061751617]
+position = Vector2(-49, 0)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Road/StaticBody2D" unique_id=825497695]
+position = Vector2(531, 210)
+scale = Vector2(0.0703125, 0.0703125)
+shape = SubResource("RectangleShape2D_hy7im")
+
+[node name="Road12" type="Node2D" parent="Road" unique_id=1099242703]
+
+[node name="Road5" type="Sprite2D" parent="Road/Road12" unique_id=461922477]
+position = Vector2(405, 235)
+scale = Vector2(0.0703125, 0.0703125)
+texture = ExtResource("2_rxlgw")
+
+[node name="Road6" type="Sprite2D" parent="Road/Road12" unique_id=640383457]
+position = Vector2(495, 235)
+scale = Vector2(0.0703125, 0.0703125)
+texture = ExtResource("2_rxlgw")
+
+[node name="Road7" type="Sprite2D" parent="Road/Road12" unique_id=1042490518]
+position = Vector2(585, 235)
+scale = Vector2(0.0703125, 0.0703125)
+texture = ExtResource("2_rxlgw")
+
+[node name="Road8" type="Sprite2D" parent="Road/Road12" unique_id=69285710]
+position = Vector2(675, 235)
+scale = Vector2(0.0703125, 0.0703125)
+texture = ExtResource("2_rxlgw")
+
+[node name="Road9" type="Sprite2D" parent="Road/Road12" unique_id=2024506854]
+position = Vector2(765, 235)
+scale = Vector2(0.0703125, 0.0703125)
+texture = ExtResource("2_rxlgw")
+
+[node name="Road10" type="Sprite2D" parent="Road/Road12" unique_id=2009265666]
+position = Vector2(855, 235)
+scale = Vector2(0.0703125, 0.0703125)
+texture = ExtResource("2_rxlgw")
+
+[node name="Road11" type="Sprite2D" parent="Road/Road12" unique_id=1598983000]
+position = Vector2(945, 235)
+scale = Vector2(0.0703125, 0.0703125)
+texture = ExtResource("2_rxlgw")
+
+[node name="Road" type="Sprite2D" parent="Road/Road12" unique_id=479161395]
+position = Vector2(45, 235)
+scale = Vector2(0.0703125, 0.0703125)
+texture = ExtResource("2_rxlgw")
+
+[node name="Road2" type="Sprite2D" parent="Road/Road12" unique_id=134428209]
+position = Vector2(135, 235)
+scale = Vector2(0.0703125, 0.0703125)
+texture = ExtResource("2_rxlgw")
+
+[node name="Road3" type="Sprite2D" parent="Road/Road12" unique_id=1881794790]
+position = Vector2(225, 235)
+scale = Vector2(0.0703125, 0.0703125)
+texture = ExtResource("2_rxlgw")
+
+[node name="Road4" type="Sprite2D" parent="Road/Road12" unique_id=1063731359]
+position = Vector2(315, 235)
+scale = Vector2(0.0703125, 0.0703125)
+texture = ExtResource("2_rxlgw")
+
+[node name="ChatGptImageFeb28,2026,094921Am" type="Sprite2D" parent="." unique_id=339474614]
+position = Vector2(214.00002, 103.00001)
+scale = Vector2(0.28222656, 0.28222656)
+texture = ExtResource("3_ejxo8")
+offset = Vector2(9.7438965, -40.747406)
+
+[node name="Player" parent="." unique_id=876718297 instance=ExtResource("3")]
+position = Vector2(180, 188)
+collision_mask = 5
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=635568964 groups=["Player"]]
+position = Vector2(1, -48)
+zoom = Vector2(4.2, 4.2)
+limit_left = 0
+limit_top = 0
+limit_right = 3600
+limit_bottom = 250
+limit_smoothed = true
+position_smoothing_enabled = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1876692999]
+layer = 50
+
+[node name="SkillSelectMenu" parent="CanvasLayer" unique_id=1848438123 groups=["skill_menu"] instance=ExtResource("4")]
+visible = false
+offset_left = 60.0
+offset_top = 107.0
+offset_right = -93.0
+offset_bottom = -98.0
+
+[node name="Main" type="Node" parent="." unique_id=1794821240]
+script = ExtResource("1")
+player_path = NodePath("../Player")
+
+[node name="UI" type="CanvasLayer" parent="Main" unique_id=1797252708]
+
+[node name="FullBottleLabel" type="Label" parent="Main/UI" unique_id=862005440]
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 78.0
+offset_bottom = 28.0
+theme_override_font_sizes/font_size = 12
+text = "Full Bottles: 0"
+
+[node name="CigPackLabel" type="Label" parent="Main/UI" unique_id=60071960]
+offset_left = 5.0
+offset_top = 32.0
+offset_right = 78.0
+offset_bottom = 55.0
+theme_override_font_sizes/font_size = 12
+text = "Cigarettes: 0"
+
+[node name="EmptyBottleLabel" type="Label" parent="Main/UI" unique_id=1657076971]
+offset_left = 5.0
+offset_top = 19.0
+offset_right = 99.0
+offset_bottom = 42.0
+theme_override_font_sizes/font_size = 12
+text = "Empty Bottles: 0"
+
+[node name="NicotineLabel" type="Label" parent="Main/UI" unique_id=1614631769]
+offset_left = 5.0
+offset_top = 60.0
+offset_right = 83.0
+offset_bottom = 83.0
+theme_override_font_sizes/font_size = 12
+text = "Nicotine: 0"
+
+[node name="InebriationLabel" type="Label" parent="Main/UI" unique_id=798601628]
+offset_left = 5.0
+offset_top = 46.0
+offset_right = 78.0
+offset_bottom = 69.0
+theme_override_font_sizes/font_size = 12
+text = "Inebriation: 0"
+
+[node name="RussianDoomerMusicVol_3(superior)" type="AudioStreamPlayer2D" parent="." unique_id=717125588]
+position = Vector2(191, 123)
+stream = ExtResource("7_ejxo8")
+volume_db = -16.779
+autoplay = true

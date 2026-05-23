@@ -1,0 +1,139 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Texture2D" path="res://Pickups/bottle/bottle.png" id="1"]
+[ext_resource type="Texture2D" path="res://Pickups/bottle/bootle01.png" id="2"]
+[ext_resource type="Texture2D" path="res://World/Skill icons/smokering.png" id="3"]
+[ext_resource type="Texture2D" path="res://World/Skill icons/vomit.png" id="4"]
+
+[sub_resource type="StyleBoxFlat" id="1"]
+bg_color = Color(0.0666667, 0.0666667, 0.0862745, 0.85)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.67451, 0.564706, 0.380392, 0.9)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="2"]
+bg_color = Color(0.168627, 0.129412, 0.0901961, 0.95)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="HUDRoot" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Panel" type="PanelContainer" parent="."]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 292.0
+offset_bottom = 66.0
+theme_override_styles/panel = SubResource("1")
+
+[node name="Margin" type="MarginContainer" parent="Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 6
+
+[node name="VBox" type="VBoxContainer" parent="Panel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="TopRow" type="HBoxContainer" parent="Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="FullBottleBox" type="HBoxContainer" parent="Panel/Margin/VBox/TopRow"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="FullBottleIcon" type="TextureRect" parent="Panel/Margin/VBox/TopRow/FullBottleBox"]
+custom_minimum_size = Vector2(14, 14)
+layout_mode = 2
+texture = ExtResource("1")
+stretch_mode = 5
+
+[node name="FullBottleLabel" type="Label" parent="Panel/Margin/VBox/TopRow/FullBottleBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "0"
+
+[node name="EmptyBottleBox" type="HBoxContainer" parent="Panel/Margin/VBox/TopRow"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="EmptyBottleIcon" type="TextureRect" parent="Panel/Margin/VBox/TopRow/EmptyBottleBox"]
+custom_minimum_size = Vector2(14, 14)
+layout_mode = 2
+texture = ExtResource("2")
+stretch_mode = 5
+
+[node name="EmptyBottleLabel" type="Label" parent="Panel/Margin/VBox/TopRow/EmptyBottleBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "0"
+
+[node name="CigPackBox" type="HBoxContainer" parent="Panel/Margin/VBox/TopRow"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="CigPackIcon" type="TextureRect" parent="Panel/Margin/VBox/TopRow/CigPackBox"]
+custom_minimum_size = Vector2(14, 14)
+layout_mode = 2
+texture = ExtResource("3")
+stretch_mode = 5
+
+[node name="CigPackLabel" type="Label" parent="Panel/Margin/VBox/TopRow/CigPackBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "0"
+
+[node name="InebriationBox" type="HBoxContainer" parent="Panel/Margin/VBox/TopRow"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="InebriationIcon" type="TextureRect" parent="Panel/Margin/VBox/TopRow/InebriationBox"]
+custom_minimum_size = Vector2(14, 14)
+layout_mode = 2
+texture = ExtResource("1")
+stretch_mode = 5
+
+[node name="InebriationLabel" type="Label" parent="Panel/Margin/VBox/TopRow/InebriationBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "0/0"
+
+[node name="NicotineBox" type="HBoxContainer" parent="Panel/Margin/VBox/TopRow"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="NicotineIcon" type="TextureRect" parent="Panel/Margin/VBox/TopRow/NicotineBox"]
+custom_minimum_size = Vector2(14, 14)
+layout_mode = 2
+texture = ExtResource("4")
+stretch_mode = 5
+
+[node name="NicotineLabel" type="Label" parent="Panel/Margin/VBox/TopRow/NicotineBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "0/0"
+
+[node name="HPBar" type="ProgressBar" parent="Panel/Margin/VBox"]
+custom_minimum_size = Vector2(268, 12)
+layout_mode = 2
+theme_override_styles/background = SubResource("2")
+max_value = 100.0
+value = 100.0
+show_percentage = false

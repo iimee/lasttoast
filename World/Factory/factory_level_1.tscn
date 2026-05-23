@@ -1,0 +1,1484 @@
+[gd_scene load_steps=12 format=3 uid="uid://ot0mcdy80dks"]
+
+[ext_resource type="Script" uid="uid://cpgrvwy3odr3y" path="res://World/main.gd" id="1_main"]
+[ext_resource type="PackedScene" uid="uid://bapvy71043313" path="res://Player/player.tscn" id="2_player"]
+[ext_resource type="PackedScene" uid="uid://c62ijxjydlv8m" path="res://UI/SkillSelectMenu.tscn" id="3_skills"]
+[ext_resource type="PackedScene" path="res://Enemies/hobo1/hobo1_bruiser.tscn" id="4_charger"]
+[ext_resource type="PackedScene" path="res://Enemies/hobo1/hobo1_poker.tscn" id="5_welder"]
+[ext_resource type="PackedScene" path="res://Enemies/hobo1/hobo1_rusher.tscn" id="6_launcher"]
+[ext_resource type="PackedScene" uid="uid://c7v3q2ede0yrd" path="res://Enemies/hobo1/hobo1_static.tscn" id="7_worker"]
+[ext_resource type="Texture2D" uid="uid://c3ludmqfnailw" path="res://assets/incoming/factory/layers/factory_far_parallax_strip_01.png" id="8_far"]
+[ext_resource type="Texture2D" uid="uid://b8qri8wkvmprb" path="res://assets/incoming/factory/layers/factory_mid_background_strip_01.png" id="9_mid"]
+[ext_resource type="Texture2D" uid="uid://dcih0nx5ktuns" path="res://assets/incoming/factory/layers/factory_road_playfield_strip_01.png" id="10_road"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
+size = Vector2(12480, 104)
+
+[node name="FactoryLevel1" type="Node2D" unique_id=1586132200]
+
+[node name="Background" type="Node2D" parent="." unique_id=34072255]
+
+[node name="GeneratedBackgrounds" type="Node2D" parent="Background" unique_id=202937473]
+visible = false
+
+[node name="FarParallaxLayer" type="Node2D" parent="Background/GeneratedBackgrounds" unique_id=74292788]
+
+[node name="FarParallaxStrip" type="Sprite2D" parent="Background/GeneratedBackgrounds/FarParallaxLayer" unique_id=1928174365]
+modulate = Color(1, 1, 1, 0.42)
+position = Vector2(-80, 18)
+scale = Vector2(0.6, 0.18)
+texture = ExtResource("8_far")
+centered = false
+
+[node name="MidBackgroundLayer" type="Node2D" parent="Background/GeneratedBackgrounds" unique_id=415001462]
+
+[node name="MidBackgroundStrip" type="Sprite2D" parent="Background/GeneratedBackgrounds/MidBackgroundLayer" unique_id=442263669]
+modulate = Color(1, 1, 1, 0.56)
+position = Vector2(-80, 70)
+scale = Vector2(1, 0.22)
+texture = ExtResource("9_mid")
+centered = false
+
+[node name="RoadPlayfieldLayer" type="Node2D" parent="Background/GeneratedBackgrounds" unique_id=672568620]
+
+[node name="RoadPlayfieldStrip" type="Sprite2D" parent="Background/GeneratedBackgrounds/RoadPlayfieldLayer" unique_id=45342207]
+modulate = Color(1, 1, 1, 0.38)
+position = Vector2(-80, 154)
+scale = Vector2(1, 0.28)
+texture = ExtResource("10_road")
+centered = false
+
+[node name="BackWall" type="ColorRect" parent="Background" unique_id=2005571902]
+visible = false
+offset_left = -80.0
+offset_top = 32.0
+offset_right = 12480.0
+offset_bottom = 150.0
+color = Color(0.17, 0.18, 0.17, 0.32)
+
+[node name="FarMachines" type="ColorRect" parent="Background" unique_id=541161867]
+visible = false
+offset_left = 180.0
+offset_top = 62.0
+offset_right = 12180.0
+offset_bottom = 118.0
+color = Color(0.24, 0.26, 0.24, 0.35)
+
+[node name="WarningStripe" type="ColorRect" parent="Background" unique_id=122515241]
+visible = false
+offset_top = 148.0
+offset_right = 12360.0
+offset_bottom = 154.0
+color = Color(0.72, 0.55, 0.18, 1)
+
+[node name="DepthBands" type="Node2D" parent="." unique_id=568397346]
+visible = false
+
+[node name="FarLane" type="ColorRect" parent="DepthBands" unique_id=1368537270]
+offset_left = -80.0
+offset_top = 154.0
+offset_right = 12480.0
+offset_bottom = 181.0
+color = Color(0.23, 0.25, 0.25, 1)
+
+[node name="CenterLane" type="ColorRect" parent="DepthBands" unique_id=1610683562]
+offset_left = -80.0
+offset_top = 181.0
+offset_right = 12480.0
+offset_bottom = 214.0
+color = Color(0.3, 0.31, 0.29, 1)
+
+[node name="NearLane" type="ColorRect" parent="DepthBands" unique_id=1451017781]
+offset_left = -80.0
+offset_top = 214.0
+offset_right = 12480.0
+offset_bottom = 258.0
+color = Color(0.37, 0.36, 0.33, 1)
+
+[node name="FloorCollision" type="StaticBody2D" parent="." unique_id=941824256]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorCollision" unique_id=2077443978]
+position = Vector2(6160, 207)
+shape = SubResource("RectangleShape2D_floor")
+
+[node name="Setpieces" type="Node2D" parent="." unique_id=1475183148]
+
+[node name="Zone_01_Gate" type="Node2D" parent="Setpieces" unique_id=1228714385]
+
+[node name="SeamlessSceneLayers" type="Node2D" parent="Setpieces/Zone_01_Gate"]
+z_index = -2
+
+
+[node name="FarBackdropBand" type="ColorRect" parent="Setpieces/Zone_01_Gate/SeamlessSceneLayers"]
+offset_left = 134
+offset_top = 24
+offset_right = 1336
+offset_bottom = 84
+color = Color(0.09, 0.11, 0.10, 0.34)
+
+[node name="FarSilhouetteA" type="ColorRect" parent="Setpieces/Zone_01_Gate/SeamlessSceneLayers"]
+offset_left = 239
+offset_top = 48
+offset_right = 331
+offset_bottom = 128
+color = Color(0.09, 0.11, 0.10, 0.34)
+
+[node name="FarSilhouetteB" type="ColorRect" parent="Setpieces/Zone_01_Gate/SeamlessSceneLayers"]
+offset_left = 720
+offset_top = 58
+offset_right = 860
+offset_bottom = 132
+color = Color(0.09, 0.11, 0.10, 0.34)
+
+[node name="NearSceneBand" type="ColorRect" parent="Setpieces/Zone_01_Gate/SeamlessSceneLayers"]
+offset_left = 134
+offset_top = 86
+offset_right = 1336
+offset_bottom = 151
+color = Color(0.18, 0.19, 0.17, 0.42)
+
+[node name="NearLandmarkA" type="ColorRect" parent="Setpieces/Zone_01_Gate/SeamlessSceneLayers"]
+offset_left = 275
+offset_top = 104
+offset_right = 427
+offset_bottom = 148
+color = Color(0.18, 0.19, 0.17, 0.42)
+
+[node name="NearLandmarkB" type="ColorRect" parent="Setpieces/Zone_01_Gate/SeamlessSceneLayers"]
+offset_left = 883
+offset_top = 98
+offset_right = 1087
+offset_bottom = 148
+color = Color(0.18, 0.19, 0.17, 0.42)
+
+[node name="FloorFarDepthWash" type="ColorRect" parent="Setpieces/Zone_01_Gate/SeamlessSceneLayers"]
+offset_left = 134
+offset_top = 154
+offset_right = 1336
+offset_bottom = 181
+color = Color(0.20, 0.21, 0.19, 0.26)
+
+[node name="FloorCenterDepthWash" type="ColorRect" parent="Setpieces/Zone_01_Gate/SeamlessSceneLayers"]
+offset_left = 134
+offset_top = 181
+offset_right = 1336
+offset_bottom = 214
+color = Color(0.20, 0.21, 0.19, 0.26)
+
+[node name="FloorNearDepthWash" type="ColorRect" parent="Setpieces/Zone_01_Gate/SeamlessSceneLayers"]
+offset_left = 134
+offset_top = 214
+offset_right = 1336
+offset_bottom = 258
+color = Color(0.20, 0.21, 0.19, 0.26)
+
+[node name="DepthSeamA" type="ColorRect" parent="Setpieces/Zone_01_Gate/SeamlessSceneLayers"]
+offset_left = 134
+offset_top = 180
+offset_right = 1336
+offset_bottom = 182
+color = Color(0.35, 0.31, 0.22, 0.22)
+
+[node name="DepthSeamB" type="ColorRect" parent="Setpieces/Zone_01_Gate/SeamlessSceneLayers"]
+offset_left = 134
+offset_top = 213
+offset_right = 1336
+offset_bottom = 215
+color = Color(0.35, 0.31, 0.22, 0.22)
+
+[node name="SceneAccentA" type="ColorRect" parent="Setpieces/Zone_01_Gate/SeamlessSceneLayers"]
+offset_left = 251
+offset_top = 150
+offset_right = 355
+offset_bottom = 154
+color = Color(0.62, 0.31, 0.18, 0.40)
+
+[node name="SceneAccentB" type="ColorRect" parent="Setpieces/Zone_01_Gate/SeamlessSceneLayers"]
+offset_left = 748
+offset_top = 216
+offset_right = 868
+offset_bottom = 220
+color = Color(0.62, 0.31, 0.18, 0.40)
+
+[node name="GateHouse" type="ColorRect" parent="Setpieces/Zone_01_Gate" unique_id=1706981685]
+offset_left = 240.0
+offset_top = 82.0
+offset_right = 390.0
+offset_bottom = 146.0
+color = Color(0.25, 0.28, 0.27, 1)
+
+[node name="GateSign" type="Label" parent="Setpieces/Zone_01_Gate" unique_id=307001753]
+offset_left = 230.0
+offset_top = 64.0
+offset_right = 520.0
+offset_bottom = 84.0
+theme_override_font_sizes/font_size = 10
+text = "Zone 01 Gate: approach, first steam read, first Charger"
+
+[node name="GateSteamRead" type="ColorRect" parent="Setpieces/Zone_01_Gate" unique_id=857747044]
+offset_left = 560.0
+offset_top = 181.0
+offset_right = 760.0
+offset_bottom = 214.0
+color = Color(0.74, 0.8, 0.78, 0.35)
+
+[node name="GateRest" type="ColorRect" parent="Setpieces/Zone_01_Gate" unique_id=1685391129]
+offset_left = 1040.0
+offset_top = 214.0
+offset_right = 1240.0
+offset_bottom = 258.0
+color = Color(0.42, 0.4, 0.34, 1)
+
+[node name="Zone_02_Conveyor" type="Node2D" parent="Setpieces" unique_id=1566638749]
+
+[node name="SeamlessSceneLayers" type="Node2D" parent="Setpieces/Zone_02_Conveyor"]
+z_index = -2
+
+
+[node name="FarBackdropBand" type="ColorRect" parent="Setpieces/Zone_02_Conveyor/SeamlessSceneLayers"]
+offset_left = 1444
+offset_top = 24
+offset_right = 3656
+offset_bottom = 84
+color = Color(0.09, 0.11, 0.10, 0.34)
+
+[node name="FarSilhouetteA" type="ColorRect" parent="Setpieces/Zone_02_Conveyor/SeamlessSceneLayers"]
+offset_left = 1627
+offset_top = 48
+offset_right = 1719
+offset_bottom = 128
+color = Color(0.09, 0.11, 0.10, 0.34)
+
+[node name="FarSilhouetteB" type="ColorRect" parent="Setpieces/Zone_02_Conveyor/SeamlessSceneLayers"]
+offset_left = 2593
+offset_top = 58
+offset_right = 2733
+offset_bottom = 132
+color = Color(0.09, 0.11, 0.10, 0.34)
+
+[node name="NearSceneBand" type="ColorRect" parent="Setpieces/Zone_02_Conveyor/SeamlessSceneLayers"]
+offset_left = 1444
+offset_top = 86
+offset_right = 3656
+offset_bottom = 151
+color = Color(0.18, 0.19, 0.17, 0.42)
+
+[node name="NearLandmarkA" type="ColorRect" parent="Setpieces/Zone_02_Conveyor/SeamlessSceneLayers"]
+offset_left = 1663
+offset_top = 104
+offset_right = 1815
+offset_bottom = 148
+color = Color(0.18, 0.19, 0.17, 0.42)
+
+[node name="NearLandmarkB" type="ColorRect" parent="Setpieces/Zone_02_Conveyor/SeamlessSceneLayers"]
+offset_left = 2902
+offset_top = 98
+offset_right = 3106
+offset_bottom = 148
+color = Color(0.18, 0.19, 0.17, 0.42)
+
+[node name="FloorFarDepthWash" type="ColorRect" parent="Setpieces/Zone_02_Conveyor/SeamlessSceneLayers"]
+offset_left = 1444
+offset_top = 154
+offset_right = 3656
+offset_bottom = 181
+color = Color(0.20, 0.21, 0.19, 0.26)
+
+[node name="FloorCenterDepthWash" type="ColorRect" parent="Setpieces/Zone_02_Conveyor/SeamlessSceneLayers"]
+offset_left = 1444
+offset_top = 181
+offset_right = 3656
+offset_bottom = 214
+color = Color(0.20, 0.21, 0.19, 0.26)
+
+[node name="FloorNearDepthWash" type="ColorRect" parent="Setpieces/Zone_02_Conveyor/SeamlessSceneLayers"]
+offset_left = 1444
+offset_top = 214
+offset_right = 3656
+offset_bottom = 258
+color = Color(0.20, 0.21, 0.19, 0.26)
+
+[node name="DepthSeamA" type="ColorRect" parent="Setpieces/Zone_02_Conveyor/SeamlessSceneLayers"]
+offset_left = 1444
+offset_top = 180
+offset_right = 3656
+offset_bottom = 182
+color = Color(0.35, 0.31, 0.22, 0.22)
+
+[node name="DepthSeamB" type="ColorRect" parent="Setpieces/Zone_02_Conveyor/SeamlessSceneLayers"]
+offset_left = 1444
+offset_top = 213
+offset_right = 3656
+offset_bottom = 215
+color = Color(0.35, 0.31, 0.22, 0.22)
+
+[node name="SceneAccentA" type="ColorRect" parent="Setpieces/Zone_02_Conveyor/SeamlessSceneLayers"]
+offset_left = 1639
+offset_top = 150
+offset_right = 1743
+offset_bottom = 154
+color = Color(0.62, 0.31, 0.18, 0.40)
+
+[node name="SceneAccentB" type="ColorRect" parent="Setpieces/Zone_02_Conveyor/SeamlessSceneLayers"]
+offset_left = 2621
+offset_top = 216
+offset_right = 2741
+offset_bottom = 220
+color = Color(0.62, 0.31, 0.18, 0.40)
+
+[node name="ConveyorSign" type="Label" parent="Setpieces/Zone_02_Conveyor" unique_id=218439825]
+offset_left = 1560.0
+offset_top = 64.0
+offset_right = 1980.0
+offset_bottom = 84.0
+theme_override_font_sizes/font_size = 10
+text = "Zone 02 Conveyor: read moving pressure before the mixed fight"
+
+[node name="ConveyorReadBelt" type="ColorRect" parent="Setpieces/Zone_02_Conveyor" unique_id=1082327975]
+offset_left = 1540.0
+offset_top = 156.0
+offset_right = 2100.0
+offset_bottom = 177.0
+color = Color(0.18, 0.19, 0.19, 1)
+
+[node name="ConveyorCombatBelt" type="ColorRect" parent="Setpieces/Zone_02_Conveyor" unique_id=1903037989]
+offset_left = 2260.0
+offset_top = 156.0
+offset_right = 3140.0
+offset_bottom = 177.0
+color = Color(0.18, 0.19, 0.19, 1)
+
+[node name="CrateReadA" type="ColorRect" parent="Setpieces/Zone_02_Conveyor" unique_id=709131868]
+offset_left = 1710.0
+offset_top = 140.0
+offset_right = 1766.0
+offset_bottom = 174.0
+color = Color(0.43, 0.31, 0.2, 1)
+
+[node name="CrateReadB" type="ColorRect" parent="Setpieces/Zone_02_Conveyor" unique_id=1635421322]
+offset_left = 1940.0
+offset_top = 140.0
+offset_right = 1998.0
+offset_bottom = 174.0
+color = Color(0.4, 0.28, 0.18, 1)
+
+[node name="CrateCombatA" type="ColorRect" parent="Setpieces/Zone_02_Conveyor" unique_id=1292213487]
+offset_left = 2480.0
+offset_top = 140.0
+offset_right = 2538.0
+offset_bottom = 174.0
+color = Color(0.43, 0.31, 0.2, 1)
+
+[node name="CrateCombatB" type="ColorRect" parent="Setpieces/Zone_02_Conveyor" unique_id=1674158995]
+offset_left = 2860.0
+offset_top = 140.0
+offset_right = 2918.0
+offset_bottom = 174.0
+color = Color(0.4, 0.28, 0.18, 1)
+
+[node name="ConveyorExitRest" type="ColorRect" parent="Setpieces/Zone_02_Conveyor" unique_id=2092653375]
+offset_left = 3300.0
+offset_top = 214.0
+offset_right = 3560.0
+offset_bottom = 258.0
+color = Color(0.42, 0.4, 0.34, 1)
+
+[node name="Zone_03_FirstValve" type="Node2D" parent="Setpieces" unique_id=721226934]
+
+[node name="SeamlessSceneLayers" type="Node2D" parent="Setpieces/Zone_03_FirstValve"]
+z_index = -2
+
+
+[node name="FarBackdropBand" type="ColorRect" parent="Setpieces/Zone_03_FirstValve/SeamlessSceneLayers"]
+offset_left = 3684
+offset_top = 24
+offset_right = 4656
+offset_bottom = 84
+color = Color(0.09, 0.11, 0.10, 0.34)
+
+[node name="FarSilhouetteA" type="ColorRect" parent="Setpieces/Zone_03_FirstValve/SeamlessSceneLayers"]
+offset_left = 3781
+offset_top = 48
+offset_right = 3873
+offset_bottom = 128
+color = Color(0.09, 0.11, 0.10, 0.34)
+
+[node name="FarSilhouetteB" type="ColorRect" parent="Setpieces/Zone_03_FirstValve/SeamlessSceneLayers"]
+offset_left = 4212
+offset_top = 58
+offset_right = 4352
+offset_bottom = 132
+color = Color(0.09, 0.11, 0.10, 0.34)
+
+[node name="NearSceneBand" type="ColorRect" parent="Setpieces/Zone_03_FirstValve/SeamlessSceneLayers"]
+offset_left = 3684
+offset_top = 86
+offset_right = 4656
+offset_bottom = 151
+color = Color(0.18, 0.19, 0.17, 0.42)
+
+[node name="NearLandmarkA" type="ColorRect" parent="Setpieces/Zone_03_FirstValve/SeamlessSceneLayers"]
+offset_left = 3817
+offset_top = 104
+offset_right = 3969
+offset_bottom = 148
+color = Color(0.18, 0.19, 0.17, 0.42)
+
+[node name="NearLandmarkB" type="ColorRect" parent="Setpieces/Zone_03_FirstValve/SeamlessSceneLayers"]
+offset_left = 4261
+offset_top = 98
+offset_right = 4465
+offset_bottom = 148
+color = Color(0.18, 0.19, 0.17, 0.42)
+
+[node name="FloorFarDepthWash" type="ColorRect" parent="Setpieces/Zone_03_FirstValve/SeamlessSceneLayers"]
+offset_left = 3684
+offset_top = 154
+offset_right = 4656
+offset_bottom = 181
+color = Color(0.20, 0.21, 0.19, 0.26)
+
+[node name="FloorCenterDepthWash" type="ColorRect" parent="Setpieces/Zone_03_FirstValve/SeamlessSceneLayers"]
+offset_left = 3684
+offset_top = 181
+offset_right = 4656
+offset_bottom = 214
+color = Color(0.20, 0.21, 0.19, 0.26)
+
+[node name="FloorNearDepthWash" type="ColorRect" parent="Setpieces/Zone_03_FirstValve/SeamlessSceneLayers"]
+offset_left = 3684
+offset_top = 214
+offset_right = 4656
+offset_bottom = 258
+color = Color(0.20, 0.21, 0.19, 0.26)
+
+[node name="DepthSeamA" type="ColorRect" parent="Setpieces/Zone_03_FirstValve/SeamlessSceneLayers"]
+offset_left = 3684
+offset_top = 180
+offset_right = 4656
+offset_bottom = 182
+color = Color(0.35, 0.31, 0.22, 0.22)
+
+[node name="DepthSeamB" type="ColorRect" parent="Setpieces/Zone_03_FirstValve/SeamlessSceneLayers"]
+offset_left = 3684
+offset_top = 213
+offset_right = 4656
+offset_bottom = 215
+color = Color(0.35, 0.31, 0.22, 0.22)
+
+[node name="SceneAccentA" type="ColorRect" parent="Setpieces/Zone_03_FirstValve/SeamlessSceneLayers"]
+offset_left = 3793
+offset_top = 150
+offset_right = 3897
+offset_bottom = 154
+color = Color(0.62, 0.31, 0.18, 0.40)
+
+[node name="SceneAccentB" type="ColorRect" parent="Setpieces/Zone_03_FirstValve/SeamlessSceneLayers"]
+offset_left = 4240
+offset_top = 216
+offset_right = 4360
+offset_bottom = 220
+color = Color(0.62, 0.31, 0.18, 0.40)
+
+[node name="ValveSign" type="Label" parent="Setpieces/Zone_03_FirstValve" unique_id=1698221127]
+offset_left = 3820.0
+offset_top = 64.0
+offset_right = 4240.0
+offset_bottom = 84.0
+theme_override_font_sizes/font_size = 10
+text = "Zone 03 First Valve: stop process, then survive pressure"
+
+[node name="ManualValve" type="ColorRect" parent="Setpieces/Zone_03_FirstValve" unique_id=494299376]
+offset_left = 4048.0
+offset_top = 132.0
+offset_right = 4084.0
+offset_bottom = 176.0
+color = Color(0.46, 0.1, 0.08, 1)
+
+[node name="ValveSteamA" type="ColorRect" parent="Setpieces/Zone_03_FirstValve" unique_id=1275802962]
+offset_left = 3780.0
+offset_top = 181.0
+offset_right = 3980.0
+offset_bottom = 214.0
+color = Color(0.74, 0.8, 0.78, 0.32)
+
+[node name="ValveSteamB" type="ColorRect" parent="Setpieces/Zone_03_FirstValve" unique_id=866706505]
+offset_left = 4300.0
+offset_top = 154.0
+offset_right = 4560.0
+offset_bottom = 181.0
+color = Color(0.74, 0.8, 0.78, 0.28)
+
+[node name="Zone_04_Welding" type="Node2D" parent="Setpieces" unique_id=1356176373]
+
+[node name="SeamlessSceneLayers" type="Node2D" parent="Setpieces/Zone_04_Welding"]
+z_index = -2
+
+
+[node name="FarBackdropBand" type="ColorRect" parent="Setpieces/Zone_04_Welding/SeamlessSceneLayers"]
+offset_left = 4984
+offset_top = 24
+offset_right = 6596
+offset_bottom = 84
+color = Color(0.09, 0.11, 0.10, 0.34)
+
+[node name="FarSilhouetteA" type="ColorRect" parent="Setpieces/Zone_04_Welding/SeamlessSceneLayers"]
+offset_left = 5140
+offset_top = 48
+offset_right = 5232
+offset_bottom = 128
+color = Color(0.09, 0.11, 0.10, 0.34)
+
+[node name="FarSilhouetteB" type="ColorRect" parent="Setpieces/Zone_04_Welding/SeamlessSceneLayers"]
+offset_left = 5758
+offset_top = 58
+offset_right = 5898
+offset_bottom = 132
+color = Color(0.09, 0.11, 0.10, 0.34)
+
+[node name="NearSceneBand" type="ColorRect" parent="Setpieces/Zone_04_Welding/SeamlessSceneLayers"]
+offset_left = 4984
+offset_top = 86
+offset_right = 6596
+offset_bottom = 151
+color = Color(0.18, 0.19, 0.17, 0.42)
+
+[node name="NearLandmarkA" type="ColorRect" parent="Setpieces/Zone_04_Welding/SeamlessSceneLayers"]
+offset_left = 5176
+offset_top = 104
+offset_right = 5328
+offset_bottom = 148
+color = Color(0.18, 0.19, 0.17, 0.42)
+
+[node name="NearLandmarkB" type="ColorRect" parent="Setpieces/Zone_04_Welding/SeamlessSceneLayers"]
+offset_left = 6001
+offset_top = 98
+offset_right = 6205
+offset_bottom = 148
+color = Color(0.18, 0.19, 0.17, 0.42)
+
+[node name="FloorFarDepthWash" type="ColorRect" parent="Setpieces/Zone_04_Welding/SeamlessSceneLayers"]
+offset_left = 4984
+offset_top = 154
+offset_right = 6596
+offset_bottom = 181
+color = Color(0.20, 0.21, 0.19, 0.26)
+
+[node name="FloorCenterDepthWash" type="ColorRect" parent="Setpieces/Zone_04_Welding/SeamlessSceneLayers"]
+offset_left = 4984
+offset_top = 181
+offset_right = 6596
+offset_bottom = 214
+color = Color(0.20, 0.21, 0.19, 0.26)
+
+[node name="FloorNearDepthWash" type="ColorRect" parent="Setpieces/Zone_04_Welding/SeamlessSceneLayers"]
+offset_left = 4984
+offset_top = 214
+offset_right = 6596
+offset_bottom = 258
+color = Color(0.20, 0.21, 0.19, 0.26)
+
+[node name="DepthSeamA" type="ColorRect" parent="Setpieces/Zone_04_Welding/SeamlessSceneLayers"]
+offset_left = 4984
+offset_top = 180
+offset_right = 6596
+offset_bottom = 182
+color = Color(0.35, 0.31, 0.22, 0.22)
+
+[node name="DepthSeamB" type="ColorRect" parent="Setpieces/Zone_04_Welding/SeamlessSceneLayers"]
+offset_left = 4984
+offset_top = 213
+offset_right = 6596
+offset_bottom = 215
+color = Color(0.35, 0.31, 0.22, 0.22)
+
+[node name="SceneAccentA" type="ColorRect" parent="Setpieces/Zone_04_Welding/SeamlessSceneLayers"]
+offset_left = 5152
+offset_top = 150
+offset_right = 5256
+offset_bottom = 154
+color = Color(0.62, 0.31, 0.18, 0.40)
+
+[node name="SceneAccentB" type="ColorRect" parent="Setpieces/Zone_04_Welding/SeamlessSceneLayers"]
+offset_left = 5786
+offset_top = 216
+offset_right = 5906
+offset_bottom = 220
+color = Color(0.62, 0.31, 0.18, 0.40)
+
+[node name="WeldingSign" type="Label" parent="Setpieces/Zone_04_Welding" unique_id=908196570]
+offset_left = 5080.0
+offset_top = 64.0
+offset_right = 5480.0
+offset_bottom = 84.0
+theme_override_font_sizes/font_size = 10
+text = "Zone 04 Welding: narrow sparks teach flanks and interrupts"
+
+[node name="WeldingReadSparks" type="ColorRect" parent="Setpieces/Zone_04_Welding" unique_id=152828804]
+offset_left = 5140.0
+offset_top = 185.0
+offset_right = 5360.0
+offset_bottom = 205.0
+color = Color(0.95, 0.7, 0.2, 0.45)
+
+[node name="WeldingCombatSparks" type="ColorRect" parent="Setpieces/Zone_04_Welding" unique_id=1859879706]
+offset_left = 5680.0
+offset_top = 185.0
+offset_right = 6040.0
+offset_bottom = 205.0
+color = Color(0.95, 0.7, 0.2, 0.4)
+
+[node name="WeldingExitRest" type="ColorRect" parent="Setpieces/Zone_04_Welding" unique_id=408637681]
+offset_left = 6260.0
+offset_top = 214.0
+offset_right = 6500.0
+offset_bottom = 258.0
+color = Color(0.42, 0.4, 0.34, 1)
+
+[node name="Zone_05_Warehouse" type="Node2D" parent="Setpieces" unique_id=1688999485]
+
+[node name="SeamlessSceneLayers" type="Node2D" parent="Setpieces/Zone_05_Warehouse"]
+z_index = -2
+
+
+[node name="FarBackdropBand" type="ColorRect" parent="Setpieces/Zone_05_Warehouse/SeamlessSceneLayers"]
+offset_left = 6664
+offset_top = 24
+offset_right = 8376
+offset_bottom = 84
+color = Color(0.09, 0.11, 0.10, 0.34)
+
+[node name="FarSilhouetteA" type="ColorRect" parent="Setpieces/Zone_05_Warehouse/SeamlessSceneLayers"]
+offset_left = 6834
+offset_top = 48
+offset_right = 6926
+offset_bottom = 128
+color = Color(0.09, 0.11, 0.10, 0.34)
+
+[node name="FarSilhouetteB" type="ColorRect" parent="Setpieces/Zone_05_Warehouse/SeamlessSceneLayers"]
+offset_left = 7560
+offset_top = 58
+offset_right = 7700
+offset_bottom = 132
+color = Color(0.09, 0.11, 0.10, 0.34)
+
+[node name="NearSceneBand" type="ColorRect" parent="Setpieces/Zone_05_Warehouse/SeamlessSceneLayers"]
+offset_left = 6664
+offset_top = 86
+offset_right = 8376
+offset_bottom = 151
+color = Color(0.18, 0.19, 0.17, 0.42)
+
+[node name="NearLandmarkA" type="ColorRect" parent="Setpieces/Zone_05_Warehouse/SeamlessSceneLayers"]
+offset_left = 6870
+offset_top = 104
+offset_right = 7022
+offset_bottom = 148
+color = Color(0.18, 0.19, 0.17, 0.42)
+
+[node name="NearLandmarkB" type="ColorRect" parent="Setpieces/Zone_05_Warehouse/SeamlessSceneLayers"]
+offset_left = 7745
+offset_top = 98
+offset_right = 7949
+offset_bottom = 148
+color = Color(0.18, 0.19, 0.17, 0.42)
+
+[node name="FloorFarDepthWash" type="ColorRect" parent="Setpieces/Zone_05_Warehouse/SeamlessSceneLayers"]
+offset_left = 6664
+offset_top = 154
+offset_right = 8376
+offset_bottom = 181
+color = Color(0.20, 0.21, 0.19, 0.26)
+
+[node name="FloorCenterDepthWash" type="ColorRect" parent="Setpieces/Zone_05_Warehouse/SeamlessSceneLayers"]
+offset_left = 6664
+offset_top = 181
+offset_right = 8376
+offset_bottom = 214
+color = Color(0.20, 0.21, 0.19, 0.26)
+
+[node name="FloorNearDepthWash" type="ColorRect" parent="Setpieces/Zone_05_Warehouse/SeamlessSceneLayers"]
+offset_left = 6664
+offset_top = 214
+offset_right = 8376
+offset_bottom = 258
+color = Color(0.20, 0.21, 0.19, 0.26)
+
+[node name="DepthSeamA" type="ColorRect" parent="Setpieces/Zone_05_Warehouse/SeamlessSceneLayers"]
+offset_left = 6664
+offset_top = 180
+offset_right = 8376
+offset_bottom = 182
+color = Color(0.35, 0.31, 0.22, 0.22)
+
+[node name="DepthSeamB" type="ColorRect" parent="Setpieces/Zone_05_Warehouse/SeamlessSceneLayers"]
+offset_left = 6664
+offset_top = 213
+offset_right = 8376
+offset_bottom = 215
+color = Color(0.35, 0.31, 0.22, 0.22)
+
+[node name="SceneAccentA" type="ColorRect" parent="Setpieces/Zone_05_Warehouse/SeamlessSceneLayers"]
+offset_left = 6846
+offset_top = 150
+offset_right = 6950
+offset_bottom = 154
+color = Color(0.62, 0.31, 0.18, 0.40)
+
+[node name="SceneAccentB" type="ColorRect" parent="Setpieces/Zone_05_Warehouse/SeamlessSceneLayers"]
+offset_left = 7588
+offset_top = 216
+offset_right = 7708
+offset_bottom = 220
+color = Color(0.62, 0.31, 0.18, 0.40)
+
+[node name="WarehouseSign" type="Label" parent="Setpieces/Zone_05_Warehouse" unique_id=2099297974]
+offset_left = 6760.0
+offset_top = 64.0
+offset_right = 7180.0
+offset_bottom = 84.0
+theme_override_font_sizes/font_size = 10
+text = "Zone 05 Warehouse: barrels, backline shots, forced target choice"
+
+[node name="BarrelA" type="ColorRect" parent="Setpieces/Zone_05_Warehouse" unique_id=2091633667]
+offset_left = 6900.0
+offset_top = 218.0
+offset_right = 6934.0
+offset_bottom = 250.0
+color = Color(0.36, 0.18, 0.12, 1)
+
+[node name="BarrelB" type="ColorRect" parent="Setpieces/Zone_05_Warehouse" unique_id=1250256965]
+offset_left = 7140.0
+offset_top = 154.0
+offset_right = 7174.0
+offset_bottom = 184.0
+color = Color(0.36, 0.18, 0.12, 1)
+
+[node name="BarrelC" type="ColorRect" parent="Setpieces/Zone_05_Warehouse" unique_id=556738015]
+offset_left = 7520.0
+offset_top = 218.0
+offset_right = 7554.0
+offset_bottom = 250.0
+color = Color(0.36, 0.18, 0.12, 1)
+
+[node name="WarehouseExitRest" type="ColorRect" parent="Setpieces/Zone_05_Warehouse" unique_id=788067108]
+offset_left = 8040.0
+offset_top = 214.0
+offset_right = 8280.0
+offset_bottom = 258.0
+color = Color(0.42, 0.4, 0.34, 1)
+
+[node name="Zone_06_FreightLift" type="Node2D" parent="Setpieces" unique_id=521284776]
+
+[node name="SeamlessSceneLayers" type="Node2D" parent="Setpieces/Zone_06_FreightLift"]
+z_index = -2
+
+
+[node name="FarBackdropBand" type="ColorRect" parent="Setpieces/Zone_06_FreightLift/SeamlessSceneLayers"]
+offset_left = 8404
+offset_top = 24
+offset_right = 9376
+offset_bottom = 84
+color = Color(0.09, 0.11, 0.10, 0.34)
+
+[node name="FarSilhouetteA" type="ColorRect" parent="Setpieces/Zone_06_FreightLift/SeamlessSceneLayers"]
+offset_left = 8606
+offset_top = 48
+offset_right = 8698
+offset_bottom = 128
+color = Color(0.09, 0.11, 0.10, 0.34)
+
+[node name="FarSilhouetteB" type="ColorRect" parent="Setpieces/Zone_06_FreightLift/SeamlessSceneLayers"]
+offset_left = 8917
+offset_top = 58
+offset_right = 9057
+offset_bottom = 132
+color = Color(0.09, 0.11, 0.10, 0.34)
+
+[node name="NearSceneBand" type="ColorRect" parent="Setpieces/Zone_06_FreightLift/SeamlessSceneLayers"]
+offset_left = 8404
+offset_top = 86
+offset_right = 9376
+offset_bottom = 151
+color = Color(0.18, 0.19, 0.17, 0.42)
+
+[node name="NearLandmarkA" type="ColorRect" parent="Setpieces/Zone_06_FreightLift/SeamlessSceneLayers"]
+offset_left = 8642
+offset_top = 104
+offset_right = 8794
+offset_bottom = 148
+color = Color(0.18, 0.19, 0.17, 0.42)
+
+[node name="NearLandmarkB" type="ColorRect" parent="Setpieces/Zone_06_FreightLift/SeamlessSceneLayers"]
+offset_left = 8966
+offset_top = 98
+offset_right = 9170
+offset_bottom = 148
+color = Color(0.18, 0.19, 0.17, 0.42)
+
+[node name="FloorFarDepthWash" type="ColorRect" parent="Setpieces/Zone_06_FreightLift/SeamlessSceneLayers"]
+offset_left = 8404
+offset_top = 154
+offset_right = 9376
+offset_bottom = 181
+color = Color(0.20, 0.21, 0.19, 0.26)
+
+[node name="FloorCenterDepthWash" type="ColorRect" parent="Setpieces/Zone_06_FreightLift/SeamlessSceneLayers"]
+offset_left = 8404
+offset_top = 181
+offset_right = 9376
+offset_bottom = 214
+color = Color(0.20, 0.21, 0.19, 0.26)
+
+[node name="FloorNearDepthWash" type="ColorRect" parent="Setpieces/Zone_06_FreightLift/SeamlessSceneLayers"]
+offset_left = 8404
+offset_top = 214
+offset_right = 9376
+offset_bottom = 258
+color = Color(0.20, 0.21, 0.19, 0.26)
+
+[node name="DepthSeamA" type="ColorRect" parent="Setpieces/Zone_06_FreightLift/SeamlessSceneLayers"]
+offset_left = 8404
+offset_top = 180
+offset_right = 9376
+offset_bottom = 182
+color = Color(0.35, 0.31, 0.22, 0.22)
+
+[node name="DepthSeamB" type="ColorRect" parent="Setpieces/Zone_06_FreightLift/SeamlessSceneLayers"]
+offset_left = 8404
+offset_top = 213
+offset_right = 9376
+offset_bottom = 215
+color = Color(0.35, 0.31, 0.22, 0.22)
+
+[node name="SceneAccentA" type="ColorRect" parent="Setpieces/Zone_06_FreightLift/SeamlessSceneLayers"]
+offset_left = 8618
+offset_top = 150
+offset_right = 8722
+offset_bottom = 154
+color = Color(0.62, 0.31, 0.18, 0.40)
+
+[node name="SceneAccentB" type="ColorRect" parent="Setpieces/Zone_06_FreightLift/SeamlessSceneLayers"]
+offset_left = 8945
+offset_top = 216
+offset_right = 9065
+offset_bottom = 220
+color = Color(0.62, 0.31, 0.18, 0.40)
+
+[node name="LiftSign" type="Label" parent="Setpieces/Zone_06_FreightLift" unique_id=2010294913]
+offset_left = 8500.0
+offset_top = 64.0
+offset_right = 8900.0
+offset_bottom = 84.0
+theme_override_font_sizes/font_size = 10
+text = "Zone 06 Freight Lift: compressed arena and breath before machine hall"
+
+[node name="LiftPlatform" type="ColorRect" parent="Setpieces/Zone_06_FreightLift" unique_id=2031244576]
+offset_left = 8580.0
+offset_top = 172.0
+offset_right = 9280.0
+offset_bottom = 238.0
+color = Color(0.24, 0.26, 0.25, 1)
+
+[node name="LiftRailA" type="ColorRect" parent="Setpieces/Zone_06_FreightLift" unique_id=569099839]
+offset_left = 8580.0
+offset_top = 132.0
+offset_right = 8600.0
+offset_bottom = 258.0
+color = Color(0.13, 0.14, 0.14, 1)
+
+[node name="LiftRailB" type="ColorRect" parent="Setpieces/Zone_06_FreightLift" unique_id=896080295]
+offset_left = 9260.0
+offset_top = 132.0
+offset_right = 9280.0
+offset_bottom = 258.0
+color = Color(0.13, 0.14, 0.14, 1)
+
+[node name="Zone_07_MachineHall" type="Node2D" parent="Setpieces" unique_id=92191792]
+
+[node name="SeamlessSceneLayers" type="Node2D" parent="Setpieces/Zone_07_MachineHall"]
+z_index = -2
+
+
+[node name="FarBackdropBand" type="ColorRect" parent="Setpieces/Zone_07_MachineHall/SeamlessSceneLayers"]
+offset_left = 9504
+offset_top = 24
+offset_right = 10646
+offset_bottom = 84
+color = Color(0.09, 0.11, 0.10, 0.34)
+
+[node name="FarSilhouetteA" type="ColorRect" parent="Setpieces/Zone_07_MachineHall/SeamlessSceneLayers"]
+offset_left = 9726
+offset_top = 48
+offset_right = 9818
+offset_bottom = 128
+color = Color(0.09, 0.11, 0.10, 0.34)
+
+[node name="FarSilhouetteB" type="ColorRect" parent="Setpieces/Zone_07_MachineHall/SeamlessSceneLayers"]
+offset_left = 10118
+offset_top = 58
+offset_right = 10258
+offset_bottom = 132
+color = Color(0.09, 0.11, 0.10, 0.34)
+
+[node name="NearSceneBand" type="ColorRect" parent="Setpieces/Zone_07_MachineHall/SeamlessSceneLayers"]
+offset_left = 9504
+offset_top = 86
+offset_right = 10646
+offset_bottom = 151
+color = Color(0.18, 0.19, 0.17, 0.42)
+
+[node name="NearLandmarkA" type="ColorRect" parent="Setpieces/Zone_07_MachineHall/SeamlessSceneLayers"]
+offset_left = 9762
+offset_top = 104
+offset_right = 9914
+offset_bottom = 148
+color = Color(0.18, 0.19, 0.17, 0.42)
+
+[node name="NearLandmarkB" type="ColorRect" parent="Setpieces/Zone_07_MachineHall/SeamlessSceneLayers"]
+offset_left = 10179
+offset_top = 98
+offset_right = 10383
+offset_bottom = 148
+color = Color(0.18, 0.19, 0.17, 0.42)
+
+[node name="FloorFarDepthWash" type="ColorRect" parent="Setpieces/Zone_07_MachineHall/SeamlessSceneLayers"]
+offset_left = 9504
+offset_top = 154
+offset_right = 10646
+offset_bottom = 181
+color = Color(0.20, 0.21, 0.19, 0.26)
+
+[node name="FloorCenterDepthWash" type="ColorRect" parent="Setpieces/Zone_07_MachineHall/SeamlessSceneLayers"]
+offset_left = 9504
+offset_top = 181
+offset_right = 10646
+offset_bottom = 214
+color = Color(0.20, 0.21, 0.19, 0.26)
+
+[node name="FloorNearDepthWash" type="ColorRect" parent="Setpieces/Zone_07_MachineHall/SeamlessSceneLayers"]
+offset_left = 9504
+offset_top = 214
+offset_right = 10646
+offset_bottom = 258
+color = Color(0.20, 0.21, 0.19, 0.26)
+
+[node name="DepthSeamA" type="ColorRect" parent="Setpieces/Zone_07_MachineHall/SeamlessSceneLayers"]
+offset_left = 9504
+offset_top = 180
+offset_right = 10646
+offset_bottom = 182
+color = Color(0.35, 0.31, 0.22, 0.22)
+
+[node name="DepthSeamB" type="ColorRect" parent="Setpieces/Zone_07_MachineHall/SeamlessSceneLayers"]
+offset_left = 9504
+offset_top = 213
+offset_right = 10646
+offset_bottom = 215
+color = Color(0.35, 0.31, 0.22, 0.22)
+
+[node name="SceneAccentA" type="ColorRect" parent="Setpieces/Zone_07_MachineHall/SeamlessSceneLayers"]
+offset_left = 9738
+offset_top = 150
+offset_right = 9842
+offset_bottom = 154
+color = Color(0.62, 0.31, 0.18, 0.40)
+
+[node name="SceneAccentB" type="ColorRect" parent="Setpieces/Zone_07_MachineHall/SeamlessSceneLayers"]
+offset_left = 10146
+offset_top = 216
+offset_right = 10266
+offset_bottom = 220
+color = Color(0.62, 0.31, 0.18, 0.40)
+
+[node name="MachineHallSign" type="Label" parent="Setpieces/Zone_07_MachineHall" unique_id=821312081]
+offset_left = 9600.0
+offset_top = 64.0
+offset_right = 10100.0
+offset_bottom = 84.0
+theme_override_font_sizes/font_size = 10
+text = "Zone 07 Machine Hall: mixed roles, valve series, red floor reads"
+
+[node name="RedFloorA" type="ColorRect" parent="Setpieces/Zone_07_MachineHall" unique_id=780415754]
+offset_left = 9700.0
+offset_top = 181.0
+offset_right = 9900.0
+offset_bottom = 214.0
+color = Color(0.65, 0.08, 0.05, 0.38)
+
+[node name="RedFloorB" type="ColorRect" parent="Setpieces/Zone_07_MachineHall" unique_id=584317335]
+offset_left = 10140.0
+offset_top = 214.0
+offset_right = 10460.0
+offset_bottom = 258.0
+color = Color(0.65, 0.08, 0.05, 0.34)
+
+[node name="ValveSeriesA" type="ColorRect" parent="Setpieces/Zone_07_MachineHall" unique_id=822749228]
+offset_left = 9920.0
+offset_top = 132.0
+offset_right = 9950.0
+offset_bottom = 176.0
+color = Color(0.46, 0.1, 0.08, 1)
+
+[node name="ValveSeriesB" type="ColorRect" parent="Setpieces/Zone_07_MachineHall" unique_id=567222885]
+offset_left = 10520.0
+offset_top = 132.0
+offset_right = 10550.0
+offset_bottom = 176.0
+color = Color(0.46, 0.1, 0.08, 1)
+
+[node name="Zone_08_Reservoir" type="Node2D" parent="Setpieces" unique_id=1679895477]
+
+[node name="SeamlessSceneLayers" type="Node2D" parent="Setpieces/Zone_08_Reservoir"]
+z_index = -2
+
+
+[node name="FarBackdropBand" type="ColorRect" parent="Setpieces/Zone_08_Reservoir/SeamlessSceneLayers"]
+offset_left = 10964
+offset_top = 24
+offset_right = 12216
+offset_bottom = 84
+color = Color(0.09, 0.11, 0.10, 0.34)
+
+[node name="FarSilhouetteA" type="ColorRect" parent="Setpieces/Zone_08_Reservoir/SeamlessSceneLayers"]
+offset_left = 11150
+offset_top = 48
+offset_right = 11242
+offset_bottom = 128
+color = Color(0.09, 0.11, 0.10, 0.34)
+
+[node name="FarSilhouetteB" type="ColorRect" parent="Setpieces/Zone_08_Reservoir/SeamlessSceneLayers"]
+offset_left = 11655
+offset_top = 58
+offset_right = 11795
+offset_bottom = 132
+color = Color(0.09, 0.11, 0.10, 0.34)
+
+[node name="NearSceneBand" type="ColorRect" parent="Setpieces/Zone_08_Reservoir/SeamlessSceneLayers"]
+offset_left = 10964
+offset_top = 86
+offset_right = 12216
+offset_bottom = 151
+color = Color(0.18, 0.19, 0.17, 0.42)
+
+[node name="NearLandmarkA" type="ColorRect" parent="Setpieces/Zone_08_Reservoir/SeamlessSceneLayers"]
+offset_left = 11186
+offset_top = 104
+offset_right = 11338
+offset_bottom = 148
+color = Color(0.18, 0.19, 0.17, 0.42)
+
+[node name="NearLandmarkB" type="ColorRect" parent="Setpieces/Zone_08_Reservoir/SeamlessSceneLayers"]
+offset_left = 11761
+offset_top = 98
+offset_right = 11965
+offset_bottom = 148
+color = Color(0.18, 0.19, 0.17, 0.42)
+
+[node name="FloorFarDepthWash" type="ColorRect" parent="Setpieces/Zone_08_Reservoir/SeamlessSceneLayers"]
+offset_left = 10964
+offset_top = 154
+offset_right = 12216
+offset_bottom = 181
+color = Color(0.20, 0.21, 0.19, 0.26)
+
+[node name="FloorCenterDepthWash" type="ColorRect" parent="Setpieces/Zone_08_Reservoir/SeamlessSceneLayers"]
+offset_left = 10964
+offset_top = 181
+offset_right = 12216
+offset_bottom = 214
+color = Color(0.20, 0.21, 0.19, 0.26)
+
+[node name="FloorNearDepthWash" type="ColorRect" parent="Setpieces/Zone_08_Reservoir/SeamlessSceneLayers"]
+offset_left = 10964
+offset_top = 214
+offset_right = 12216
+offset_bottom = 258
+color = Color(0.20, 0.21, 0.19, 0.26)
+
+[node name="DepthSeamA" type="ColorRect" parent="Setpieces/Zone_08_Reservoir/SeamlessSceneLayers"]
+offset_left = 10964
+offset_top = 180
+offset_right = 12216
+offset_bottom = 182
+color = Color(0.35, 0.31, 0.22, 0.22)
+
+[node name="DepthSeamB" type="ColorRect" parent="Setpieces/Zone_08_Reservoir/SeamlessSceneLayers"]
+offset_left = 10964
+offset_top = 213
+offset_right = 12216
+offset_bottom = 215
+color = Color(0.35, 0.31, 0.22, 0.22)
+
+[node name="SceneAccentA" type="ColorRect" parent="Setpieces/Zone_08_Reservoir/SeamlessSceneLayers"]
+offset_left = 11162
+offset_top = 150
+offset_right = 11266
+offset_bottom = 154
+color = Color(0.62, 0.31, 0.18, 0.40)
+
+[node name="SceneAccentB" type="ColorRect" parent="Setpieces/Zone_08_Reservoir/SeamlessSceneLayers"]
+offset_left = 11683
+offset_top = 216
+offset_right = 11803
+offset_bottom = 220
+color = Color(0.62, 0.31, 0.18, 0.40)
+
+[node name="ReservoirSign" type="Label" parent="Setpieces/Zone_08_Reservoir" unique_id=1012009811]
+offset_left = 11060.0
+offset_top = 64.0
+offset_right = 11620.0
+offset_bottom = 84.0
+theme_override_font_sizes/font_size = 10
+text = "Zone 08 Reservoir: final stop, boss placeholder, emergency control"
+
+[node name="Reservoir" type="ColorRect" parent="Setpieces/Zone_08_Reservoir" unique_id=499084924]
+offset_left = 11460.0
+offset_top = 68.0
+offset_right = 12120.0
+offset_bottom = 150.0
+color = Color(0.2, 0.24, 0.25, 1)
+
+[node name="EmergencyStop" type="ColorRect" parent="Setpieces/Zone_08_Reservoir" unique_id=1073560263]
+offset_left = 11180.0
+offset_top = 184.0
+offset_right = 11216.0
+offset_bottom = 216.0
+color = Color(0.72, 0.05, 0.04, 1)
+
+[node name="FinalValve" type="ColorRect" parent="Setpieces/Zone_08_Reservoir" unique_id=325783289]
+offset_left = 11920.0
+offset_top = 132.0
+offset_right = 11956.0
+offset_bottom = 176.0
+color = Color(0.46, 0.1, 0.08, 1)
+
+[node name="RouteLabels" type="Node2D" parent="." unique_id=1084754668]
+
+[node name="LaneHint" type="Label" parent="RouteLabels" unique_id=463189097]
+offset_left = 58.0
+offset_top = 262.0
+offset_right = 420.0
+offset_bottom = 284.0
+theme_override_font_sizes/font_size = 10
+text = "One continuous level: setpieces are route zones, not separate levels"
+
+[node name="ConveyorHint" type="Label" parent="RouteLabels" unique_id=519800260]
+offset_left = 2100.0
+offset_top = 262.0
+offset_right = 2580.0
+offset_bottom = 284.0
+theme_override_font_sizes/font_size = 10
+text = "Each setpiece has approach, read, fight, and exit/rest"
+
+[node name="FinalHint" type="Label" parent="RouteLabels" unique_id=1829008040]
+offset_left = 10980.0
+offset_top = 262.0
+offset_right = 11640.0
+offset_bottom = 284.0
+theme_override_font_sizes/font_size = 10
+text = "Finale checks space control and stopping the process, not just damage"
+
+[node name="Enemies" type="Node2D" parent="." unique_id=1387017945]
+
+[node name="GateWorker" parent="Enemies" unique_id=1409515269 instance=ExtResource("7_worker")]
+position = Vector2(320, 166)
+
+[node name="GateCharger" parent="Enemies" unique_id=1019667014 instance=ExtResource("4_charger")]
+position = Vector2(860, 199)
+bruiser_walk_speed = 42.0
+bruiser_attack_range_px = 38.0
+bruiser_attack_range_y_px = 26.0
+bruiser_attack_damage = 7
+bruiser_attack_cooldown_sec = 1.35
+bruiser_hit_delay_sec = 0.26
+bruiser_hp_max = 16
+bruiser_hurt_stun_sec = 0.62
+bruiser_knockback = Vector2(150, -120)
+bruiser_support_hold_distance_px = 82.0
+
+[node name="ConveyorChargerA" parent="Enemies" unique_id=889330074 instance=ExtResource("4_charger")]
+position = Vector2(2380, 207)
+bruiser_walk_speed = 42.0
+bruiser_attack_range_px = 38.0
+bruiser_attack_range_y_px = 26.0
+bruiser_attack_damage = 7
+bruiser_attack_cooldown_sec = 1.35
+bruiser_hit_delay_sec = 0.26
+bruiser_hp_max = 16
+bruiser_hurt_stun_sec = 0.62
+bruiser_knockback = Vector2(150, -120)
+bruiser_support_hold_distance_px = 82.0
+
+[node name="ConveyorLauncher" parent="Enemies" unique_id=185240631 instance=ExtResource("6_launcher")]
+position = Vector2(2840, 166)
+rusher_walk_speed = 72.0
+rusher_run_speed = 124.0
+rusher_run_switch_distance = 200.0
+rusher_stop_distance_px = 12.0
+rusher_attack_range_px = 24.0
+rusher_attack_damage = 4
+rusher_attack_cooldown_sec = 0.82
+rusher_attack_hit_delay_sec = 0.18
+rusher_depth_follow_distance_px = 240.0
+rusher_support_hold_distance_px = 36.0
+rusher_max_attackers = 2
+
+[node name="ValveWelder" parent="Enemies" unique_id=161115918 instance=ExtResource("5_welder")]
+position = Vector2(4200, 194)
+poker_walk_speed = 58.0
+poker_run_speed = 96.0
+poker_back_offset_px = 56.0
+poker_stop_distance_px = 40.0
+poker_attack_range_px = 44.0
+poker_attack_range_y_px = 24.0
+poker_attack_damage = 3
+poker_attack_cooldown_sec = 1.18
+poker_support_hold_distance_px = 96.0
+poker_post_attack_reposition_sec = 1.0
+
+[node name="ValveCharger" parent="Enemies" unique_id=768933817 instance=ExtResource("4_charger")]
+position = Vector2(4520, 214)
+bruiser_walk_speed = 42.0
+bruiser_attack_range_px = 38.0
+bruiser_attack_range_y_px = 26.0
+bruiser_attack_damage = 7
+bruiser_attack_cooldown_sec = 1.35
+bruiser_hit_delay_sec = 0.26
+bruiser_hp_max = 16
+bruiser_hurt_stun_sec = 0.62
+bruiser_knockback = Vector2(150, -120)
+bruiser_support_hold_distance_px = 82.0
+
+[node name="WeldingWelderA" parent="Enemies" unique_id=2099645482 instance=ExtResource("5_welder")]
+position = Vector2(5480, 194)
+poker_walk_speed = 58.0
+poker_run_speed = 96.0
+poker_back_offset_px = 56.0
+poker_stop_distance_px = 40.0
+poker_attack_range_px = 44.0
+poker_attack_range_y_px = 24.0
+poker_attack_damage = 3
+poker_attack_cooldown_sec = 1.18
+poker_support_hold_distance_px = 96.0
+poker_post_attack_reposition_sec = 1.0
+
+[node name="WeldingCharger" parent="Enemies" unique_id=1482813741 instance=ExtResource("4_charger")]
+position = Vector2(5940, 214)
+bruiser_walk_speed = 42.0
+bruiser_attack_range_px = 38.0
+bruiser_attack_range_y_px = 26.0
+bruiser_attack_damage = 7
+bruiser_attack_cooldown_sec = 1.35
+bruiser_hit_delay_sec = 0.26
+bruiser_hp_max = 16
+bruiser_hurt_stun_sec = 0.62
+bruiser_knockback = Vector2(150, -120)
+bruiser_support_hold_distance_px = 82.0
+
+[node name="WarehouseCharger" parent="Enemies" unique_id=1119470518 instance=ExtResource("4_charger")]
+position = Vector2(7040, 214)
+bruiser_walk_speed = 42.0
+bruiser_attack_range_px = 38.0
+bruiser_attack_range_y_px = 26.0
+bruiser_attack_damage = 7
+bruiser_attack_cooldown_sec = 1.35
+bruiser_hit_delay_sec = 0.26
+bruiser_hp_max = 16
+bruiser_hurt_stun_sec = 0.62
+bruiser_knockback = Vector2(150, -120)
+bruiser_support_hold_distance_px = 82.0
+
+[node name="WarehouseLauncherA" parent="Enemies" unique_id=308607414 instance=ExtResource("6_launcher")]
+position = Vector2(7440, 166)
+rusher_walk_speed = 72.0
+rusher_run_speed = 124.0
+rusher_run_switch_distance = 200.0
+rusher_stop_distance_px = 12.0
+rusher_attack_range_px = 24.0
+rusher_attack_damage = 4
+rusher_attack_cooldown_sec = 0.82
+rusher_attack_hit_delay_sec = 0.18
+rusher_depth_follow_distance_px = 240.0
+rusher_support_hold_distance_px = 36.0
+rusher_max_attackers = 2
+
+[node name="WarehouseLauncherB" parent="Enemies" unique_id=918609667 instance=ExtResource("6_launcher")]
+position = Vector2(7820, 194)
+rusher_walk_speed = 72.0
+rusher_run_speed = 124.0
+rusher_run_switch_distance = 200.0
+rusher_stop_distance_px = 12.0
+rusher_attack_range_px = 24.0
+rusher_attack_damage = 4
+rusher_attack_cooldown_sec = 0.82
+rusher_attack_hit_delay_sec = 0.18
+rusher_depth_follow_distance_px = 240.0
+rusher_support_hold_distance_px = 36.0
+rusher_max_attackers = 2
+
+[node name="LiftChargerA" parent="Enemies" unique_id=1229145502 instance=ExtResource("4_charger")]
+position = Vector2(8820, 207)
+bruiser_walk_speed = 42.0
+bruiser_attack_range_px = 38.0
+bruiser_attack_range_y_px = 26.0
+bruiser_attack_damage = 7
+bruiser_attack_cooldown_sec = 1.35
+bruiser_hit_delay_sec = 0.26
+bruiser_hp_max = 16
+bruiser_hurt_stun_sec = 0.62
+bruiser_knockback = Vector2(150, -120)
+bruiser_support_hold_distance_px = 82.0
+
+[node name="LiftWorker" parent="Enemies" unique_id=259025526 instance=ExtResource("7_worker")]
+position = Vector2(9140, 166)
+
+[node name="MachineHallWelder" parent="Enemies" unique_id=1929160880 instance=ExtResource("5_welder")]
+position = Vector2(9840, 194)
+poker_walk_speed = 58.0
+poker_run_speed = 96.0
+poker_back_offset_px = 56.0
+poker_stop_distance_px = 40.0
+poker_attack_range_px = 44.0
+poker_attack_range_y_px = 24.0
+poker_attack_damage = 3
+poker_attack_cooldown_sec = 1.18
+poker_support_hold_distance_px = 96.0
+poker_post_attack_reposition_sec = 1.0
+
+[node name="MachineHallLauncher" parent="Enemies" unique_id=547231714 instance=ExtResource("6_launcher")]
+position = Vector2(10340, 166)
+rusher_walk_speed = 72.0
+rusher_run_speed = 124.0
+rusher_run_switch_distance = 200.0
+rusher_stop_distance_px = 12.0
+rusher_attack_range_px = 24.0
+rusher_attack_damage = 4
+rusher_attack_cooldown_sec = 0.82
+rusher_attack_hit_delay_sec = 0.18
+rusher_depth_follow_distance_px = 240.0
+rusher_support_hold_distance_px = 36.0
+rusher_max_attackers = 2
+
+[node name="MachineHallCharger" parent="Enemies" unique_id=1925794691 instance=ExtResource("4_charger")]
+position = Vector2(10680, 214)
+bruiser_walk_speed = 42.0
+bruiser_attack_range_px = 38.0
+bruiser_attack_range_y_px = 26.0
+bruiser_attack_damage = 7
+bruiser_attack_cooldown_sec = 1.35
+bruiser_hit_delay_sec = 0.26
+bruiser_hp_max = 16
+bruiser_hurt_stun_sec = 0.62
+bruiser_knockback = Vector2(150, -120)
+bruiser_support_hold_distance_px = 82.0
+
+[node name="ReservoirWelder" parent="Enemies" unique_id=1177260456 instance=ExtResource("5_welder")]
+position = Vector2(11280, 194)
+poker_walk_speed = 58.0
+poker_run_speed = 96.0
+poker_back_offset_px = 56.0
+poker_stop_distance_px = 40.0
+poker_attack_range_px = 44.0
+poker_attack_range_y_px = 24.0
+poker_attack_damage = 3
+poker_attack_cooldown_sec = 1.18
+poker_support_hold_distance_px = 96.0
+poker_post_attack_reposition_sec = 1.0
+
+[node name="ReservoirCharger" parent="Enemies" unique_id=188728236 instance=ExtResource("4_charger")]
+position = Vector2(11640, 214)
+bruiser_walk_speed = 42.0
+bruiser_attack_range_px = 38.0
+bruiser_attack_range_y_px = 26.0
+bruiser_attack_damage = 7
+bruiser_attack_cooldown_sec = 1.35
+bruiser_hit_delay_sec = 0.26
+bruiser_hp_max = 16
+bruiser_hurt_stun_sec = 0.62
+bruiser_knockback = Vector2(150, -120)
+bruiser_support_hold_distance_px = 82.0
+
+[node name="ChiefTechnologistPlaceholder" parent="Enemies" unique_id=569792249 instance=ExtResource("4_charger")]
+position = Vector2(12020, 199)
+bruiser_walk_speed = 42.0
+bruiser_attack_range_px = 38.0
+bruiser_attack_range_y_px = 26.0
+bruiser_attack_damage = 7
+bruiser_attack_cooldown_sec = 1.35
+bruiser_hit_delay_sec = 0.26
+bruiser_hp_max = 16
+bruiser_hurt_stun_sec = 0.62
+bruiser_knockback = Vector2(150, -120)
+bruiser_support_hold_distance_px = 82.0
+
+[node name="Player" parent="." unique_id=775711466 instance=ExtResource("2_player")]
+position = Vector2(150, 205)
+collision_mask = 5
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=353555671 groups=["Player"]]
+position = Vector2(1, -48)
+zoom = Vector2(3.6, 3.6)
+limit_left = 0
+limit_top = 0
+limit_right = 12380
+limit_bottom = 292
+limit_smoothed = true
+position_smoothing_enabled = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1143408032]
+layer = 50
+
+[node name="SkillSelectMenu" parent="CanvasLayer" unique_id=551794722 groups=["skill_menu"] instance=ExtResource("3_skills")]
+visible = false
+offset_left = 60.0
+offset_top = 107.0
+offset_right = -93.0
+offset_bottom = -98.0
+
+[node name="Main" type="Node" parent="." unique_id=1073798663]
+script = ExtResource("1_main")
+player_path = NodePath("../Player")
+
+[node name="UI" type="CanvasLayer" parent="Main" unique_id=1201049484]
+
+[node name="FullBottleLabel" type="Label" parent="Main/UI" unique_id=989708485]
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 78.0
+offset_bottom = 28.0
+theme_override_font_sizes/font_size = 12
+text = "Full Bottles: 0"
+
+[node name="EmptyBottleLabel" type="Label" parent="Main/UI" unique_id=2136172869]
+offset_left = 5.0
+offset_top = 19.0
+offset_right = 99.0
+offset_bottom = 42.0
+theme_override_font_sizes/font_size = 12
+text = "Empty Bottles: 0"
+
+[node name="CigPackLabel" type="Label" parent="Main/UI" unique_id=1695441442]
+offset_left = 5.0
+offset_top = 32.0
+offset_right = 78.0
+offset_bottom = 55.0
+theme_override_font_sizes/font_size = 12
+text = "Cigarettes: 0"
+
+[node name="InebriationLabel" type="Label" parent="Main/UI" unique_id=1903067882]
+offset_left = 5.0
+offset_top = 46.0
+offset_right = 78.0
+offset_bottom = 69.0
+theme_override_font_sizes/font_size = 12
+text = "Inebriation: 0"
+
+[node name="NicotineLabel" type="Label" parent="Main/UI" unique_id=1423365080]
+offset_left = 5.0
+offset_top = 60.0
+offset_right = 83.0
+offset_bottom = 83.0
+theme_override_font_sizes/font_size = 12
+text = "Nicotine: 0"

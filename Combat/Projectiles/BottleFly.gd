@@ -6,18 +6,21 @@ const FEEDBACK_SCENE: PackedScene = preload("res://Pickups/Feedback/feedback.tsc
 @export var speed: float = 260.0
 @export var upward_boost: float = 280.0
 @export var gravity_force: float = 800.0
-@export var damage: int = 1
+@export var damage: int = 2
 @export var knockback: float = 150.0
 @export var lifetime: float = 2.0
 @export var enemy_group: String = "Enemy"
 @export var spawn_grace: float = 0.12
 @export var rotate_with_flight: bool = true
+@export var depth_hit_tolerance: float = 8.0
 
 @onready var lifetime_timer: Timer = $LifetimeTimer
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 
 
 var active: bool = false
+enum State { IDLE, FLYING, DESTROYING }
+var _state: State = State.IDLE
 var direction: Vector2 = Vector2.RIGHT
 var velocity: Vector2 = Vector2.ZERO
 var _alive_time: float = 0.0
@@ -41,6 +44,7 @@ func setup(dir: Vector2, spd: float) -> void:
 	if anim:
 		anim.flip_h = (dir_sign < 0.0)
 
+	_state = State.FLYING
 	active = true
 	_alive_time = 0.0
 
@@ -110,19 +114,20 @@ func _apply_lane_visual() -> void:
 		anim.position.y = _anim_base_y + depth_y
 
 func _physics_process(delta: float) -> void:
-	if _destroying or not active:
-		return
-
-	if _skip_first_tick:
-		_skip_first_tick = false
-		return
-
-	_alive_time += delta
-	velocity.y += gravity_force * delta
-	global_position += velocity * delta
-
-	if rotate_with_flight and anim:
-		rotation = velocity.angle()
+	match _state:
+		State.FLYING:
+			if _destroying or not active:
+				return
+			if _skip_first_tick:
+				_skip_first_tick = false
+				return
+			_alive_time += delta
+			velocity.y += gravity_force * delta
+			global_position += velocity * delta
+			if rotate_with_flight and anim:
+				rotation = velocity.angle()
+		_:
+			return
 
 
 func _on_any_entered(other: Node) -> void:
@@ -159,17 +164,13 @@ func _handle_collision(hit: Node) -> void:
 	var target: Node = _resolve_enemy(hit)
 
 	if target != null and is_instance_valid(target):
+		if not _is_same_depth_or_unknown(target):
+			return
 		# анти-дабл-хит по одному врагу
 		var id: int = target.get_instance_id()
 		if _hit_cache.has(id):
 			return
 		_hit_cache[id] = true
-
-		# ===== lane filter =====
-		var t_lane: int = _get_target_lane(target)
-		if lane_index != -1 and t_lane != -1 and t_lane != lane_index:
-			# не наша линия — игнор
-			return
 
 		# ===== damage =====
 		if target.has_method("apply_damage"):
@@ -197,6 +198,29 @@ func _resolve_enemy(start: Node) -> Node:
 			return n
 		n = n.get_parent()
 	return null
+
+func _is_same_depth_or_unknown(target: Node) -> bool:
+	var target_depth: float = _get_target_depth_y(target)
+	if is_inf(target_depth):
+		return true
+	return absf(target_depth - depth_y) <= maxf(0.0, depth_hit_tolerance)
+
+func _get_target_depth_y(target: Node) -> float:
+	if target == null:
+		return INF
+	if not (target is Object):
+		return INF
+	var to: Object = target as Object
+	var lb: Variant = to.get("lane_body")
+	if lb != null and lb is Object:
+		var lbo: Object = lb as Object
+		var d1: Variant = lbo.get("depth_y")
+		if typeof(d1) == TYPE_FLOAT or typeof(d1) == TYPE_INT:
+			return float(d1)
+	var d2: Variant = to.get("depth_y")
+	if typeof(d2) == TYPE_FLOAT or typeof(d2) == TYPE_INT:
+		return float(d2)
+	return INF
 
 
 func _spawn_feedback_once() -> void:
@@ -232,6 +256,7 @@ func _spawn_feedback_once() -> void:
 func _destroy_self_deferred() -> void:
 	if _destroying:
 		return
+	_state = State.DESTROYING
 	_destroying = true
 
 	monitoring = false

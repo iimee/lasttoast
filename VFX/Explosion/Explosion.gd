@@ -2,7 +2,7 @@
 extends Area2D
 # Одномоментный AOE-урон.
 
-@export var damage: int = 3
+@export var damage: int = 2
 @export var knockback: float = 260
 @export var lifetime: float = 0.25
 @export var enemy_group: String = "Enemy"

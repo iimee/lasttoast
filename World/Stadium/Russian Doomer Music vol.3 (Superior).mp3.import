@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://birk5kr66r5jr"
+path="res://.godot/imported/Russian Doomer Music vol.3 (Superior).mp3-940c067038284767e33a37c24218e908.mp3str"
+
+[deps]
+
+source_file="res://World/Stadium/Russian Doomer Music vol.3 (Superior).mp3"
+dest_files=["res://.godot/imported/Russian Doomer Music vol.3 (Superior).mp3-940c067038284767e33a37c24218e908.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
